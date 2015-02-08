@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="5">
+ <tileset firstgid="1" name="grass-tiles-2-small" tilewidth="32" tileheight="32">
+  <image source="../../../../Downloads/tileset/grass-tiles-2-small.png" width="384" height="192"/>
+ </tileset>
+ <tileset firstgid="73" name="tree2-final" tilewidth="32" tileheight="32">
+  <image source="../../../../Downloads/tileset/tree2-final.png" width="256" height="256"/>
+ </tileset>
+ <tileset firstgid="137" name="tree2-final" tilewidth="256" tileheight="256">
+  <image source="../../../../Downloads/tileset/tree2-final.png" width="256" height="256"/>
+ </tileset>
+ <layer name="Background" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJx9lMFOwzAQRB0k1LQ0EYKkgJoDHFDLkVMiEBza/v83sZZ21Jety2FkryWPZ2fXW6WUbgwV1jvD2uPRwbNXw5uhM/SG2rE0NIY2rE+GZ4+PDp59BY4O+6gnx5ND+o5472R4wP0l9n1Bj7ibEGfeD+fqkGvvXCvDNvg2gVv6FMuzGvlR18awK+iIfuZc710XvYqct4ZP6JMOxfRvwL06cCrvb8PPlfpGfXvcK/WItLXw7Vr/qZ6rgkZx74Jf2pf6bwAX88w8C2ijX9rHf6I6kINcGVv37bfgF3XGmsoz9fAjtDVBh+opneRSb7E/yCUN4on1PIGLNSzVkxqUV+Qf0vn/dOmypuLSHxydT/6LX/r20BI1vTjXiPdH16n7Os95vqf5f+f/zP1/SPN52GIf/dOf+s8v3dE85GykvjjTOCfpve5MaT7HKrzFmUaeHlzKc8Iq3zVr9dYfxmQfJA==
+  </data>
+ </layer>
+ <layer name="Foreground" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzt1DkKACAMBVHP7Q7ut3Zq2xQKZuC14VcxRnutdXvAB1k4eAREJGTBzYKKho6BKVqpaW91/qYNu64Hnw==
+  </data>
+ </layer>
+ <layer name="Top" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztzDUOAlAUAEGuh7u7u+vxmZryhfJvMu1mMqnfsuTIU6BIiTKVwK9KjToNmrRo0wn8uvToM2DIiDGTwG/KjDkLlqxYswn8tuzYc+DIiTOXwO/KjTsPnrx48wn8UqnUf/oCHOMSGQ==
+  </data>
+ </layer>
+ <objectgroup name="Collision">
+  <object id="4" x="348" y="300" width="128" height="52"/>
+ </objectgroup>
+</map>

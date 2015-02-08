@@ -31,12 +31,12 @@ public class DCSPGame extends ApplicationAdapter implements InputProcessor{
         camera.setToOrtho(false);
 
 		batch = new SpriteBatch();
-		img = new Texture("warlock.jpg");
+		img = new Texture("img/warlock.jpg");
 
         int FRAME_COLS = 5;
         int FRAME_ROWS = 3;
 
-        Texture explosionSheet = new Texture(Gdx.files.internal("explosion.png")); // explosion image sheet shown above
+        Texture explosionSheet = new Texture(Gdx.files.internal("img/explosion.png")); // explosion image sheet shown above
         TextureRegion[][] textureRegions = TextureRegion.split(explosionSheet, explosionSheet.getWidth()/FRAME_COLS, explosionSheet.getHeight()/FRAME_ROWS);              // #10
         TextureRegion[] explosionFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
         int index = 0;
