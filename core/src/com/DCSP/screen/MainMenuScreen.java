@@ -8,16 +8,54 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class MainMenuScreen implements Screen{
-    private final Game game;
+    private Game game;
         
     private SpriteBatch batch;
     private Sprite warlock;
+    private Stage menuStage;
+    private Skin ourSkin;
+    private TextButton settingsBtn, playBtn, quitBtn;
+    private final int WIDTH = Gdx.graphics.getWidth(), HEIGHT = Gdx.graphics.getHeight();
+    private final int btnWidth = WIDTH/5, btnHeight = HEIGHT/11;
 
     
     public MainMenuScreen(Game game) {
         this.game = game;
+        menuStage = new Stage();
+        Gdx.input.setInputProcessor(menuStage);
+        ourSkin = new Skin(Gdx.files.internal("uiskin.json"));
+        playBtn = new TextButton("Play Game",ourSkin);
+        settingsBtn = new TextButton("Settings",ourSkin);
+        quitBtn = new TextButton("Quit Game",ourSkin);
+        
+        playBtn.setPosition(WIDTH/2-btnWidth/2,HEIGHT/2);
+        playBtn.setSize(btnWidth,btnHeight);
+        
+       
+        settingsBtn.setPosition(WIDTH/2,HEIGHT/2-btnHeight-5);
+        settingsBtn.setSize(btnWidth,btnHeight);
+        settingsBtn.addListener(new ClickListener(){
+            @Override
+            public void touchUp(InputEvent e,float x,float y,int pointer,int button){
+            }
+        });
+        
+        
+        quitBtn.setPosition(WIDTH/2, HEIGHT/2-(2*btnHeight)-2*5);
+        quitBtn.setSize(btnWidth, btnHeight);
+        
+        menuStage.addActor(playBtn);
+        menuStage.addActor(settingsBtn);
+        menuStage.addActor(quitBtn);
+        
+        
     }
 
     
@@ -39,6 +77,9 @@ public class MainMenuScreen implements Screen{
         batch.begin();
         warlock.draw(batch);
         batch.end();
+        
+        menuStage.act(delta);
+        menuStage.draw();
     }
 
     @Override
