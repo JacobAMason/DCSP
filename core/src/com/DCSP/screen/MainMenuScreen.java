@@ -45,7 +45,7 @@ public class MainMenuScreen implements Screen{
         settingsBtn.setSize(btnWidth,btnHeight);
         settingsBtn.addListener(new ClickListener(){
             @Override
-            public void touchUp(InputEvent e,float x,float y,int pointer,int button){
+            public void clicked (InputEvent event, float x, float y) {
                 i++;
             }
         });
