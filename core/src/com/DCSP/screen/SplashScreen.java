@@ -4,6 +4,7 @@ import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenManager;
+import com.DCSP.game.GameRoot;
 import com.DCSP.tween.SpriteAccessor;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -14,14 +15,14 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class SplashScreen implements Screen {
-    private final Game game;
+    private final GameRoot game;
     
     private SpriteBatch batch;
     private Sprite splash;
     private TweenManager tweenManager;
     
 
-    public SplashScreen(Game game) {
+    public SplashScreen(GameRoot game) {
         this.game = game;
     }
 

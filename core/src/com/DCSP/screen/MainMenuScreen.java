@@ -15,18 +15,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class MainMenuScreen implements Screen{
-    private Game game;
-        
+    private final GameRoot game;
+    
+    
+    private int i = 0;    
     private SpriteBatch batch;
     private Sprite warlock;
     private Stage menuStage;
-    private Skin ourSkin;
-    private TextButton settingsBtn, playBtn, quitBtn;
+    private final Skin ourSkin;
+    private final TextButton settingsBtn, playBtn, quitBtn;
     private final int WIDTH = Gdx.graphics.getWidth(), HEIGHT = Gdx.graphics.getHeight();
     private final int btnWidth = WIDTH/5, btnHeight = HEIGHT/11;
 
     
-    public MainMenuScreen(Game game) {
+    public MainMenuScreen(final GameRoot game) {
         this.game = game;
         menuStage = new Stage();
         Gdx.input.setInputProcessor(menuStage);
@@ -44,6 +46,7 @@ public class MainMenuScreen implements Screen{
         settingsBtn.addListener(new ClickListener(){
             @Override
             public void touchUp(InputEvent e,float x,float y,int pointer,int button){
+                i++;
             }
         });
         
@@ -76,10 +79,11 @@ public class MainMenuScreen implements Screen{
 
         batch.begin();
         warlock.draw(batch);
-        batch.end();
+        batch.end();        
         
         menuStage.act(delta);
         menuStage.draw();
+        System.out.println(i);
     }
 
     @Override
