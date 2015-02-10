@@ -11,33 +11,33 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 
+public class DCSPGame extends ApplicationAdapter implements InputProcessor {
 
-public class DCSPGame extends ApplicationAdapter implements InputProcessor{
-	OrthographicCamera camera;
+    OrthographicCamera camera;
     SpriteBatch batch;
-	private Texture img;
+    private Texture img;
     private float stateTime;
     private Animation explosionAnimation;
     private boolean explosionHappening;
     private int touchCoordinateX, touchCoordinateY;
     private Vector3 touchPoint = new Vector3();
-	
-	@Override
-	public void create () {
+
+    @Override
+    public void create() {
 
         Gdx.input.setInputProcessor(this);
 
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.setToOrtho(false);
 
-		batch = new SpriteBatch();
-		img = new Texture("img/warlock.jpg");
+        batch = new SpriteBatch();
+        img = new Texture("img/warlock.jpg");
 
         int FRAME_COLS = 5;
         int FRAME_ROWS = 3;
 
         Texture explosionSheet = new Texture(Gdx.files.internal("img/explosion.png")); // explosion image sheet shown above
-        TextureRegion[][] textureRegions = TextureRegion.split(explosionSheet, explosionSheet.getWidth()/FRAME_COLS, explosionSheet.getHeight()/FRAME_ROWS);              // #10
+        TextureRegion[][] textureRegions = TextureRegion.split(explosionSheet, explosionSheet.getWidth() / FRAME_COLS, explosionSheet.getHeight() / FRAME_ROWS);              // #10
         TextureRegion[] explosionFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
         int index = 0;
         for (int i = 0; i < FRAME_ROWS; i++) {
@@ -46,23 +46,23 @@ public class DCSPGame extends ApplicationAdapter implements InputProcessor{
             }
         }
         explosionAnimation = new Animation(0.025f, explosionFrames);
-	}
+    }
 
-	@Override
-	public void render () {
-		Gdx.gl.glClearColor(0, 0, 1, 0);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
+    @Override
+    public void render() {
+        Gdx.gl.glClearColor(0, 0, 1, 0);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        batch.begin();
+        batch.draw(img, 0, 0);
         stateTime += Gdx.graphics.getDeltaTime();
         if (!explosionAnimation.isAnimationFinished(stateTime) && explosionHappening) {
             TextureRegion currentFrame = explosionAnimation.getKeyFrame(stateTime, false);
             camera.unproject(touchPoint.set(touchCoordinateX, touchCoordinateY, 0));
-            batch.draw(currentFrame, touchPoint.x - currentFrame.getRegionHeight()/2, touchPoint.y - currentFrame.getRegionWidth()/2);
+            batch.draw(currentFrame, touchPoint.x - currentFrame.getRegionHeight() / 2, touchPoint.y - currentFrame.getRegionWidth() / 2);
             Gdx.app.log("DCSPGame", "Explosion at point " + touchPoint.x + " " + touchPoint.y);
         }
-		batch.end();
-	}
+        batch.end();
+    }
 
     @Override
     public boolean keyDown(int keycode) {
