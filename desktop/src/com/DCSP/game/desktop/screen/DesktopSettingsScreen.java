@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.DCSP.screen;
+package com.DCSP.game.desktop.screen;
 
 import com.badlogic.gdx.Screen;
 
@@ -29,7 +29,7 @@ import com.badlogic.gdx.Screen;
  *
  * @author Jacob Mason (jm2232)
  */
-public class SettingsScreen implements Screen {
+public class DesktopSettingsScreen implements Screen {
 
     @Override
     public void show() {
