@@ -2,7 +2,7 @@ package com.DCSP.game;
 
 import com.DCSP.screen.GameplayScreen;
 import com.DCSP.screen.MainMenuScreen;
-import com.DCSP.screen.SettingsScreen;
+import com.DCSP.game.desktop.screen.DesktopSettingsScreen;
 import com.DCSP.screen.SplashScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -12,6 +12,9 @@ import com.badlogic.gdx.Screen;
 public class GameRoot extends Game {
     
     private boolean isFullscreen;
+    
+    
+    
 
 
     @Override
