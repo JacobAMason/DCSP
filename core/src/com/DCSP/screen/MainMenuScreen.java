@@ -23,7 +23,7 @@ public class MainMenuScreen implements Screen{
     private Sprite warlock;
     private Stage menuStage;
     private final Skin ourSkin;
-    private final TextButton settingsBtn, playBtn, quitBtn;
+    private TextButton settingsBtn, playBtn, quitBtn;
     private final int WIDTH = Gdx.graphics.getWidth(), HEIGHT = Gdx.graphics.getHeight();
     private final int btnWidth = WIDTH/5, btnHeight = HEIGHT/11;
 
@@ -41,17 +41,18 @@ public class MainMenuScreen implements Screen{
         playBtn.setSize(btnWidth,btnHeight);
         
        
-        settingsBtn.setPosition(WIDTH/2,HEIGHT/2-btnHeight-5);
+        settingsBtn.setPosition(WIDTH/2-btnWidth/2,HEIGHT/2-btnHeight-5);
         settingsBtn.setSize(btnWidth,btnHeight);
         settingsBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                game.toggleFullscreen();
                 i++;
             }
         });
         
         
-        quitBtn.setPosition(WIDTH/2, HEIGHT/2-(2*btnHeight)-2*5);
+        quitBtn.setPosition(WIDTH/2-btnWidth/2, HEIGHT/2-(2*btnHeight)-2*5);
         quitBtn.setSize(btnWidth, btnHeight);
         
         menuStage.addActor(playBtn);

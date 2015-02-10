@@ -11,7 +11,7 @@ import com.badlogic.gdx.Screen;
 
 public class GameRoot extends Game {
     
-    public boolean isFullscreen;
+    private boolean isFullscreen;
 
 
     @Override
@@ -35,5 +35,15 @@ public class GameRoot extends Game {
                 Gdx.graphics.setDisplayMode(1024, 576, false);
             }
         }
+    }
+    
+    public void toggleFullscreen(){
+        isFullscreen = !isFullscreen;
+            if(isFullscreen)
+            {
+                Gdx.graphics.setDisplayMode(1920, 1080, true);
+            } else {
+                Gdx.graphics.setDisplayMode(1024, 576, false);
+            }
     }
 }
