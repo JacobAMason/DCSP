@@ -23,14 +23,15 @@ public class GameRoot extends Game {
     @Override
     public void render() {                                                          
         super.render();
-        
+            
         // Toggle Fullscreen                                                                                                                                                        
         if (Gdx.input.isKeyJustPressed(Input.Keys.TAB))
         {
             isFullscreen = !isFullscreen;
             if(isFullscreen)
             {
-                Gdx.graphics.setDisplayMode(1920, 1080, true);
+                Gdx.graphics.setDisplayMode(Gdx.graphics.getDesktopDisplayMode().width, 
+                        Gdx.graphics.getDesktopDisplayMode().height, true);
             } else {
                 Gdx.graphics.setDisplayMode(1024, 576, false);
             }
@@ -41,7 +42,8 @@ public class GameRoot extends Game {
         isFullscreen = !isFullscreen;
             if(isFullscreen)
             {
-                Gdx.graphics.setDisplayMode(1920, 1080, true);
+                Gdx.graphics.setDisplayMode(Gdx.graphics.getDesktopDisplayMode().width, 
+                        Gdx.graphics.getDesktopDisplayMode().height, true);
             } else {
                 Gdx.graphics.setDisplayMode(1024, 576, false);
             }

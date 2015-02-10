@@ -24,8 +24,8 @@ public class MainMenuScreen implements Screen{
     private Stage menuStage;
     private final Skin ourSkin;
     private TextButton settingsBtn, playBtn, quitBtn;
-    private final int WIDTH = Gdx.graphics.getWidth(), HEIGHT = Gdx.graphics.getHeight();
-    private final int btnWidth = WIDTH/5, btnHeight = HEIGHT/11;
+    private int WIDTH = Gdx.graphics.getWidth(), HEIGHT = Gdx.graphics.getHeight();
+    private int btnWidth = WIDTH/5, btnHeight = HEIGHT/11;
 
     
     public MainMenuScreen(final GameRoot game) {
@@ -84,12 +84,11 @@ public class MainMenuScreen implements Screen{
         
         menuStage.act(delta);
         menuStage.draw();
-        System.out.println(i);
     }
 
     @Override
     public void resize(int width, int height) {
-
+        menuStage.getViewport().update(width,height);       
     }
 
     @Override
