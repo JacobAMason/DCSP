@@ -12,8 +12,8 @@ import com.badlogic.gdx.Screen;
 public class GameRoot extends Game {
     
     private boolean isFullscreen;
-
-
+    public MainMenuScreen mainMenuScreen = new MainMenuScreen();
+    
     @Override
     public void create() {
         isFullscreen = false;

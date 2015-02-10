@@ -15,23 +15,64 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class MainMenuScreen implements Screen{
-    private final GameRoot game;
+    private GameRoot game;
     
     
     private int i = 0;    
     private SpriteBatch batch;
     private Sprite warlock;
     private Stage menuStage;
-    private final Skin ourSkin;
+    private Skin ourSkin;
     private TextButton settingsBtn, playBtn, quitBtn;
-    private int WIDTH = Gdx.graphics.getWidth(), HEIGHT = Gdx.graphics.getHeight();
-    private int btnWidth = WIDTH/5, btnHeight = HEIGHT/11;
+    private int WIDTH,HEIGHT;
+    private int btnWidth,btnHeight;
 
     
-    public MainMenuScreen(final GameRoot game) {
-        this.game = game;
+//    public MainMenuScreen(final GameRoot game) {
+//        this.game = game;
+//        menuStage = new Stage();
+//        Gdx.input.setInputProcessor(menuStage);
+//        ourSkin = new Skin(Gdx.files.internal("uiskin.json"));
+//        playBtn = new TextButton("Play Game",ourSkin);
+//        settingsBtn = new TextButton("Settings",ourSkin);
+//        quitBtn = new TextButton("Quit Game",ourSkin);
+//        
+//        playBtn.setPosition(WIDTH/2-btnWidth/2,HEIGHT/2);
+//        playBtn.setSize(btnWidth,btnHeight);
+//        
+//       
+//        settingsBtn.setPosition(WIDTH/2-btnWidth/2,HEIGHT/2-btnHeight-5);
+//        settingsBtn.setSize(btnWidth,btnHeight);
+//        settingsBtn.addListener(new ClickListener(){
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                game.toggleFullscreen();
+//                i++;
+//            }
+//        });
+//        
+//        
+//        quitBtn.setPosition(WIDTH/2-btnWidth/2, HEIGHT/2-(2*btnHeight)-2*5);
+//        quitBtn.setSize(btnWidth, btnHeight);
+//        
+//        menuStage.addActor(playBtn);
+//        menuStage.addActor(settingsBtn);
+//        menuStage.addActor(quitBtn);
+//        
+//        
+//    }
+
+    
+    @Override
+    public void show() {        
+        game = (GameRoot) Gdx.app.getApplicationListener();
+        WIDTH = Gdx.graphics.getWidth();
+        HEIGHT = Gdx.graphics.getHeight();
+        btnWidth = WIDTH/5;
+        btnHeight = HEIGHT/11;
         menuStage = new Stage();
         Gdx.input.setInputProcessor(menuStage);
+        
         ourSkin = new Skin(Gdx.files.internal("uiskin.json"));
         playBtn = new TextButton("Play Game",ourSkin);
         settingsBtn = new TextButton("Settings",ourSkin);
@@ -58,13 +99,6 @@ public class MainMenuScreen implements Screen{
         menuStage.addActor(playBtn);
         menuStage.addActor(settingsBtn);
         menuStage.addActor(quitBtn);
-        
-        
-    }
-
-    
-    @Override
-    public void show() {
         batch = new SpriteBatch();
 
         Texture splashTexture = new Texture("img/warlock.jpg");
