@@ -3,9 +3,9 @@ package com.DCSP.game.android;
 import android.os.Bundle;
 
 import com.DCSP.game.GameRoot;
+import com.DCSP.game.android.screen.AndroidSettingsScreen;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.DCSP.game.DCSPGame;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override
@@ -16,6 +16,6 @@ public class AndroidLauncher extends AndroidApplication {
         config.useAccelerometer = false;
         config.useCompass = false;
 
-		initialize(new GameRoot(), config);
+		initialize(new GameRoot(new AndroidSettingsScreen()), config);
 	}
 }
