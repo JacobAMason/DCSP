@@ -15,36 +15,34 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class SplashScreen implements Screen {
-    private final GameRoot game;
+    private GameRoot game;
+    private int WIDTH, HEIGHT;
     
     private SpriteBatch batch;
     private Sprite splash;
     private TweenManager tweenManager;
-    
-
-    public SplashScreen(GameRoot game) {
-        this.game = game;
-    }
-
 
     @Override
     public void show() {
+        game = (GameRoot) Gdx.app.getApplicationListener();
+        WIDTH = Gdx.graphics.getWidth();
+        HEIGHT = Gdx.graphics.getHeight();
+        
         batch = new SpriteBatch();
         tweenManager = new TweenManager();
         Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 
         Texture splashTexture = new Texture("img/splash.png");
         splash = new Sprite(splashTexture);
-        splash.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        splash.setSize(WIDTH, HEIGHT);
         
         Tween.set(splash, SpriteAccessor.ALPHA).target(0).start(tweenManager);
         Tween.to(splash, SpriteAccessor.ALPHA, 1).target(1).repeatYoyo(1, 2).setCallback(new TweenCallback(){
 
             @Override
             public void onEvent(int i, BaseTween<?> bt) {
-                game.setScreen(new MainMenuScreen(game));
+                game.setScreen(game.mainMenuScreen);
             }
-            
         }).start(tweenManager);
     }
 

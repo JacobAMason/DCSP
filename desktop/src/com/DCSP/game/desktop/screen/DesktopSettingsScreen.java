@@ -21,22 +21,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.DCSP.screen;
+package com.DCSP.game.desktop.screen;
 
+import com.DCSP.game.GameRoot;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 
 /**
  *
  * @author Jacob Mason (jm2232)
  */
-public class SettingsScreen implements Screen {
-
+public class DesktopSettingsScreen implements Screen {
+    private GameRoot game;
+    private int WIDTH, HEIGHT;
+    
     @Override
     public void show() {
+        game = (GameRoot) Gdx.app.getApplicationListener();
+        WIDTH = Gdx.graphics.getWidth();
+        HEIGHT = Gdx.graphics.getHeight();
     }
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(0.4f, 0.2f, 0.2f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
     @Override
