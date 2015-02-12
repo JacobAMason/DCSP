@@ -4,8 +4,7 @@ import com.DCSP.game.GameRoot;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.DCSP.game.DCSPGame;
-import com.DCSP.game.html.screen.HTMLSettingsScreen;
+import com.DCSP.game.client.screen.HTMLSettingsScreen;
 
 public class HtmlLauncher extends GwtApplication {
 
