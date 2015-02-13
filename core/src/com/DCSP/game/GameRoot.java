@@ -10,38 +10,20 @@ import com.badlogic.gdx.Screen;
 
 public class GameRoot extends Game {
     private boolean isFullscreen;
-    public MainMenuScreen mainMenuScreen = new MainMenuScreen();
+    public MainMenuScreen mainMenuScreen;
     public Screen settingsScreen;
 
     public GameRoot(Screen settingsScreen) {
         this.settingsScreen = settingsScreen;
+        mainMenuScreen = new MainMenuScreen();
     }
-    
-    
     
     @Override
     public void create() {
         isFullscreen = false;
         setScreen(new SplashScreen());
     }
-    
-    @Override
-    public void render() {                                                          
-        super.render();
-            
-        // Toggle Fullscreen                                                                                                                                                        
-        if (Gdx.input.isKeyJustPressed(Input.Keys.TAB))
-        {
-            isFullscreen = !isFullscreen;
-            if(isFullscreen)
-            {
-                Gdx.graphics.setDisplayMode(Gdx.graphics.getDesktopDisplayMode().width, 
-                        Gdx.graphics.getDesktopDisplayMode().height, true);
-            } else {
-                Gdx.graphics.setDisplayMode(1024, 576, false);
-            }
-        }
-    }
+
     
     public void toggleFullscreen(){
         isFullscreen = !isFullscreen;
