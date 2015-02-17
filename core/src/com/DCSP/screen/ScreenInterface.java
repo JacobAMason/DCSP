@@ -21,49 +21,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.DCSP.game.android.screen;
+package com.DCSP.screen;
 
-import com.DCSP.screen.ScreenInterface;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
+import com.DCSP.game.GameRoot;
+import com.badlogic.gdx.Screen;
 
 /**
  *
  * @author Jacob Mason (jm2232)
  */
-public class AndroidSettingsScreen extends ScreenInterface {
-    private int WIDTH, HEIGHT;
-
-    @Override
-    public void show() {
-        WIDTH = Gdx.graphics.getWidth();
-        HEIGHT = Gdx.graphics.getHeight();
+public abstract class ScreenInterface implements Screen {
+    protected GameRoot gameParent;
+    
+    public void setGameParent(GameRoot newParent) {
+        gameParent = newParent;
     }
-
-    @Override
-    public void render(float delta) {
-        Gdx.gl.glClearColor(0.7f, 0.6f, 0.2f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-    }
-
-    @Override
-    public void resize(int width, int height) {
-    }
-
-    @Override
-    public void pause() {
-    }
-
-    @Override
-    public void resume() {
-    }
-
-    @Override
-    public void hide() {
-    }
-
-    @Override
-    public void dispose() {
-    }
-
 }

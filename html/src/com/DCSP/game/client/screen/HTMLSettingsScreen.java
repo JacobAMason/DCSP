@@ -23,22 +23,19 @@
  */
 package com.DCSP.game.client.screen;
 
-import com.DCSP.game.GameRoot;
+import com.DCSP.screen.ScreenInterface;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 
 /**
  *
  * @author Ashley Stallings (aes421)
  */
-public class HTMLSettingsScreen implements Screen {
-    private GameRoot game;
+public class HTMLSettingsScreen extends ScreenInterface {
     private int WIDTH, HEIGHT;
     
     @Override
     public void show() {
-        game = (GameRoot) Gdx.app.getApplicationListener();
         WIDTH = Gdx.graphics.getWidth();
         HEIGHT = Gdx.graphics.getHeight();
     }

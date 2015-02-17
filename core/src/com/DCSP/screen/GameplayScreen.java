@@ -1,9 +1,6 @@
 package com.DCSP.screen;
 
-import com.DCSP.game.GameRoot;
-import com.badlogic.gdx.Screen;
-
-public class GameplayScreen implements Screen {
+public class GameplayScreen extends ScreenInterface {
 
 
     @Override
