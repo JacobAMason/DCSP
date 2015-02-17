@@ -21,50 +21,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.DCSP.game.desktop.screen;
+package com.DCSP.screen;
 
 import com.DCSP.game.GameRoot;
-import com.DCSP.screen.ScreenInterface;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.Screen;
 
 /**
  *
  * @author Jacob Mason (jm2232)
  */
-public class DesktopSettingsScreen extends ScreenInterface {
-    private int WIDTH, HEIGHT;
+public abstract class ScreenInterface implements Screen {
+    protected GameRoot gameParent;
     
-    @Override
-    public void show() {
-        WIDTH = Gdx.graphics.getWidth();
-        HEIGHT = Gdx.graphics.getHeight();
+    public void setGameParent(GameRoot newParent) {
+        gameParent = newParent;
     }
-
-    @Override
-    public void render(float delta) {
-        Gdx.gl.glClearColor(0.4f, 0.2f, 0.2f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-    }
-
-    @Override
-    public void resize(int width, int height) {
-    }
-
-    @Override
-    public void pause() {
-    }
-
-    @Override
-    public void resume() {
-    }
-
-    @Override
-    public void hide() {
-    }
-
-    @Override
-    public void dispose() {
-    }
-    
 }

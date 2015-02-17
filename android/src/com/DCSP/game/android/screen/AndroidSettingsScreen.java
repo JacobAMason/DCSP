@@ -21,9 +21,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.DCSP.game.desktop.screen;
+package com.DCSP.game.android.screen;
 
-import com.DCSP.game.GameRoot;
 import com.DCSP.screen.ScreenInterface;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -32,9 +31,9 @@ import com.badlogic.gdx.graphics.GL20;
  *
  * @author Jacob Mason (jm2232)
  */
-public class DesktopSettingsScreen extends ScreenInterface {
+public class AndroidSettingsScreen extends ScreenInterface {
     private int WIDTH, HEIGHT;
-    
+
     @Override
     public void show() {
         WIDTH = Gdx.graphics.getWidth();
@@ -43,7 +42,7 @@ public class DesktopSettingsScreen extends ScreenInterface {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0.4f, 0.2f, 0.2f, 1);
+        Gdx.gl.glClearColor(0.7f, 0.6f, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
@@ -66,5 +65,5 @@ public class DesktopSettingsScreen extends ScreenInterface {
     @Override
     public void dispose() {
     }
-    
+
 }

@@ -3,7 +3,6 @@ package com.DCSP.game.desktop;
 import com.DCSP.game.GameRoot;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.DCSP.game.DCSPGame;
 import com.DCSP.game.desktop.screen.DesktopSettingsScreen;
 
 public class DesktopLauncher {

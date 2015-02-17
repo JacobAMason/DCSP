@@ -1,0 +1,46 @@
+body {
+	background-color: black;
+	color:grey;
+}
+p
+{color: grey;
+ font-family:Trebuchet MS;
+ border: 2px solid grey;
+ }
+
+ div{
+ 	position: absolute;
+ 	top: 23.5px;
+ 	left: 17.5px;
+ 	z-index: 1;
+ 	background-color: maroon;
+ 	width: 200px;
+    padding: 25px;
+    margin: 20px;
+ }
+
+ h1{
+ 	text-align: center;
+ 	background-color: maroon;
+ 	padding: 30px;
+ 	margin-right: 450px;
+ 	margin-left: 450px;
+ 	/*position: absolute;
+ 	top: 38px;
+ 	left: 80px;
+ 	z-index: 2;*/
+ }
+
+ a:link{ 
+ 	color: gray;
+ 	text-decoration: underline;
+ }
+
+ a:visited{
+ 	color: white;
+ 	text-decoration: underline;
+ }
+
+ #different{
+ 	color: white;
+ }
