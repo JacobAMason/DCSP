@@ -26,10 +26,10 @@ public class MainMenuScreen extends ScreenInterface{
     private SpriteDrawable settings;
     private Stage menuStage;
     private Table menuTable,gear;
-    private Skin ourSkin;
+    private Skin skin;
     private Label nameLbl, passLbl;
     private TextField nameTxt,passTxt;
-    private TextButton playBtn, quitBtn;
+    private TextButton playBtn, quitBtn, register,login;
     private ImageButton settingsBtn;
     
     @Override
@@ -54,16 +54,21 @@ public class MainMenuScreen extends ScreenInterface{
         settingsSprite.setSize(30, 30);
         settings = new SpriteDrawable(settingsSprite);
         
-        ourSkin = new Skin(Gdx.files.internal("uiskin.json"));
+        skin = new Skin(Gdx.files.internal("uiskin.json"));
         
-        nameLbl = new Label("Username", ourSkin);
-        nameTxt = new TextField("", ourSkin);
-        passLbl = new Label("Password", ourSkin);
-        passTxt = new TextField("", ourSkin);
+        nameLbl = new Label("Username", skin);
+        nameTxt = new TextField("", skin);
         
-        playBtn = new TextButton("Play Game",ourSkin);
+        passLbl = new Label("Password", skin);
+        passTxt = new TextField("", skin);
+        
         settingsBtn = new ImageButton(settings);
-        quitBtn = new TextButton("Exit",ourSkin);
+        
+        playBtn = new TextButton("Play Demo",skin);
+        quitBtn = new TextButton("Exit",skin);
+        login = new TextButton("Login",skin);
+        register = new TextButton("Register",skin);
+        
         
         
         settingsBtn.addListener(new ClickListener(){
@@ -80,8 +85,24 @@ public class MainMenuScreen extends ScreenInterface{
             }            
         });
         
+        login.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                
+            }            
+        });
+        
+        register.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                
+            }            
+        });
+        
         gear.add(settingsBtn).pad(15);
         gear.top().right();
+        menuStage.addActor(gear);
+        
         menuTable.defaults().padBottom(10).padRight(5);
         menuTable.add(nameLbl);
         menuTable.add(nameTxt).width(100);
@@ -89,11 +110,15 @@ public class MainMenuScreen extends ScreenInterface{
         menuTable.add(passLbl);
         menuTable.add(passTxt).width(100);
         menuTable.row();
+        menuTable.add(login).colspan(2).fillX();
+        menuTable.row();
+        menuTable.add(register).colspan(2).fillX();
+        menuTable.row();
         menuTable.add(playBtn).colspan(2).fillX();
         menuTable.row();
         menuTable.add(quitBtn).colspan(2).fillX();
         menuStage.addActor(menuTable);
-        menuStage.addActor(gear);
+        
         batch = new SpriteBatch();
     }
 
