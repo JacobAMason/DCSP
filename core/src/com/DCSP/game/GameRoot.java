@@ -11,7 +11,8 @@ public class GameRoot extends Game {
     private boolean isFullscreen;
     public MainMenuScreen mainMenuScreen;
     public Screen settingsScreen;
-
+    
+    
     public GameRoot(Screen settingsScreen) {
         this.settingsScreen = settingsScreen;
     }
