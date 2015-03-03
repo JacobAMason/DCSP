@@ -121,24 +121,31 @@ public class Grid {
 
     @Override
     public String toString() {
-        String returnStr = "";
+        String returnStr = "NESW";
         
         for (int i = 0; i < totalCells; i++) {
-            if (i % width == 0)
-                returnStr += "\n";
-            
-            Integer cellValue = 0;
+            String cellValue = "";
             
             if(cellArray[i].wallN)
-                cellValue += 1;
+                cellValue += "1";
+            else
+                cellValue += "0";
             if(cellArray[i].wallE)
-                cellValue += 2;
+                cellValue += "1";
+            else
+                cellValue += "0";
             if(cellArray[i].wallS)
-                cellValue += 4;
+                cellValue += "1";
+            else
+                cellValue += "0";
             if(cellArray[i].wallW)
-                cellValue += 8;
+                cellValue += "1";
+            else
+                cellValue += "0";
             
-            returnStr += cellValue.toString() + " ";
+            if (i % width == 0)
+                returnStr += "\n";
+            returnStr += cellValue + " ";
         }
     
         
