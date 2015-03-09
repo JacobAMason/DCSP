@@ -100,8 +100,7 @@ public class MainMenuScreen extends ScreenInterface{
             public void clicked(InputEvent event, float x, float y) {
                 // This is just an example
                 HttpConnection httpCon = new HttpConnection();
-                boolean result = httpCon.login(nameTxt.getText(), passTxt.getText());
-                Gdx.app.log("MainMenuScreen", String.valueOf(result));
+                httpCon.login(nameTxt.getText(), passTxt.getText());
             }            
         });
         

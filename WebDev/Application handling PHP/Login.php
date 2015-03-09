@@ -12,20 +12,21 @@ $password = $_POST['password'];
 $MD5passwd = MD5($password);
 
 $query = "SELECT * FROM User WHERE username='$username' AND password='$MD5passwd'";
-$result = $sql->query($query);
+$row = $sql->query($query);
+$jsonReply = array();
 
-if(mysqli_num_rows($result)) {
-    $entry = $result->fetch_assoc();    
-    $response = "Login Success: " . $entry['firstname'];
+if(mysqli_num_rows($row)) {
+    $entry = $row->fetch_assoc();
+    $jsonReply[] = $entry;
+    $response = "Success: " . $entry['firstname'];
 } else {
-    $response = "Login Fail: on username: '" . $username . "' and password: '" . $MD5passwd . "'";
+    $response = "Fail: on username: '" . $username . "' and password: '" . $password . "'";
 }
 
-$response = "Received: " . $response;
 $log->lwrite($response);
 
 header('Content-Type: application/json');
-echo json_encode($response);
+echo json_encode($jsonReply);
 
 $log->lclose();
 ?>

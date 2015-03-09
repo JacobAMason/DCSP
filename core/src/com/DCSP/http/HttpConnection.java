@@ -40,7 +40,7 @@ public class HttpConnection {
 //    }
     
     // Returns true/false depending on whether the login succeeded or failed.
-    public boolean login(String username, String password) {
+    public void login(String username, String password) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
         request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/Login.php");
         
@@ -50,46 +50,51 @@ public class HttpConnection {
         
         request.setContent(HttpParametersUtils.convertHttpParameters(parameters));
         
-        String status = sendRequest(request);
-        
-        System.out.println(status);
-        
-        // TODO: This shouldn't return a constant "true". The result of the login should be parsed out or minimized.
-        return true;
+        sendRequest(request, new loginCallback());
     }
     
-    private String sendRequest(Net.HttpRequest request) {
+    private class loginCallback implements Event {
+        @Override
+        public void handle(String status) {
+            Gdx.app.log("HttpConnection", status);
+        }
+    }
+
+    
+    private void sendRequest(Net.HttpRequest request, Event callback) {
         
         // Inner class is created to add the "status" string.
         // This is the only way to extract the status and handle it outside this function.
         class Listener implements Net.HttpResponseListener {
             public String status;
+            private final Event callback;
+
+            public Listener(Event callback) {
+                this.callback = callback;
+            } 
             
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
-                status = httpResponse.getResultAsString();
+                this.status = httpResponse.getResultAsString();
+                callback.handle(status);
                 // interpret response
             }
 
             @Override
             public void failed(Throwable t) {
-                status = "failed";
+                this.status = "failed";
                 // Failed
             }
 
             @Override
             public void cancelled() {
-                status = "cancelled";
+                this.status = "cancelled";
                 // Shouldn't really end up here.
             }
-            
         }
         
-        Listener listener = new Listener();
+        Listener listener = new Listener(callback);
 
-        // Cast the Listener as the original class because polymorphism
-        Gdx.net.sendHttpRequest(request, (Net.HttpResponseListener)listener);
-        
-        return listener.status;
+        Gdx.net.sendHttpRequest(request, listener);
     }
 }
