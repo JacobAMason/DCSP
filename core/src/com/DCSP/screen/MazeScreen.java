@@ -23,8 +23,11 @@
  */
 package com.DCSP.screen;
 
+import com.DCSP.entities.Player;
 import com.DCSP.mazeGen.Maze;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
@@ -42,6 +45,9 @@ public class MazeScreen extends ScreenInterface {
     private OrthographicCamera camera;
     private final int mWidth, mHeight;
     private int cellFactor;
+    private Player player;
+    
+    private int step = 100;
     
     
     
@@ -52,15 +58,64 @@ public class MazeScreen extends ScreenInterface {
     
     @Override
     public void show() {
+        Gdx.input.setInputProcessor(new InputAdapter(){
+
+            @Override
+            public boolean keyDown(int keycode) {
+                switch (keycode){
+                    case Keys.W:
+                    case Keys.UP:
+                        player.setY(-step);
+                        break;
+                    case Keys.D:
+                    case Keys.RIGHT:
+                        player.setX(step);
+                        break;
+                    case Keys.S:
+                    case Keys.DOWN:
+                        player.setY(step);
+                        break;
+                    case Keys.A:
+                    case Keys.LEFT:
+                        player.setX(-step);
+                }
+                return true;
+            }
+
+            @Override
+            public boolean keyUp(int keycode) {
+                switch (keycode){
+                    case Keys.W:
+                    case Keys.S:
+                    case Keys.UP:
+                    case Keys.DOWN:
+                        player.setY(0);
+                        break;
+                    case Keys.D:
+                    case Keys.A:
+                    case Keys.RIGHT:
+                    case Keys.LEFT:
+                        player.setX(0);
+                        break;
+                }
+                return true;
+            }
+            
+        });
+        
         cellFactor = (int)((float)Gdx.graphics.getHeight()/((float)mHeight+0.5f));
         world = new World(new Vector2(0,0),true);
         debugging = new Box2DDebugRenderer();
+        
         camera = new OrthographicCamera(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         camera.setToOrtho(true);
         camera.translate((mWidth*cellFactor - Gdx.graphics.getWidth())/2, (mHeight*cellFactor - Gdx.graphics.getHeight())/2);
         camera.update();
         
         maze = new Maze(world, mWidth, mHeight);
+        
+        player = new Player(world, cellFactor);
+        
         
     }
 
@@ -70,6 +125,9 @@ public class MazeScreen extends ScreenInterface {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         debugging.render(world, camera.combined);
+        
+        world.step(1/60f, 6, 2);
+        player.update();
     }
 
     @Override
