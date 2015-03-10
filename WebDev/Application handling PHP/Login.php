@@ -11,14 +11,14 @@ $username = $_POST['username'];
 $password = $_POST['password'];
 $MD5passwd = MD5($password);
 
-$query = "SELECT * FROM User WHERE username='$username' AND password='$MD5passwd'";
+$query = "SELECT Name, hasChallenge FROM User WHERE username='$username' AND password='$MD5passwd'";
 $row = $sql->query($query);
 $jsonReply = array();
 
 if(mysqli_num_rows($row)) {
     $entry = $row->fetch_assoc();
-    $jsonReply[] = $entry;
-    $response = "Success: " . $entry['firstname'];
+    $jsonReply = $entry;
+	$response = "Success: " . $entry['Name'];
 } else {
     $response = "Fail: on username: '" . $username . "' and password: '" . $password . "'";
 }
@@ -26,7 +26,7 @@ if(mysqli_num_rows($row)) {
 $log->lwrite($response);
 
 header('Content-Type: application/json');
-echo json_encode($jsonReply);
+echo json_encode($jsonReply, JSON_NUMERIC_CHECK);
 
 $log->lclose();
 ?>
