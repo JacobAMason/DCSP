@@ -1,6 +1,7 @@
 package com.DCSP.screen;
 
 import com.DCSP.game.GameRoot;
+import com.DCSP.http.HttpConnection;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -61,13 +62,15 @@ public class MainMenuScreen extends ScreenInterface{
         
         passLbl = new Label("Password", skin);
         passTxt = new TextField("", skin);
+        passTxt.setPasswordMode(true);
+        passTxt.setPasswordCharacter('*');
         
         settingsBtn = new ImageButton(settings);
         
-        playBtn = new TextButton("Play Demo",skin);
-        quitBtn = new TextButton("Exit",skin);
-        login = new TextButton("Login",skin);
-        register = new TextButton("Register",skin);
+        playBtn = new TextButton("Play Demo", skin);
+        quitBtn = new TextButton("Exit", skin);
+        login = new TextButton("Login", skin);
+        register = new TextButton("Register", skin);
         
         
         
@@ -95,7 +98,9 @@ public class MainMenuScreen extends ScreenInterface{
         login.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                
+                // This is just an example
+                HttpConnection httpCon = new HttpConnection();
+                httpCon.login(nameTxt.getText(), passTxt.getText());
             }            
         });
         
