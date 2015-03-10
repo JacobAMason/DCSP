@@ -46,11 +46,11 @@ public class Maze {
     private int cellFactor;
     private int width, height;
     
-    public Maze(World world, int w, int h){
+    public Maze(World world, int w, int h, long randomSeed){
         this.world = world;
         this.cellFactor = (int)((float)Gdx.graphics.getHeight()/((float)h+0.5f));
         this.width = w; this.height = h;
-        generateMaze(width, height);
+        generateMaze(width, height, randomSeed);
         System.out.println(cellGrid.toString());
         drawMaze();
     }
@@ -61,20 +61,25 @@ public class Maze {
 //        System.out.println(m.cellGrid.toString());
 //    }
     
-    private void generateMaze(int mazeWidth, int mazeHeight) {
-        Random rand = new Random();
+    private void generateMaze(int mazeWidth, int mazeHeight, long randomSeed) {
+        Random rand = new Random(randomSeed);
         Stack<Cell> cellStack = new Stack<Cell>();
         int totalCells = mazeWidth * mazeHeight;
         cellGrid = new Grid(mazeWidth, mazeHeight);
         
         // Get a random starting location.
-        Cell currentCell = cellGrid.getCell(rand.nextInt(mazeWidth), rand.nextInt(mazeHeight));
+        int randX = rand.nextInt(mazeWidth);
+        int randY = rand.nextInt(mazeHeight);
+        
+        System.out.println("RandX: " + randX + " RandY: " + randY);
+        
+        Cell currentCell = cellGrid.getCell(randX, randY);
         int visitedCells = 1;
         
         while (visitedCells < totalCells) {
             ArrayList<Cell> neighbors = cellGrid.getNeighbors(currentCell);
             
-            Collections.shuffle(neighbors);
+            Collections.shuffle(neighbors, rand);
 
             Cell chosenNeighbor = null;
             

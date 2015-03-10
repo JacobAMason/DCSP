@@ -112,7 +112,7 @@ public class MazeScreen extends ScreenInterface {
         camera.translate((mWidth*cellFactor - Gdx.graphics.getWidth())/2, (mHeight*cellFactor - Gdx.graphics.getHeight())/2);
         camera.update();
         
-        maze = new Maze(world, mWidth, mHeight);
+        maze = new Maze(world, mWidth, mHeight, 42);
         
         player = new Player(world, cellFactor);
         
