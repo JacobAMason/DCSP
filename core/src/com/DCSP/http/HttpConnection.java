@@ -50,51 +50,52 @@ public class HttpConnection {
         
         request.setContent(HttpParametersUtils.convertHttpParameters(parameters));
         
-        sendRequest(request, new loginCallback());
-    }
-    
-    private class loginCallback implements Event {
-        @Override
-        public void handle(String status) {
-            Gdx.app.log("HttpConnection", status);
-        }
-    }
-
-    
-    private void sendRequest(Net.HttpRequest request, Event callback) {
-        
-        // Inner class is created to add the "status" string.
-        // This is the only way to extract the status and handle it outside this function.
-        class Listener implements Net.HttpResponseListener {
-            public String status;
-            private final Event callback;
-
-            public Listener(Event callback) {
-                this.callback = callback;
-            } 
-            
+        Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
-                this.status = httpResponse.getResultAsString();
-                callback.handle(status);
-                // interpret response
+                Gdx.app.log("HttpCon:Login", httpResponse.getResultAsString());
             }
 
             @Override
             public void failed(Throwable t) {
-                this.status = "failed";
-                // Failed
+                Gdx.app.log("HttpCon:Login", "Connection Fail");
             }
 
             @Override
             public void cancelled() {
-                this.status = "cancelled";
-                // Shouldn't really end up here.
+                Gdx.app.log("HttpCon:Login", "Cancel function called. What does this even do?");
             }
-        }
+        });
+    }
+    
+    
+    public void register(String username, String password, String name, String email) {
+        Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
+        request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/Register.php");
         
-        Listener listener = new Listener(callback);
+        Map parameters = new HashMap();
+        parameters.put("username", username);
+        parameters.put("password", password);
+        parameters.put("name", name);
+        parameters.put("email", email);
+        
+        request.setContent(HttpParametersUtils.convertHttpParameters(parameters));
+        
+        Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
+            @Override
+            public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                Gdx.app.log("HttpCon:Register", httpResponse.getResultAsString());
+            }
 
-        Gdx.net.sendHttpRequest(request, listener);
+            @Override
+            public void failed(Throwable t) {
+                Gdx.app.log("HttpCon:Register", "Connection Fail");
+            }
+
+            @Override
+            public void cancelled() {
+                Gdx.app.log("HttpCon:Register", "Cancel function called. What does this even do?");
+            }
+        });
     }
 }

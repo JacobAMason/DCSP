@@ -27,6 +27,6 @@ package com.DCSP.http;
  *
  * @author Jacob Mason (jm2232)
  */
-public interface Event {
-    public void handle(String status);
+public class RegisterCallback {
+    
 }

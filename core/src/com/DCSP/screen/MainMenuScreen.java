@@ -1,6 +1,5 @@
 package com.DCSP.screen;
 
-import com.DCSP.game.GameRoot;
 import com.DCSP.http.HttpConnection;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -15,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
@@ -107,7 +105,7 @@ public class MainMenuScreen extends ScreenInterface{
         register.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                
+                gameParent.setScreen(new RegistrationScreen());
             }            
         });
         
