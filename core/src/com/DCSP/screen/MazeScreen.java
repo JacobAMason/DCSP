@@ -63,6 +63,9 @@ public class MazeScreen extends ScreenInterface {
             @Override
             public boolean keyDown(int keycode) {
                 switch (keycode){
+                    case Keys.ESCAPE:
+                        gameParent.setScreen(gameParent.mainMenuScreen);
+                        break;
                     case Keys.W:
                     case Keys.UP:
                         player.setY(-step);
@@ -128,6 +131,8 @@ public class MazeScreen extends ScreenInterface {
         
         world.step(1/60f, 6, 2);
         player.update();
+        if (player.checkWin(mWidth,mHeight))
+            gameParent.setScreen(gameParent.mainMenuScreen);
     }
 
     @Override

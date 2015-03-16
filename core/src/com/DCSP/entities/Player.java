@@ -35,7 +35,7 @@ import com.badlogic.gdx.physics.box2d.World;
  * @author Alex
  */
 public class Player {
-    private Vector2 pos;
+    private Vector2 initPos,pos;
     private int cellFactor;
     private Body player;
     private World world;
@@ -47,20 +47,20 @@ public class Player {
     public Player(World w, int cF){
         this.world = w;
         this.cellFactor = cF;
-        pos = new Vector2(0+cellFactor/2, 0 + cellFactor/2);
+        initPos = new Vector2(0+cellFactor/2, 0 + cellFactor/2);
         draw();
     }
     
     public Player(World w, int cF, int x, int y){
         this.world = w;
         this.cellFactor = cF;
-        pos = new Vector2(x + cellFactor/2, y + cellFactor/2);
+        initPos = new Vector2(x + cellFactor/2, y + cellFactor/2);
         draw();
     }
     
     private void draw(){
         playerBody = new BodyDef();
-        playerBody.position.set(pos);
+        playerBody.position.set(initPos);
         playerBody.type = BodyDef.BodyType.DynamicBody;
         
         CircleShape playerShape = new CircleShape();
@@ -68,6 +68,7 @@ public class Player {
         
         playerFix = new FixtureDef();
         playerFix.shape = playerShape;
+        playerFix.restitution = .2f;
         
         player = world.createBody(playerBody);
         player.createFixture(playerFix);
@@ -82,5 +83,14 @@ public class Player {
     
     public void update(){
         player.applyForceToCenter(speed, true);
+    }
+
+    public boolean checkWin(int x, int y){
+        pos = player.getLocalPoint(initPos);
+        System.out.println((int)(pos.x)/cellFactor);
+        System.out.println((int)(pos.y)/cellFactor);
+        System.out.println(x);
+        System.out.println(y);
+        return (pos.x) <= (-x+1)*cellFactor && (pos.y) <= (y+1)*cellFactor;
     }
 }

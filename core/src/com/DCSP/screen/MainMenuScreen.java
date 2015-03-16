@@ -75,7 +75,7 @@ public class MainMenuScreen extends ScreenInterface{
         playBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                gameParent.setScreen(new MazeScreen(10));
+                gameParent.setScreen(new MazeScreen(2));
             }
         });
         
