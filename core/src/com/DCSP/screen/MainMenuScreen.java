@@ -82,7 +82,9 @@ public class MainMenuScreen extends ScreenInterface{
         settingsBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                gameParent.setScreen(gameParent.settingsScreen);
+                HttpConnection test = new HttpConnection();
+                test.sendScore(0, 1, 5);
+                //gameParent.setScreen(gameParent.settingsScreen);
             }
         });
         

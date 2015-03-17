@@ -11,7 +11,7 @@ $username = $_POST['username'];
 $password = $_POST['password'];
 $MD5passwd = MD5($password);
 
-$query = "SELECT Name, hasChallenge FROM User WHERE username='$username' AND password='$MD5passwd'";
+$query = "SELECT Name FROM User WHERE username='$username' AND password='$MD5passwd'";
 $row = $sql->query($query);
 $jsonReply = array();
 
