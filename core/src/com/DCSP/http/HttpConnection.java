@@ -124,4 +124,27 @@ public class HttpConnection {
             }
         });
     }
+    
+    
+    public void getHighScores() {
+        Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
+        request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/HighScore.php");
+        
+        Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
+            @Override
+            public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                Gdx.app.log("HttpCon:getHighScores", httpResponse.getResultAsString());
+            }
+
+            @Override
+            public void failed(Throwable t) {
+                Gdx.app.log("HttpCon:getHighScores", "Connection Fail");
+            }
+
+            @Override
+            public void cancelled() {
+                Gdx.app.log("HttpCon:getHighScores", "Cancel function called. What does this even do?");
+            }
+        });
+    }
 }
