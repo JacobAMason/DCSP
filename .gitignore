@@ -64,3 +64,4 @@ build/
 .DS_Store
 /.nb-gradle/profiles/private/
 /.nb-gradle/private/
+/WebDev/LoginProject/nbproject/private/

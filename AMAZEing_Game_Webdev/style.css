@@ -1,0 +1,40 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Feb 2, 2015, 2:46:21 PM
+    Author     : Elisabeth
+*/
+
+
+body{
+background-color: #000000;
+}
+
+#Title{
+    margin: auto;
+    position: absolute;
+    top: 0; left: -650px; bottom: 0; right: 0;
+    height: 100px;
+    width: 100px;
+    background-color: #FFFFFF;
+    z-index: 2;
+    margin: 0 auto;
+}
+
+#Image{
+    margin: auto;
+  position: absolute;
+  top: 50px; left: 0; bottom: 0; right: 0;
+    height: 545px;
+    width: 1025px;
+    background-image: url("http://pluto.cse.msstate.edu/~aes421/Maze.PNG");
+    z-index: 1;
+    margin: 0 auto;
+    
+}
+
+
+
