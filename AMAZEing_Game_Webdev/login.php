@@ -9,12 +9,16 @@
 
     
     <body>
-   
-            <div id = "Image">
-            </div>
+        <div id = "Container">
+            <div id = "Image"></div>
             <div id = "Title"> 
-                hi
+                <center><font size="4" color = "white">
+                An <br>
+                A <i> MAZE </i> ing <br>
+                Game!
+                </font></center>
             </div>
+        </div>
        
     </body>
 </html>

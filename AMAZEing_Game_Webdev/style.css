@@ -9,32 +9,39 @@ and open the template in the editor.
 */
 
 
-body{
+body, html{
 background-color: #000000;
+height: 99%;
+width: 99%;
 }
 
 #Title{
-    margin: auto;
     position: absolute;
-    top: 0; left: -650px; bottom: 0; right: 0;
+    margin: 0px 0 0 -50px;
+    left: 19.5%;
     height: 100px;
     width: 100px;
-    background-color: #FFFFFF;
+    background-color: #980000;
     z-index: 2;
-    margin: 0 auto;
 }
 
+/*Position Source: http://designshack.net/articles/css/how-to-center-anything-with-css/*/
 #Image{
-    margin: auto;
-  position: absolute;
-  top: 50px; left: 0; bottom: 0; right: 0;
+    position: absolute;
+    margin: -262.5px 0 0 -512.5px;
+    left: 50%;
+    top: 50%;
+    
     height: 545px;
     width: 1025px;
-    background-image: url("http://pluto.cse.msstate.edu/~aes421/Maze.PNG");
     z-index: 1;
-    margin: 0 auto;
+    background-image: url("http://pluto.cse.msstate.edu/~aes421/Maze.PNG");
     
 }
 
-
+#Container{
+    background-color: #000000;
+    height: 100%;
+    width: 100%;
+}
 
