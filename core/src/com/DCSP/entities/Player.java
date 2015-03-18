@@ -44,17 +44,17 @@ public class Player {
 
     private Vector2 speed = new Vector2(0,0);
     
-    public Player(World w, int cF){
-        this.world = w;
-        this.cellFactor = cF;
+    public Player(World world, int cellFactor){
+        this.world = world;
+        this.cellFactor = cellFactor;
         initPos = new Vector2(0+cellFactor/2, 0 + cellFactor/2);
         draw();
     }
     
-    public Player(World w, int cF, int x, int y){
-        this.world = w;
-        this.cellFactor = cF;
-        initPos = new Vector2(x + cellFactor/2, y + cellFactor/2);
+    public Player(World world, int cellFactor, int initPosX, int initPosY){
+        this.world = world;
+        this.cellFactor = cellFactor;
+        initPos = new Vector2(initPosX + cellFactor/2, initPosY + cellFactor/2);
         draw();
     }
     
@@ -91,6 +91,6 @@ public class Player {
         System.out.println((int)(pos.y)/cellFactor);
         System.out.println(x);
         System.out.println(y);
-        return (pos.x) <= (-x+1)*cellFactor && (pos.y) <= (y+1)*cellFactor;
+        return ((pos.x) <= (-x+1)*cellFactor) && ((pos.y) <= (y+1)*cellFactor);
     }
 }

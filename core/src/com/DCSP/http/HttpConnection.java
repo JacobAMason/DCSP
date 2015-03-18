@@ -34,10 +34,6 @@ import java.util.Map;
  * @author Jacob Mason (jm2232)
  */
 public class HttpConnection {
-//    public static void main(String[] args) {
-//        httpTest test = new httpTest();
-//        test.makeRequest();
-//    }
     
     // Returns true/false depending on whether the login succeeded or failed.
     public void login(String username, String password) {
@@ -95,6 +91,59 @@ public class HttpConnection {
             @Override
             public void cancelled() {
                 Gdx.app.log("HttpCon:Register", "Cancel function called. What does this even do?");
+            }
+        });
+    }
+    
+    
+    public void sendScore(int ID, int level, int score) {
+        Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
+        request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/Score.php");
+        
+        Map parameters = new HashMap();
+        parameters.put("ID", String.valueOf(ID));
+        parameters.put("score", String.valueOf(score));
+        parameters.put("level", String.valueOf(level));
+        
+        request.setContent(HttpParametersUtils.convertHttpParameters(parameters));
+        
+        Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
+            @Override
+            public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                Gdx.app.log("HttpCon:sendScore", httpResponse.getResultAsString());
+            }
+
+            @Override
+            public void failed(Throwable t) {
+                Gdx.app.log("HttpCon:sendScore", "Connection Fail");
+            }
+
+            @Override
+            public void cancelled() {
+                Gdx.app.log("HttpCon:sendScore", "Cancel function called. What does this even do?");
+            }
+        });
+    }
+    
+    
+    public void getHighScores() {
+        Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
+        request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/HighScore.php");
+        
+        Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
+            @Override
+            public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                Gdx.app.log("HttpCon:getHighScores", httpResponse.getResultAsString());
+            }
+
+            @Override
+            public void failed(Throwable t) {
+                Gdx.app.log("HttpCon:getHighScores", "Connection Fail");
+            }
+
+            @Override
+            public void cancelled() {
+                Gdx.app.log("HttpCon:getHighScores", "Cancel function called. What does this even do?");
             }
         });
     }
