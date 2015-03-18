@@ -86,11 +86,8 @@ public class Player {
     }
 
     public boolean checkWin(int x, int y){
-        pos = player.getLocalPoint(initPos);
-        System.out.println((int)(pos.x)/cellFactor);
-        System.out.println((int)(pos.y)/cellFactor);
-        System.out.println(x);
-        System.out.println(y);
-        return ((pos.x) <= (-x+1)*cellFactor) && ((pos.y) <= (y+1)*cellFactor);
+        pos = player.getLocalPoint(initPos);      
+        return ((int)(Math.abs(pos.x)/cellFactor + .5f)== x-1) && 
+                ((int)(Math.abs(pos.y)/cellFactor + .5f) == y-1);
     }
 }

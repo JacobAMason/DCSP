@@ -75,7 +75,7 @@ public class MainMenuScreen extends ScreenInterface{
         playBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                gameParent.setScreen(new MazeScreen(2));
+                gameParent.setScreen(new LevelSelectScreen());
             }
         });
         
@@ -171,5 +171,6 @@ public class MainMenuScreen extends ScreenInterface{
     public void dispose() {
         batch.dispose();
         background.getTexture().dispose();
+        menuStage.dispose();
     }
 }
