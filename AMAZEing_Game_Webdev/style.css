@@ -1,4 +1,4 @@
-/*
+﻿/*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
@@ -8,40 +8,41 @@ and open the template in the editor.
     Author     : Elisabeth
 */
 
+html{
+	min-height: 100%;
+	position: relative;
+}
 
-body, html{
-background-color: #000000;
-height: 99%;
-width: 99%;
+body{
+	background-color: #000000;
+	width: 100%;
 }
 
 #Title{
     position: absolute;
-    margin: 0px 0 0 -50px;
-    left: 19.5%;
     height: 100px;
     width: 100px;
+    float: left;
     background-color: #980000;
     z-index: 2;
+    margin: auto;	
+
 }
 
-/*Position Source: http://designshack.net/articles/css/how-to-center-anything-with-css/*/
-#Image{
-    position: absolute;
-    margin: -262.5px 0 0 -512.5px;
-    left: 50%;
-    top: 50%;
-    
-    height: 545px;
-    width: 1025px;
+
+IMG.mazeImg{
+	position: absolute;
+	vertical-align: middle;
     z-index: 1;
-    background-image: url("http://pluto.cse.msstate.edu/~aes421/Maze.PNG");
-    
+   	margin: auto;
+    top: 0; left: 0; right: 0; bottom: 0;
 }
 
-#Container{
-    background-color: #000000;
-    height: 100%;
-    width: 100%;
-}
 
+#container{
+	width: 1025px;
+	position: absolute;
+
+	top: 0; left: 0; right: 0; bottom: 0;
+	margin: auto;
+}
