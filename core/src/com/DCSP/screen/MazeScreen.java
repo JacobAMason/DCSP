@@ -64,6 +64,7 @@ public class MazeScreen extends ScreenInterface {
             public boolean keyDown(int keycode) {
                 switch (keycode){
                     case Keys.ESCAPE:
+                    case Keys.BACK:
                         gameParent.setScreen(gameParent.mainMenuScreen);
                         break;
                     case Keys.W:
