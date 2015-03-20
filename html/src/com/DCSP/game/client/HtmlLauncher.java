@@ -7,7 +7,6 @@ import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
 import com.DCSP.game.client.screen.HTMLSettingsScreen;
 
 public class HtmlLauncher extends GwtApplication {
-    GameRoot game = new GameRoot(new HTMLSettingsScreen());
 
     @Override
     public GwtApplicationConfiguration getConfig () {
@@ -17,6 +16,6 @@ public class HtmlLauncher extends GwtApplication {
     @Override
     public ApplicationListener getApplicationListener ()
     {
-        return game;
+        return new GameRoot(new HTMLSettingsScreen());
     }
 }

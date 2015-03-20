@@ -1,64 +1,94 @@
 package com.DCSP.screen;
 
-import com.DCSP.game.GameRoot;
-import com.badlogic.gdx.Game;
+import com.DCSP.http.HttpConnection;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
-public class MainMenuScreen implements Screen{
-    private GameRoot game;
+public class MainMenuScreen extends ScreenInterface{
     private int WIDTH, HEIGHT;
     
     private SpriteBatch batch;
-    private Sprite warlock;
+    private Sprite background;
+    private SpriteDrawable settings;
     private Stage menuStage;
-    private Skin ourSkin;
-    private TextButton settingsBtn, playBtn, quitBtn;
-    private int btnWidth, btnHeight;
+    private Table menuTable,gear;
+    private Skin skin;
+    private Label nameLbl, passLbl;
+    private TextField nameTxt,passTxt;
+    private TextButton playBtn, quitBtn, register,login;
+    private ImageButton settingsBtn;
     
     @Override
     public void show() {        
-        game = (GameRoot) Gdx.app.getApplicationListener();
         WIDTH = Gdx.graphics.getWidth();
         HEIGHT = Gdx.graphics.getHeight();
         
-        btnWidth = WIDTH/5;
-        btnHeight = HEIGHT/11;
         menuStage = new Stage();
         Gdx.input.setInputProcessor(menuStage);
+        Gdx.input.setCatchBackKey(true);
         
-        Texture splashTexture = new Texture("img/warlock.jpg");
-        warlock = new Sprite(splashTexture);
-        warlock.setSize(WIDTH, HEIGHT);
+        menuTable = new Table();
+        menuTable.setFillParent(true);
+        gear = new Table();
+        gear.setFillParent(true);
         
-        ourSkin = new Skin(Gdx.files.internal("uiskin.json"));
-        playBtn = new TextButton("Play Game",ourSkin);
-        settingsBtn = new TextButton("Settings",ourSkin);
-        quitBtn = new TextButton("Quit Game",ourSkin);
+        Texture splashTexture = new Texture("img/menu.png");
+        background = new Sprite(splashTexture);
+        background.setSize(WIDTH, HEIGHT);
         
-        playBtn.setPosition(WIDTH/2-btnWidth/2,HEIGHT/2);
-        playBtn.setSize(btnWidth,btnHeight);
-       
-        settingsBtn.setPosition(WIDTH/2-btnWidth/2,HEIGHT/2-btnHeight-5);
-        settingsBtn.setSize(btnWidth,btnHeight);
-        settingsBtn.addListener(new ClickListener(){
+        Texture settingsTexture = new Texture("img/settings.png");
+        Sprite settingsSprite = new Sprite(settingsTexture);
+        settingsSprite.setSize(30, 30);
+        settings = new SpriteDrawable(settingsSprite);
+        
+        skin = new Skin(Gdx.files.internal("uiskin.json"));
+        
+        nameLbl = new Label("Username", skin);
+        nameTxt = new TextField("", skin);
+        
+        passLbl = new Label("Password", skin);
+        passTxt = new TextField("", skin);
+        passTxt.setPasswordMode(true);
+        passTxt.setPasswordCharacter('*');
+        
+        settingsBtn = new ImageButton(settings);
+        
+        playBtn = new TextButton("Play Demo", skin);
+        quitBtn = new TextButton("Exit", skin);
+        login = new TextButton("Login", skin);
+        register = new TextButton("Register", skin);
+        
+        
+        
+        playBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(game.settingsScreen);
+                gameParent.setScreen(new LevelSelectScreen());
             }
         });
         
-        quitBtn.setPosition(WIDTH/2-btnWidth/2, HEIGHT/2-(2*btnHeight)-2*5);
-        quitBtn.setSize(btnWidth, btnHeight);
+        settingsBtn.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                HttpConnection test = new HttpConnection();
+                test.getHighScores();
+                //gameParent.setScreen(gameParent.settingsScreen);
+            }
+        });
+        
         quitBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -66,9 +96,42 @@ public class MainMenuScreen implements Screen{
             }            
         });
         
-        menuStage.addActor(playBtn);
-        menuStage.addActor(settingsBtn);
-        menuStage.addActor(quitBtn);
+        login.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                // This is just an example
+                HttpConnection httpCon = new HttpConnection();
+                httpCon.login(nameTxt.getText(), passTxt.getText());
+            }            
+        });
+        
+        register.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gameParent.setScreen(new RegistrationScreen());
+            }            
+        });
+        
+        gear.add(settingsBtn).pad(15);
+        gear.top().right();
+        menuStage.addActor(gear);
+        
+        menuTable.defaults().padBottom(10).padRight(5);
+        menuTable.add(nameLbl);
+        menuTable.add(nameTxt).width(100);
+        menuTable.row();
+        menuTable.add(passLbl);
+        menuTable.add(passTxt).width(100);
+        menuTable.row();
+        menuTable.add(login).colspan(2).fillX();
+        menuTable.row();
+        menuTable.add(register).colspan(2).fillX();
+        menuTable.row();
+        menuTable.add(playBtn).colspan(2).fillX();
+        menuTable.row();
+        menuTable.add(quitBtn).colspan(2).fillX();
+        menuStage.addActor(menuTable);
+        
         batch = new SpriteBatch();
     }
 
@@ -78,7 +141,7 @@ public class MainMenuScreen implements Screen{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        warlock.draw(batch);
+        background.draw(batch);
         batch.end();        
         
         menuStage.act(delta);
@@ -108,6 +171,7 @@ public class MainMenuScreen implements Screen{
     @Override
     public void dispose() {
         batch.dispose();
-        warlock.getTexture().dispose();
+        background.getTexture().dispose();
+        menuStage.dispose();
     }
 }

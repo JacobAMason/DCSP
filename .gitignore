@@ -55,7 +55,6 @@ nbactions.xml
 nb-configuration.xml
 
 ## Gradle
-
 .gradle
 gradle-app.setting
 build/
@@ -64,4 +63,7 @@ build/
 .DS_Store
 /.nb-gradle/profiles/private/
 /.nb-gradle/private/
-/WebDev/LoginProject/nbproject/private/
+
+
+## UML Generator
+*.cdg

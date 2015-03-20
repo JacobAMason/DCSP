@@ -21,49 +21,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.DCSP.game.android.screen;
-
-import com.DCSP.screen.ScreenInterface;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
+package com.DCSP.mazeGen;
 
 /**
  *
  * @author Jacob Mason (jm2232)
  */
-public class AndroidSettingsScreen extends ScreenInterface {
-    private int WIDTH, HEIGHT;
+public class Cell {
+    protected int X;
+    protected int Y;
+    protected boolean borderN, borderE, borderS, borderW;
+    protected boolean wallN = true, wallE = true, wallS = true, wallW = true;
 
-    @Override
-    public void show() {
-        WIDTH = Gdx.graphics.getWidth();
-        HEIGHT = Gdx.graphics.getHeight();
+    public Cell(int positionX, int positionY, boolean borderN, boolean borderE,
+            boolean borderS, boolean borderW) {
+        this.X = positionX;
+        this.Y = positionY;
+        this.borderN = borderN;
+        this.borderE = borderE;
+        this.borderS = borderS;
+        this.borderW = borderW;
     }
-
-    @Override
-    public void render(float delta) {
-        Gdx.gl.glClearColor(0.7f, 0.6f, 0.2f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    
+    boolean allWallsIntact() {
+        return wallN && wallE && wallS && wallW;
     }
-
-    @Override
-    public void resize(int width, int height) {
-    }
-
-    @Override
-    public void pause() {
-    }
-
-    @Override
-    public void resume() {
-    }
-
-    @Override
-    public void hide() {
-    }
-
-    @Override
-    public void dispose() {
-    }
-
+    
 }
