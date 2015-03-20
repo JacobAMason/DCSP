@@ -20,10 +20,11 @@ body{
 
 #Title{
     position: absolute;
-    height: 100px;
-    width: 200px;
+    height: 125px;
+    width: 244px;
     float: left;
-    background-color: #980000;
+    background-image:url('logo.png');
+    background-repeat: no-repeat;
     z-index: 2;
     margin: auto;	
 
@@ -47,7 +48,8 @@ IMG.mazeImg{
 	margin: auto;
 }
 
-form{
+.login{
+	padding: 25px;
 	float: right;
 	color: #FFFFFF;
 }
