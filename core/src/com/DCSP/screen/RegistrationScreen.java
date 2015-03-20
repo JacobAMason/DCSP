@@ -122,24 +122,24 @@ public class RegistrationScreen extends ScreenInterface {
         });
         
         
-        menuTable.defaults().padBottom(10).padRight(5);
+        menuTable.defaults().padBottom(10).padRight(5).expand().fillX();
         menuTable.add(usernameLbl);
-        menuTable.add(usernameTxt).width(100);
+        menuTable.add(usernameTxt);
         menuTable.add(nameLbl);
-        menuTable.add(nameTxt).width(100);
+        menuTable.add(nameTxt);
         menuTable.row();
         menuTable.add(pass1Lbl);
-        menuTable.add(pass1Txt).width(100);
+        menuTable.add(pass1Txt);
         menuTable.add(email1Lbl);
-        menuTable.add(email1Txt).width(100);
+        menuTable.add(email1Txt);
         menuTable.row();
         menuTable.add(pass2Lbl);
-        menuTable.add(pass2Txt).width(100);
+        menuTable.add(pass2Txt);
         menuTable.add(email2Lbl);
-        menuTable.add(email2Txt).width(100);
+        menuTable.add(email2Txt);
         menuTable.row();
-        menuTable.add(cancel).colspan(2).fillX();
-        menuTable.add(register).colspan(2).fillX();
+        menuTable.add(cancel).colspan(2).fill();
+        menuTable.add(register).colspan(2).fill();
         menuStage.addActor(menuTable);
         
         batch = new SpriteBatch();
