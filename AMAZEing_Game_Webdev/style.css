@@ -21,7 +21,7 @@ body{
 #Title{
     position: absolute;
     height: 100px;
-    width: 100px;
+    width: 200px;
     float: left;
     background-color: #980000;
     z-index: 2;
@@ -45,4 +45,9 @@ IMG.mazeImg{
 
 	top: 0; left: 0; right: 0; bottom: 0;
 	margin: auto;
+}
+
+form{
+	float: right;
+	color: #FFFFFF;
 }
