@@ -63,9 +63,6 @@ public class MazeScreen extends ScreenInterface {
             @Override
             public boolean keyDown(int keycode) {
                 switch (keycode){
-                    case Keys.ESCAPE:
-                        gameParent.setScreen(gameParent.mainMenuScreen);
-                        break;
                     case Keys.W:
                     case Keys.UP:
                         player.setY(-step);
@@ -88,6 +85,10 @@ public class MazeScreen extends ScreenInterface {
             @Override
             public boolean keyUp(int keycode) {
                 switch (keycode){
+                    case Keys.ESCAPE:
+                    case Keys.BACK:
+                        gameParent.setScreen(gameParent.mainMenuScreen);
+                        break;
                     case Keys.W:
                     case Keys.S:
                     case Keys.UP:
@@ -105,6 +106,8 @@ public class MazeScreen extends ScreenInterface {
             }
             
         });
+
+        Gdx.input.setCatchBackKey(true);
         
         cellFactor = (int)((float)Gdx.graphics.getHeight()/((float)mHeight+0.5f));
         world = new World(new Vector2(0,0),true);

@@ -38,6 +38,7 @@ public class MainMenuScreen extends ScreenInterface{
         
         menuStage = new Stage();
         Gdx.input.setInputProcessor(menuStage);
+        Gdx.input.setCatchBackKey(true);
         
         menuTable = new Table();
         menuTable.setFillParent(true);
