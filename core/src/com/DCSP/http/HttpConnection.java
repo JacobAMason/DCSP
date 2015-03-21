@@ -27,12 +27,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.net.HttpParametersUtils;
 import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.JsonWriter.OutputType;
 import com.badlogic.gdx.utils.ObjectMap;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * Parsing JSON. Complicated stuff, dude.
+ * https://stackoverflow.com/questions/27078410/libgdx-reading-from-json-file-to-arraylist
+ * https://stackoverflow.com/questions/15278619/lib-gdx-json-serializationexception-and-missing-no-arg-constructor
  * @author Jacob Mason (jm2232)
  */
 public class HttpConnection {
@@ -48,6 +53,7 @@ public class HttpConnection {
         
         request.setContent(HttpParametersUtils.convertHttpParameters(parameters));
         
+        
         Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
@@ -55,7 +61,7 @@ public class HttpConnection {
                 Gdx.app.log("HttpCon:Login", response);
                 Json json = new Json();
                 ObjectMap result = json.fromJson(ObjectMap.class, response);
-                Gdx.app.log("HttpCon:Login", result.get("result").toString());
+                Gdx.app.log("HttpCon:Login", result.toString());
             }
 
             @Override
@@ -212,5 +218,60 @@ public class HttpConnection {
                 Gdx.app.log("HttpCon:sendChallenge", "Cancel function called. What does this even do?");
             }
         });
+    }
+    
+    
+    public void getChallenges(int ID) {
+        Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
+        request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/getChallenges.php");
+        
+        Map parameters = new HashMap();
+        parameters.put("ID", String.valueOf(ID));
+        
+        request.setContent(HttpParametersUtils.convertHttpParameters(parameters));
+        
+        
+        Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
+            @Override
+            public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                String response = httpResponse.getResultAsString();
+                Gdx.app.log("HttpCon:getChallenges", response);
+                Json json = new Json();
+                try {
+                    Response results = json.fromJson(Response.class, response);
+                    Gdx.app.log("HttpCon:getChallenges", results.resultsArray.toString());
+                } catch(Exception e) {
+                    System.out.println(e.toString());
+                }
+            }
+
+            @Override
+            public void failed(Throwable t) {
+                Gdx.app.log("HttpCon:getChallenges", "Connection Fail");
+            }
+
+            @Override
+            public void cancelled() {
+                Gdx.app.log("HttpCon:getChallenges", "Cancel function called. What does this even do?");
+            }
+        });
+    }
+}
+
+
+class Response {
+    public ArrayList<ChallengesResponse> resultsArray;
+
+    static class ChallengesResponse {
+        public int ID;
+        public int FromID;
+        public long ChallengeSeed;
+        public int Level;
+        public int Score;
+
+        @Override
+        public String toString() {
+            return "ChallengesResponse{" + "ID=" + ID + ", FromID=" + FromID + ", ChallengeSeed=" + ChallengeSeed + ", Level=" + Level + ", Score=" + Score + '}';
+        }
     }
 }
