@@ -82,7 +82,7 @@ public class Player {
     }
     
     public void update(){
-        player.applyForceToCenter(speed, true);
+        player.setLinearVelocity(speed);
     }
 
     public boolean checkWin(int x, int y){
