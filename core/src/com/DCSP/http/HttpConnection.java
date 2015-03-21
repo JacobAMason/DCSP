@@ -194,8 +194,6 @@ public class HttpConnection {
         parameters.put("seed", String.valueOf(seed));
         parameters.put("toID", String.valueOf(toID));
         
-        
-        
         request.setContent(HttpParametersUtils.convertHttpParameters(parameters));
         
         Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {

@@ -6,6 +6,7 @@ $dbusername = "dcsp01";
 $dbpassword = "AimAtJ";
 $dbhostname = "localhost";
 $sql = new mysqli($dbhostname, $dbusername, $dbpassword, $dbusername);
+$jsonReply = array();
 
 $ID = $_POST['ID'];
 $score = $_POST['score'];
@@ -13,10 +14,8 @@ $level = $_POST['level'];
 $seed = $_POST['seed'];
 $toID = $_POST['toID'];
 
-
-$query = "INSERT INTO Challenges (ID, FromID, ChallengeSeed, Level, Score) VALUES ('$toID', '$ID', '$seed', '$level', '$score')";
+$query = "INSERT IGNORE INTO Challenges SET ID='$toID', FromID='$ID', ChallengeSeed='$seed', Level='$level', Score='$score'";
 $row = $sql->query($query);
-$jsonReply = array();
 
 if($row) {
     $jsonReply['result'] = "Success";
