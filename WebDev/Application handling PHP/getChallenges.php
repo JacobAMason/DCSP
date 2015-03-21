@@ -9,21 +9,17 @@ $sql = new mysqli($dbhostname, $dbusername, $dbpassword, $dbusername);
 $jsonReply = array();
 
 $ID = $_POST['ID'];
-$score = $_POST['score'];
-$level = $_POST['level'];
-$seed = $_POST['seed'];
-$toID = $_POST['toID'];
 
-$query = "INSERT IGNORE INTO Challenges SET ID='$toID', FromID='$ID', ChallengeSeed='$seed', Level='$level', Score='$score'";
+$query = "SELECT * FROM Challenges WHERE ID='$ID''";
 $row = $sql->query($query);
 
 if($row) {
 	$entry = $row->fetch_assoc();
-    $jsonReply['result'] = "Success";
+    $jsonReply = $entry;
 	$response = "Success: " . $entry['ID'];
 } else {
 	$jsonReply['result'] = "Fail";
-    $response = "Fail: on username: '" . $username . "'";
+    $response = "Fail: on ID: '" . $ID  . "'";
 }
 
 $log->lwrite($response);
