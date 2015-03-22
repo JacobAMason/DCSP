@@ -35,7 +35,7 @@ import com.badlogic.gdx.physics.box2d.World;
  * @author Alex
  */
 public class Player {
-    private Vector2 initPos,pos;
+    private Vector2 initPos,pos,pos2;
     private int cellFactor;
     private Body player;
     private World world;
@@ -83,6 +83,13 @@ public class Player {
     
     public void update(){
         player.setLinearVelocity(speed);
+    }
+    
+    public Vector2 getPosition(){
+        pos2 = player.getLocalPoint(initPos);
+        pos2.x = (int)(Math.abs(pos2.x) + cellFactor);
+        pos2.y = (int)(Math.abs(pos2.y) + cellFactor);
+        return pos2;
     }
 
     public boolean checkWin(int x, int y){
