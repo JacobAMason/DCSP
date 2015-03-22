@@ -10,17 +10,16 @@ $jsonReply = array();
 
 $ID = $_POST['ID'];
 
-$query = "SELECT * FROM Challenges WHERE ID='$ID''";
+$query = "SELECT * FROM Challenges WHERE ID='$ID'";
 $row = $sql->query($query);
 
-if($row) {
-	$entry = $row->fetch_assoc();
-    $jsonReply = $entry;
+$jsonEntries = array();
+while($entry = $row->fetch_assoc()) {
+    $jsonEntries[] = $entry;
 	$response = "Success: " . $entry['ID'];
-} else {
-	$jsonReply['result'] = "Fail";
-    $response = "Fail: on ID: '" . $ID  . "'";
 }
+
+$jsonReply[resultsArray] = $jsonEntries;
 
 $log->lwrite($response);
 

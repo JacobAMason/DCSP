@@ -107,27 +107,27 @@ public class MazeScreen extends ScreenInterface {
             
             @Override
             public boolean touchDown (int screenX, int screenY, int pointer, int button) {
-                System.out.print((screenX + (mWidth*cellFactor - Gdx.graphics.getWidth())/2)/cellFactor);
-                System.out.print(", ");
-                System.out.println((screenY + (mHeight*cellFactor - Gdx.graphics.getHeight())/2)/cellFactor);
-		return true;
+                Gdx.app.log("MazeScreen", String.valueOf((screenX + (mWidth*cellFactor - Gdx.graphics.getWidth())/2)/cellFactor));
+                Gdx.app.log("MazeScreen", ", ");
+                Gdx.app.log("MazeScreen", String.valueOf((screenY + (mHeight*cellFactor - Gdx.graphics.getHeight())/2)/cellFactor));
+		        return true;
             }
             
             @Override
             public boolean touchDragged (int screenX, int screenY, int pointer) {
-                System.out.print((screenX + (mWidth*cellFactor - Gdx.graphics.getWidth())/2)/cellFactor);
-                System.out.print(", ");
-                System.out.println((screenY + (mHeight*cellFactor - Gdx.graphics.getHeight())/2)/cellFactor);
+                Gdx.app.log("MazeScreen", String.valueOf((screenX + (mWidth*cellFactor - Gdx.graphics.getWidth())/2)/cellFactor));
+                Gdx.app.log("MazeScreen", ", ");
+                Gdx.app.log("MazeScreen", String.valueOf((screenY + (mHeight*cellFactor - Gdx.graphics.getHeight())/2)/cellFactor));
                 
-		return true;
+		        return true;
             }
             
             @Override
             public boolean touchUp (int screenX, int screenY, int pointer, int button) {
                 player.setX(0);
                 player.setY(0);
-                System.out.println("set to zero");
-		return true;
+                Gdx.app.log("MazeScreen", "set to zero");
+		        return true;
             }
             
         });

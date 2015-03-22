@@ -90,7 +90,7 @@ public class MainMenuScreen extends ScreenInterface{
             public void clicked(InputEvent event, float x, float y) {
                 HttpConnection test = new HttpConnection();
                 test.userLookup("Admin");
-                test.sendChallenge(0, 5, 1, 42, 4);
+                test.getChallenges(4);
                 //gameParent.setScreen(gameParent.settingsScreen);
             }
         });
