@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
@@ -30,6 +31,10 @@ public class MainMenuScreen extends ScreenInterface{
     private TextField nameTxt,passTxt;
     private TextButton playBtn, quitBtn, register,login;
     private ImageButton settingsBtn;
+    
+    //Check window
+    private Window success;
+    
     
     @Override
     public void show() {        
@@ -103,6 +108,10 @@ public class MainMenuScreen extends ScreenInterface{
                 // This is just an example
                 HttpConnection httpCon = new HttpConnection();
                 httpCon.login(nameTxt.getText(), passTxt.getText());
+                
+                /*make this method call to put the login failed window appear
+                 *success.setVisible(true);
+                 */
             }            
         });
         
@@ -132,6 +141,23 @@ public class MainMenuScreen extends ScreenInterface{
         menuTable.row();
         menuTable.add(quitBtn).colspan(2).fillX();
         menuStage.addActor(menuTable);
+        
+        //Check window
+        success = new Window("login",skin);
+        success.padTop(17);
+        success.add(new Label("login failed",skin));
+        success.row().row();
+        TextButton temp = new TextButton("Ok",skin);
+        temp.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                success.setVisible(false);
+            }            
+        });
+        success.add(temp);
+        success.setVisible(false);
+        menuStage.addActor(success);
+        //end check window
         
         batch = new SpriteBatch();
     }
