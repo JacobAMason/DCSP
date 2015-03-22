@@ -46,9 +46,9 @@ public class Maze {
     private int cellFactor;
     private int width, height;
     
-    public Maze(World world, int w, int h, long randomSeed){
+    public Maze(World world, int w, int h, long randomSeed,int cellFactor){
         this.world = world;
-        this.cellFactor = (int)((float)Gdx.graphics.getHeight()/((float)h+0.5f));
+        this.cellFactor = cellFactor;
         this.width = w; this.height = h;
         generateMaze(width, height, randomSeed);
         System.out.println(cellGrid.toString());

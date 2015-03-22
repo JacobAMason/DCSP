@@ -144,7 +144,7 @@ public class MazeScreen extends ScreenInterface {
 
         Gdx.input.setCatchBackKey(true);
         
-        cellFactor = (int)((float)Gdx.graphics.getHeight()/((float)mHeight+0.5f));
+        cellFactor = (int)(((float)Gdx.graphics.getHeight()/((float)mHeight+0.5f)))/10;
         world = new World(new Vector2(0,0),true);
         debugging = new Box2DDebugRenderer();
         
@@ -152,9 +152,10 @@ public class MazeScreen extends ScreenInterface {
         camera.setToOrtho(true);
         camera.translate((mWidth*cellFactor - Gdx.graphics.getWidth())/2, 
                 (mHeight*cellFactor - Gdx.graphics.getHeight())/2);
+        camera.zoom = camera.zoom/10;
         camera.update();
         
-        maze = new Maze(world, mWidth, mHeight, 42);
+        maze = new Maze(world, mWidth, mHeight, 42, cellFactor);
         
         player = new Player(world, cellFactor);
         
