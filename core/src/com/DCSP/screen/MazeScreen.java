@@ -46,6 +46,7 @@ public class MazeScreen extends ScreenInterface {
     private final int mWidth, mHeight;
     private int cellFactor;
     private Player player;
+    private Vector2 offset = new Vector2(0,0);
     
     private int step = 100;
     
@@ -58,6 +59,8 @@ public class MazeScreen extends ScreenInterface {
     
     @Override
     public void show() {
+        offset.x = (mWidth*cellFactor - Gdx.graphics.getWidth())/2;
+        offset.y = (mHeight*cellFactor - Gdx.graphics.getHeight())/2;
         Gdx.input.setInputProcessor(new InputAdapter(){
 
             @Override
@@ -107,17 +110,17 @@ public class MazeScreen extends ScreenInterface {
             
             @Override
             public boolean touchDown (int screenX, int screenY, int pointer, int button) {
-                Gdx.app.log("MazeScreen", String.valueOf((screenX + (mWidth*cellFactor - Gdx.graphics.getWidth())/2)/cellFactor));
+                Gdx.app.log("MazeScreen", String.valueOf((screenX + (offset.x)/cellFactor)));
                 Gdx.app.log("MazeScreen", ", ");
-                Gdx.app.log("MazeScreen", String.valueOf((screenY + (mHeight*cellFactor - Gdx.graphics.getHeight())/2)/cellFactor));
+                Gdx.app.log("MazeScreen", String.valueOf((screenY + (offset.y)/cellFactor)));
 		        return true;
             }
             
             @Override
             public boolean touchDragged (int screenX, int screenY, int pointer) {
-                Gdx.app.log("MazeScreen", String.valueOf((screenX + (mWidth*cellFactor - Gdx.graphics.getWidth())/2)/cellFactor));
+                Gdx.app.log("MazeScreen", String.valueOf((screenX + (offset.x)/cellFactor)));
                 Gdx.app.log("MazeScreen", ", ");
-                Gdx.app.log("MazeScreen", String.valueOf((screenY + (mHeight*cellFactor - Gdx.graphics.getHeight())/2)/cellFactor));
+                Gdx.app.log("MazeScreen", String.valueOf((screenY + (offset.y)/cellFactor)));
                 
 		        return true;
             }
@@ -140,7 +143,7 @@ public class MazeScreen extends ScreenInterface {
         
         camera = new OrthographicCamera(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         camera.setToOrtho(true);
-        camera.translate((mWidth*cellFactor - Gdx.graphics.getWidth())/2, (mHeight*cellFactor - Gdx.graphics.getHeight())/2);
+        camera.translate(offset);
         camera.update();
         
         maze = new Maze(world, mWidth, mHeight, 42);
