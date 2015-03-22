@@ -23,20 +23,23 @@ body{
     height: 125px;
     width: 244px;
     float: left;
-    background-image:url('logo.png');
-    background-repeat: no-repeat;
-    z-index: 2;
     margin: auto;	
 
 }
-
+IMG.logoImg{
+    position: absolute;
+    float: left;
+    z-index: 2;
+    margin: auto;
+    
+}
 
 IMG.mazeImg{
 	position: absolute;
 	vertical-align: middle;
-    z-index: 1;
+        z-index: 1;
    	margin: auto;
-    top: 0; left: 0; right: 0; bottom: 0;
+        top: 0; left: 0; right: 0; bottom: 0;
 }
 
 
