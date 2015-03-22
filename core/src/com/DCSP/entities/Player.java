@@ -36,7 +36,7 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public class Player {
     private Vector2 initPos,pos,pos2;
-    private int cellFactor;
+    private float cellFactor;
     private Body player;
     private World world;
     private BodyDef playerBody;
@@ -44,14 +44,14 @@ public class Player {
 
     private Vector2 speed = new Vector2(0,0);
     
-    public Player(World world, int cellFactor){
+    public Player(World world, float cellFactor){
         this.world = world;
         this.cellFactor = cellFactor;
         initPos = new Vector2(0+cellFactor/2, 0 + cellFactor/2);
         draw();
     }
     
-    public Player(World world, int cellFactor, int initPosX, int initPosY){
+    public Player(World world, float cellFactor, int initPosX, int initPosY){
         this.world = world;
         this.cellFactor = cellFactor;
         initPos = new Vector2(initPosX + cellFactor/2, initPosY + cellFactor/2);

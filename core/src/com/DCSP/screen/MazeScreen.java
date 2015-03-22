@@ -44,7 +44,7 @@ public class MazeScreen extends ScreenInterface {
     private Box2DDebugRenderer debugging;
     private OrthographicCamera camera;
     private final int mWidth, mHeight;
-    private int cellFactor;
+    private float cellFactor;
     private Player player;
     private Vector2 pos = new Vector2(0,0);
     
