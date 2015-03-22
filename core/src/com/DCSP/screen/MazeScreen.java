@@ -112,10 +112,6 @@ public class MazeScreen extends ScreenInterface {
                 player.setX((screenX/10 - (pos.x))* cellFactor);
                 player.setY((screenY/10 - (pos.y))* cellFactor);
                 
-                Gdx.app.log("MazeScreen", String.valueOf((screenX - (int)(pos.x))*100));
-                Gdx.app.log("MazeScreen", ", ");
-                Gdx.app.log("MazeScreen", String.valueOf((screenY - (int)(pos.y))*100));
-                
                 return true;
             }
             
@@ -124,11 +120,7 @@ public class MazeScreen extends ScreenInterface {
                 pos = player.getPosition();
                 player.setX((screenX/10 - (pos.x))* cellFactor);
                 player.setY((screenY/10 - (pos.y))* cellFactor);
-                
-                Gdx.app.log("MazeScreen", String.valueOf((screenX - (int)(pos.x))*100));
-                Gdx.app.log("MazeScreen", ", ");
-                Gdx.app.log("MazeScreen", String.valueOf((screenY - (int)(pos.y))*100));
-                
+
                 return true;
             }
             
@@ -153,7 +145,7 @@ public class MazeScreen extends ScreenInterface {
         camera.setToOrtho(true);
         camera.translate((mWidth*cellFactor - Gdx.graphics.getWidth())/2, 
                 (mHeight*cellFactor - Gdx.graphics.getHeight())/2);
-        camera.zoom = camera.zoom/10;
+        camera.zoom /= 9;
         camera.update();
         
         maze = new Maze(world, mWidth, mHeight, 42, cellFactor);
