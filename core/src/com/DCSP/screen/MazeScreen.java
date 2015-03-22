@@ -46,9 +46,9 @@ public class MazeScreen extends ScreenInterface {
     private final int mWidth, mHeight;
     private float cellFactor;
     private Player player;
-    private Vector2 pos = new Vector2(0,0);
+    private Vector2 pos = new Vector2(0f,0f);
     
-    private int step = 100;
+    private float step;
     
     
     
@@ -109,8 +109,8 @@ public class MazeScreen extends ScreenInterface {
             @Override
             public boolean touchDown (int screenX, int screenY, int pointer, int button) {
                 pos = player.getPosition();
-                player.setX((screenX - (int)(pos.x))*100);
-                player.setY((screenY - (int)(pos.y))*100);
+                player.setX((screenX/10 - (pos.x))* cellFactor);
+                player.setY((screenY/10 - (pos.y))* cellFactor);
                 
                 Gdx.app.log("MazeScreen", String.valueOf((screenX - (int)(pos.x))*100));
                 Gdx.app.log("MazeScreen", ", ");
@@ -122,8 +122,8 @@ public class MazeScreen extends ScreenInterface {
             @Override
             public boolean touchDragged (int screenX, int screenY, int pointer) {
                 pos = player.getPosition();
-                player.setX((screenX - (int)(pos.x))*100);
-                player.setY((screenY - (int)(pos.y))*100);
+                player.setX((screenX/10 - (pos.x))* cellFactor);
+                player.setY((screenY/10 - (pos.y))* cellFactor);
                 
                 Gdx.app.log("MazeScreen", String.valueOf((screenX - (int)(pos.x))*100));
                 Gdx.app.log("MazeScreen", ", ");
@@ -144,7 +144,8 @@ public class MazeScreen extends ScreenInterface {
 
         Gdx.input.setCatchBackKey(true);
         
-        cellFactor = (int)(((float)Gdx.graphics.getHeight()/((float)mHeight+0.5f)))/10;
+        cellFactor = (((float)Gdx.graphics.getHeight()/((float)mHeight+0.5f)))/10;
+        step = cellFactor * cellFactor;
         world = new World(new Vector2(0,0),true);
         debugging = new Box2DDebugRenderer();
         

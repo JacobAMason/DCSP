@@ -42,7 +42,7 @@ public class Player {
     private BodyDef playerBody;
     private FixtureDef playerFix;
 
-    private Vector2 speed = new Vector2(0,0);
+    private Vector2 speed = new Vector2(0f,0f);
     
     public Player(World world, float cellFactor){
         this.world = world;
@@ -73,11 +73,11 @@ public class Player {
         player = world.createBody(playerBody);
         player.createFixture(playerFix);
     }
-    public void setY(int step){
+    public void setY(float step){
         speed.y = step;
     }
     
-    public void setX(int step){
+    public void setX(float step){
         speed.x = step;
     }
     
@@ -87,14 +87,14 @@ public class Player {
     
     public Vector2 getPosition(){
         pos2 = player.getLocalPoint(initPos);
-        pos2.x = (int)(Math.abs(pos2.x) + cellFactor);
-        pos2.y = (int)(Math.abs(pos2.y) + cellFactor);
+        pos2.x = (Math.abs(pos2.x) + cellFactor);
+        pos2.y = (Math.abs(pos2.y) + cellFactor);
         return pos2;
     }
 
     public boolean checkWin(int x, int y){
         pos = player.getLocalPoint(initPos);      
-        return ((int)(Math.abs(pos.x)/cellFactor + .5f)== x-1) && 
+        return ((int)(Math.abs(pos.x)/cellFactor + .5f) == x-1) && 
                 ((int)(Math.abs(pos.y)/cellFactor + .5f) == y-1);
     }
 }
