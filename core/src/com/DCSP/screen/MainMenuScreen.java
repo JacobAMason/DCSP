@@ -33,7 +33,7 @@ public class MainMenuScreen extends ScreenInterface{
     private ImageButton settingsBtn;
     
     //Check window
-    private Window success;
+    private Window successWindow;
     
     
     @Override
@@ -105,13 +105,8 @@ public class MainMenuScreen extends ScreenInterface{
         login.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                // This is just an example
                 HttpConnection httpCon = new HttpConnection();
-                httpCon.login(nameTxt.getText(), passTxt.getText());
-                
-                /*make this method call to put the login failed window appear
-                 *success.setVisible(true);
-                 */
+                httpCon.login(nameTxt.getText(), passTxt.getText(), successWindow);
             }            
         });
         
@@ -126,37 +121,46 @@ public class MainMenuScreen extends ScreenInterface{
         gear.top().right();
         menuStage.addActor(gear);
         
-        menuTable.defaults().padBottom(10).padRight(5);
-        menuTable.add(nameLbl);
-        menuTable.add(nameTxt).width(100);
+        menuTable.defaults().padBottom(10).padRight(5).minHeight(HEIGHT/9);
+        menuTable.add(nameLbl).minWidth(90);  // 10 difference due to padding
+        menuTable.add(nameTxt).minWidth(WIDTH/2 - 100);
         menuTable.row();
-        menuTable.add(passLbl);
-        menuTable.add(passTxt).width(100);
+        menuTable.add(passLbl).minWidth(90);
+        menuTable.add(passTxt).minWidth(WIDTH/2 - 100);
         menuTable.row();
-        menuTable.add(login).colspan(2).fillX();
+        menuTable.add(login).colspan(2).minWidth(WIDTH/2);
         menuTable.row();
-        menuTable.add(register).colspan(2).fillX();
+        menuTable.add(register).colspan(2).minWidth(WIDTH/2);
         menuTable.row();
-        menuTable.add(playBtn).colspan(2).fillX();
+        menuTable.add(playBtn).colspan(2).minWidth(WIDTH/2);
         menuTable.row();
-        menuTable.add(quitBtn).colspan(2).fillX();
+        menuTable.add(quitBtn).colspan(2).minWidth(WIDTH/2);
         menuStage.addActor(menuTable);
         
         //Check window
-        success = new Window("login",skin);
-        success.padTop(17);
-        success.add(new Label("login failed",skin));
-        success.row().row();
-        TextButton temp = new TextButton("Ok",skin);
+        /* 
+         * make this method call to put the login failed window appear
+         * successWindow.setVisible(true);
+         */
+        successWindow = new Window("Login Failed",skin);
+        successWindow.setMovable(false);
+        successWindow.padTop(20);
+        Label successWindowLbl = new Label("Incorrect Username or Password.\nPlease try again.", skin);
+        successWindow.add(successWindowLbl);
+        successWindow.setWidth(successWindowLbl.getWidth() + 20);
+        successWindow.row().row();
+        TextButton temp = new TextButton("Ok", skin);
         temp.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                success.setVisible(false);
+                successWindow.setVisible(false);
             }            
         });
-        success.add(temp);
-        success.setVisible(false);
-        menuStage.addActor(success);
+        successWindow.add(temp);
+        successWindow.setVisible(false);
+        successWindow.setX(WIDTH/2 - successWindow.getWidth()/2);
+        successWindow.setY(HEIGHT/2 - successWindow.getHeight()/2);
+        menuStage.addActor(successWindow);
         //end check window
         
         batch = new SpriteBatch();

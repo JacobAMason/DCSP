@@ -26,9 +26,8 @@ package com.DCSP.http;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.net.HttpParametersUtils;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonValue;
-import com.badlogic.gdx.utils.JsonWriter.OutputType;
 import com.badlogic.gdx.utils.ObjectMap;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,7 +42,7 @@ import java.util.Map;
 public class HttpConnection {
     
     // Returns true/false depending on whether the login succeeded or failed.
-    public void login(String username, String password) {
+    public void login(String username, String password, final Window successWindow) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
         request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/Login.php");
         
@@ -62,6 +61,10 @@ public class HttpConnection {
                 Json json = new Json();
                 ObjectMap result = json.fromJson(ObjectMap.class, response);
                 Gdx.app.log("HttpCon:Login", result.toString());
+                
+                if(result.get("result").equals("Fail")) {
+                    successWindow.setVisible(true);
+                }
             }
 
             @Override
