@@ -31,7 +31,7 @@ body{
 }
 
 
-IMG.mazeImg{
+img.mazeImg{
 	position: absolute;
 	vertical-align: middle;
     z-index: 1;
