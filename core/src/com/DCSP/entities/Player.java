@@ -35,23 +35,23 @@ import com.badlogic.gdx.physics.box2d.World;
  * @author Alex
  */
 public class Player {
-    private Vector2 initPos,pos;
-    private int cellFactor;
+    private Vector2 initPos,pos,pos2;
+    private float cellFactor;
     private Body player;
     private World world;
     private BodyDef playerBody;
     private FixtureDef playerFix;
 
-    private Vector2 speed = new Vector2(0,0);
+    private Vector2 speed = new Vector2(0f,0f);
     
-    public Player(World world, int cellFactor){
+    public Player(World world, float cellFactor){
         this.world = world;
         this.cellFactor = cellFactor;
         initPos = new Vector2(0+cellFactor/2, 0 + cellFactor/2);
         draw();
     }
     
-    public Player(World world, int cellFactor, int initPosX, int initPosY){
+    public Player(World world, float cellFactor, int initPosX, int initPosY){
         this.world = world;
         this.cellFactor = cellFactor;
         initPos = new Vector2(initPosX + cellFactor/2, initPosY + cellFactor/2);
@@ -73,21 +73,28 @@ public class Player {
         player = world.createBody(playerBody);
         player.createFixture(playerFix);
     }
-    public void setY(int step){
+    public void setY(float step){
         speed.y = step;
     }
     
-    public void setX(int step){
+    public void setX(float step){
         speed.x = step;
     }
     
     public void update(){
-        player.applyForceToCenter(speed, true);
+        player.setLinearVelocity(speed);
+    }
+    
+    public Vector2 getPosition(){
+        pos2 = player.getLocalPoint(initPos);
+        pos2.x = (Math.abs(pos2.x) + cellFactor);
+        pos2.y = (Math.abs(pos2.y) + cellFactor);
+        return pos2;
     }
 
     public boolean checkWin(int x, int y){
         pos = player.getLocalPoint(initPos);      
-        return ((int)(Math.abs(pos.x)/cellFactor + .5f)== x-1) && 
+        return ((int)(Math.abs(pos.x)/cellFactor + .5f) == x-1) && 
                 ((int)(Math.abs(pos.y)/cellFactor + .5f) == y-1);
     }
 }

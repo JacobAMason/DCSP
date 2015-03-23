@@ -44,10 +44,11 @@ public class MazeScreen extends ScreenInterface {
     private Box2DDebugRenderer debugging;
     private OrthographicCamera camera;
     private final int mWidth, mHeight;
-    private int cellFactor;
+    private float cellFactor;
     private Player player;
+    private Vector2 pos = new Vector2(0f,0f);
     
-    private int step = 100;
+    private float step;
     
     
     
@@ -105,20 +106,49 @@ public class MazeScreen extends ScreenInterface {
                 return true;
             }
             
+            @Override
+            public boolean touchDown (int screenX, int screenY, int pointer, int button) {
+                pos = player.getPosition();
+                player.setX((screenX/10 - (pos.x))* cellFactor);
+                player.setY((screenY/10 - (pos.y))* cellFactor);
+                
+                return true;
+            }
+            
+            @Override
+            public boolean touchDragged (int screenX, int screenY, int pointer) {
+                pos = player.getPosition();
+                player.setX((screenX/10 - (pos.x))* cellFactor);
+                player.setY((screenY/10 - (pos.y))* cellFactor);
+
+                return true;
+            }
+            
+            @Override
+            public boolean touchUp (int screenX, int screenY, int pointer, int button) {
+                player.setX(0);
+                player.setY(0);
+                Gdx.app.log("MazeScreen", "set to zero");
+		        return true;
+            }
+            
         });
 
         Gdx.input.setCatchBackKey(true);
         
-        cellFactor = (int)((float)Gdx.graphics.getHeight()/((float)mHeight+0.5f));
+        cellFactor = (((float)Gdx.graphics.getHeight()/((float)mHeight+0.5f)))/10;
+        step = cellFactor * cellFactor;
         world = new World(new Vector2(0,0),true);
         debugging = new Box2DDebugRenderer();
         
         camera = new OrthographicCamera(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         camera.setToOrtho(true);
-        camera.translate((mWidth*cellFactor - Gdx.graphics.getWidth())/2, (mHeight*cellFactor - Gdx.graphics.getHeight())/2);
+        camera.translate((mWidth*cellFactor - Gdx.graphics.getWidth())/2, 
+                (mHeight*cellFactor - Gdx.graphics.getHeight())/2);
+        camera.zoom /= 9;
         camera.update();
         
-        maze = new Maze(world, mWidth, mHeight, 42);
+        maze = new Maze(world, mWidth, mHeight, 42, cellFactor);
         
         player = new Player(world, cellFactor);
         

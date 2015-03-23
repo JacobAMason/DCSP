@@ -43,12 +43,12 @@ import java.util.Stack;
 public class Maze {
     private Grid cellGrid;
     private World world;
-    private int cellFactor;
+    private float cellFactor;
     private int width, height;
     
-    public Maze(World world, int w, int h, long randomSeed){
+    public Maze(World world, int w, int h, long randomSeed,float cellFactor){
         this.world = world;
-        this.cellFactor = (int)((float)Gdx.graphics.getHeight()/((float)h+0.5f));
+        this.cellFactor = cellFactor;
         this.width = w; this.height = h;
         generateMaze(width, height, randomSeed);
         System.out.println(cellGrid.toString());
@@ -109,8 +109,8 @@ public class Maze {
     }
     
     private void drawWall(Cell cell){
-        int X = (cell.X * cellFactor)/2;
-        int Y = (cell.Y * cellFactor)/2;
+        float X = (cell.X * cellFactor)/2;
+        float Y = (cell.Y * cellFactor)/2;
         BodyDef wallBody = new BodyDef();
         wallBody.position.set(X,Y);
         wallBody.type = BodyType.StaticBody;

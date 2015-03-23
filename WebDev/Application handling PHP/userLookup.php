@@ -8,10 +8,8 @@ $dbhostname = "localhost";
 $sql = new mysqli($dbhostname, $dbusername, $dbpassword, $dbusername);
 
 $username = $_POST['username'];
-$password = $_POST['password'];
-$MD5passwd = MD5($password);
 
-$query = "SELECT Name FROM User WHERE username='$username' AND password='$MD5passwd'";
+$query = "SELECT ID FROM User WHERE username='$username'";
 $row = $sql->query($query);
 $jsonReply = array();
 
@@ -19,10 +17,10 @@ if(mysqli_num_rows($row)) {
     $entry = $row->fetch_assoc();
     $jsonReply = $entry;
     $jsonReply['result'] = "Success";
-	$response = "Success: " . $entry['Name'];
+	$response = "Success: " . $entry['ID'];
 } else {
 	$jsonReply['result'] = "Fail";
-    $response = "Fail: on username: '" . $username . "' and password: '" . $password . "'";
+    $response = "Fail: on username: '" . $username . "'";
 }
 
 $log->lwrite($response);

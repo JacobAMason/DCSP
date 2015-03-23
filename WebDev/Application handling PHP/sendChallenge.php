@@ -6,23 +6,24 @@ $dbusername = "dcsp01";
 $dbpassword = "AimAtJ";
 $dbhostname = "localhost";
 $sql = new mysqli($dbhostname, $dbusername, $dbpassword, $dbusername);
-
-$username = $_POST['username'];
-$password = $_POST['password'];
-$MD5passwd = MD5($password);
-
-$query = "SELECT Name FROM User WHERE username='$username' AND password='$MD5passwd'";
-$row = $sql->query($query);
 $jsonReply = array();
 
-if(mysqli_num_rows($row)) {
-    $entry = $row->fetch_assoc();
-    $jsonReply = $entry;
+$ID = $_POST['ID'];
+$score = $_POST['score'];
+$level = $_POST['level'];
+$seed = $_POST['seed'];
+$toID = $_POST['toID'];
+
+$query = "INSERT IGNORE INTO Challenges SET ID='$toID', FromID='$ID', ChallengeSeed='$seed', Level='$level', Score='$score'";
+$row = $sql->query($query);
+
+if($row) {
+	$entry = $row->fetch_assoc();
     $jsonReply['result'] = "Success";
-	$response = "Success: " . $entry['Name'];
+	$response = "Success: " . $entry['ID'];
 } else {
 	$jsonReply['result'] = "Fail";
-    $response = "Fail: on username: '" . $username . "' and password: '" . $password . "'";
+    $response = "Fail: on username: '" . $username . "'";
 }
 
 $log->lwrite($response);
