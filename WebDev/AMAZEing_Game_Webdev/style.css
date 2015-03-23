@@ -1,0 +1,58 @@
+﻿/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Feb 2, 2015, 2:46:21 PM
+    Author     : Elisabeth
+*/
+
+html{
+	min-height: 100%;
+	position: relative;
+}
+
+body{
+	background-color: #000000;
+	width: 100%;
+}
+
+#Title{
+    position: absolute;
+    height: 125px;
+    width: 244px;
+    float: left;
+    margin: auto;	
+
+}
+IMG.logoImg{
+    position: absolute;
+    float: left;
+    z-index: 2;
+    margin: auto;
+    
+}
+
+img.mazeImg{
+	position: absolute;
+	vertical-align: middle;
+        z-index: 1;
+   	margin: auto;
+        top: 0; left: 0; right: 0; bottom: 0;
+}
+
+
+#container{
+	width: 1025px;
+	position: absolute;
+
+	top: 0; left: 0; right: 0; bottom: 0;
+	margin: auto;
+}
+
+.login{
+	padding: 25px;
+	float: right;
+	color: #FFFFFF;
+}
