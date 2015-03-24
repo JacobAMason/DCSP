@@ -1,0 +1,63 @@
+Know the basic format of an html document
+	<!DOCTYPE> <html> <head> <body>
+	DOCTYPE is used to specify which version of HTML you are using. 
+
+Know the difference between open and close tags.
+
+Know how to set the title of the page
+	<title> Title </title>
+
+Comments
+	<!-- comment -->
+
+Lists
+	Unordered <ul>
+	Ordered <ol>
+
+Forms
+	GET and POST -- know the difference. GET send information in the url POST does it in the header
+	action - the url the form gets sent to
+	know at least 3 different input types (text, password, radio, checkbox, submit, reset, etc.)
+
+PHP
+Know how to specify variables
+ 	start with $
+	loosely typed
+
+Know how to access variables from request
+	$_GET and $_POST
+
+Know two ways of tracking users
+	cookies, sessions, or hidden form variables
+
+
+CSS
+Know the three places you can use CSS ( in order of precedence)
+ -- Inline (style attribute on element)
+ -- Internal style (style element in <head>
+ -- External style sheet (.css file stored on server)
+
+Be able to list an advantage of CSS
+ - Allows you to easily style an entire site, make uniform changes, separates formatting from content
+
+
+SQL
+select, insert into, update, delete from
+ - know the difference between primary and foreign keys
+ - know how to store passwords in database. Use MD5() to hash
+
+
+Requirements
+ - know the definition of requirement
+ - know the requirements criteria 
+ - be able to tell the difference between a good and bad requirement
+
+Requirements should be correct, unambiguous, complete, consistent, prioritized, verifiable, modifiable, traceable. feasible, design independent, and non-redundant.
+
+Consistent - make sure none of your requirements conflict
+
+
+Design
+Know how to come up with candidate classes and functions for a small project (remember to look for nours and verbs)
+
+
