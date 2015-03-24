@@ -37,24 +37,45 @@ IMG.logoImg{
 img.mazeImg{
 	position: absolute;
 	vertical-align: middle;
-        z-index: 1;
+    z-index: 1;
    	margin: auto;
-        top: 0; left: 0; right: 0; bottom: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
 }
 
 
 #container{
 	width: 1025px;
 	position: absolute;
-
 	top: 0; left: 0; right: 0; bottom: 0;
 	margin: auto;
 }
 
-.login{
-	padding: 25px;
+#loginID{
+	position:relative;
+	float:right;
+	clear: right;
+	z-index:3;
+	margin:0;
+}
+
+#registerID{
+	position:relative;
 	float: right;
+	clear:right;
+	z-index:4;
+	margin:0;
+}
+.login{
+	padding-top: 25px;
+	padding-right:17.5px;
 	color: #FFFFFF;
+	margin:0;
+}
+
+.register{
+	padding-top: 3px;
+	color: #FFFFFF;
+	margin:0;
 }
 
 .clearfix:after {
