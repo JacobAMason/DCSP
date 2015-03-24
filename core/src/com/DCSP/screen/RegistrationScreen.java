@@ -36,6 +36,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
@@ -53,6 +55,8 @@ public class RegistrationScreen extends ScreenInterface {
     private Label usernameLbl, pass1Lbl, pass2Lbl, nameLbl, email1Lbl, email2Lbl;
     private TextField usernameTxt, pass1Txt, pass2Txt, nameTxt, email1Txt, email2Txt;
     private TextButton cancel, register;
+    
+    private Window connectionFailWindow;
 
     @Override
     public void show() {
@@ -117,7 +121,7 @@ public class RegistrationScreen extends ScreenInterface {
                 
                 HttpConnection httpCon = new HttpConnection();
                 httpCon.register(usernameTxt.getText(), pass1Txt.getText(),
-                        nameTxt.getText(), email1Txt.getText());
+                        nameTxt.getText(), email1Txt.getText(), connectionFailWindow);
             }
         });
         
@@ -141,6 +145,33 @@ public class RegistrationScreen extends ScreenInterface {
         menuTable.add(cancel).colspan(2).fill();
         menuTable.add(register).colspan(2).fill();
         menuStage.addActor(menuTable);
+        
+        
+        //  Connection Fail Window
+        /* 
+         * make this method call to put the connection failed window appear
+         * connectionFailWindow.setVisible(true);
+         */
+        connectionFailWindow = new Window("Login Failed",skin);
+        connectionFailWindow.setMovable(false);
+        connectionFailWindow.padTop(20);
+        Label connectionFailWindowLbl = new Label("Couldn't connect to the interwebz.\nPlease try again.", skin);
+        connectionFailWindow.add(connectionFailWindowLbl);
+        connectionFailWindow.setWidth(connectionFailWindowLbl.getWidth() + 20);
+        connectionFailWindow.row().row();
+        TextButton confailOK = new TextButton("Ok", skin);
+        confailOK.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                connectionFailWindow.setVisible(false);
+            }            
+        });
+        connectionFailWindow.add(confailOK);
+        connectionFailWindow.setVisible(false);
+        connectionFailWindow.setPosition(WIDTH/2, HEIGHT/2, Align.center);
+        menuStage.addActor(connectionFailWindow);
+        //end check window
+        
         
         batch = new SpriteBatch();
     }

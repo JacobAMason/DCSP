@@ -8,21 +8,26 @@ $dbhostname = "localhost";
 $sql = new mysqli($dbhostname, $dbusername, $dbpassword, $dbusername);
 $jsonReply = array();
 
-$ID = $_POST['ID'];
-$score = $_POST['score'];
-$level = $_POST['level'];
-$seed = $_POST['seed'];
-$toID = $_POST['toID'];
+$friender = $_POST['friender'];
+$friendee = $_POST['friendee']
 
-$query = "INSERT IGNORE INTO Challenges SET ID='$toID', FromID='$ID', ChallengeSeed='$seed', Level='$level', Score='$score'";
+$query = "SELECT Friendee FROM Friends WHERE Friender='$friender')";
 $row = $sql->query($query);
 
-if($row) {
-    $jsonReply[result] = "Success";
+
+if(mysqli_num_rows($row)) {
+	$jsonEntries = array();
+	$jsonReply[result] = "Success";
 	$response = "Success: " . $ID;
+	
+	while($entry = $row->fetch_assoc()) {
+	    $jsonEntries[] = $entry;
+	}		
+	$jsonReply[resultsArray] = $jsonEntries;
+	
 } else {
-	$jsonReply[result] = "Fail";
-    $response = "Fail: " . $ID;
+	$jsonReply[result] = "Null";
+	$response = "Found no Friends for ID: " . $entry['ID'];
 }
 
 $log->lwrite($response);

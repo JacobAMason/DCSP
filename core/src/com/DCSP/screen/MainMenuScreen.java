@@ -33,8 +33,8 @@ public class MainMenuScreen extends ScreenInterface{
     private TextButton playBtn, quitBtn, register,login;
     private ImageButton settingsBtn;
     
-    //Check window
-    private Window successWindow;
+    // Windows
+    private Window successWindow, connectionFailWindow;
     
     
     @Override
@@ -107,7 +107,7 @@ public class MainMenuScreen extends ScreenInterface{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 HttpConnection httpCon = new HttpConnection();
-                httpCon.login(nameTxt.getText(), passTxt.getText(), successWindow);
+                httpCon.login(nameTxt.getText(), passTxt.getText(), successWindow, connectionFailWindow);
             }            
         });
         
@@ -150,17 +150,43 @@ public class MainMenuScreen extends ScreenInterface{
         successWindow.add(successWindowLbl);
         successWindow.setWidth(successWindowLbl.getWidth() + 20);
         successWindow.row().row();
-        TextButton temp = new TextButton("Ok", skin);
-        temp.addListener(new ClickListener(){
+        TextButton successOK = new TextButton("Ok", skin);
+        successOK.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 successWindow.setVisible(false);
             }            
         });
-        successWindow.add(temp);
+        successWindow.add(successOK);
         successWindow.setVisible(false);
         successWindow.setPosition(WIDTH/2, HEIGHT/2, Align.center);
         menuStage.addActor(successWindow);
+        //end check window
+        
+        
+        //  Connection Fail Window
+        /* 
+         * make this method call to put the connection failed window appear
+         * connectionFailWindow.setVisible(true);
+         */
+        connectionFailWindow = new Window("Login Failed",skin);
+        connectionFailWindow.setMovable(false);
+        connectionFailWindow.padTop(20);
+        Label connectionFailWindowLbl = new Label("Couldn't connect to the interwebz.\nPlease try again.", skin);
+        connectionFailWindow.add(connectionFailWindowLbl);
+        connectionFailWindow.setWidth(connectionFailWindowLbl.getWidth() + 20);
+        connectionFailWindow.row().row();
+        TextButton confailOK = new TextButton("Ok", skin);
+        confailOK.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                connectionFailWindow.setVisible(false);
+            }            
+        });
+        connectionFailWindow.add(confailOK);
+        connectionFailWindow.setVisible(false);
+        connectionFailWindow.setPosition(WIDTH/2, HEIGHT/2, Align.center);
+        menuStage.addActor(connectionFailWindow);
         //end check window
         
         batch = new SpriteBatch();

@@ -42,7 +42,7 @@ import java.util.Map;
 public class HttpConnection {
     
     // Returns true/false depending on whether the login succeeded or failed.
-    public void login(String username, String password, final Window successWindow) {
+    public void login(String username, String password, final Window successWindow, final Window connectionFailWindow) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
         request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/Login.php");
         
@@ -70,6 +70,7 @@ public class HttpConnection {
             @Override
             public void failed(Throwable t) {
                 Gdx.app.log("HttpCon:Login", "Connection Fail");
+                connectionFailWindow.setVisible(true);
             }
 
             @Override
@@ -80,7 +81,7 @@ public class HttpConnection {
     }
     
     
-    public void register(String username, String password, String name, String email) {
+    public void register(String username, String password, String name, String email, final Window connectionFailWindow) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
         request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/Register.php");
         
@@ -101,6 +102,7 @@ public class HttpConnection {
             @Override
             public void failed(Throwable t) {
                 Gdx.app.log("HttpCon:Register", "Connection Fail");
+                connectionFailWindow.setVisible(true);
             }
 
             @Override

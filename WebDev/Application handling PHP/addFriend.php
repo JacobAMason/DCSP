@@ -8,14 +8,12 @@ $dbhostname = "localhost";
 $sql = new mysqli($dbhostname, $dbusername, $dbpassword, $dbusername);
 $jsonReply = array();
 
-$ID = $_POST['ID'];
-$score = $_POST['score'];
-$level = $_POST['level'];
-$seed = $_POST['seed'];
-$toID = $_POST['toID'];
+$friender = $_POST['friender'];
+$friendee = $_POST['friendee']
 
-$query = "INSERT IGNORE INTO Challenges SET ID='$toID', FromID='$ID', ChallengeSeed='$seed', Level='$level', Score='$score'";
+$query = "INSERT INTO Friends (Friender, Friendee) VALUES ('$friender', '$friendee')";
 $row = $sql->query($query);
+
 
 if($row) {
     $jsonReply[result] = "Success";
