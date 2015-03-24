@@ -200,6 +200,7 @@ public class MazeScreen extends ScreenInterface {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 endGameWindow.setVisible(false);
+                gameParent.setScreen(new ChallengeSendScreen(42));
             }            
         });
         endGameWindow.add(yes);
