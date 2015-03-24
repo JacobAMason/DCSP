@@ -33,6 +33,14 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
  *
@@ -50,6 +58,13 @@ public class MazeScreen extends ScreenInterface {
     
     private float step;
     
+    //Check window
+    private Window endGameWindow;
+    private Skin skin;
+    private Stage menuStage;
+    private int WIDTH;
+    private int HEIGHT;
+    
     
     
     public MazeScreen(int level){
@@ -59,6 +74,8 @@ public class MazeScreen extends ScreenInterface {
     
     @Override
     public void show() {
+        WIDTH = Gdx.graphics.getWidth();
+        HEIGHT = Gdx.graphics.getHeight();
         Gdx.input.setInputProcessor(new InputAdapter(){
 
             @Override
@@ -153,6 +170,44 @@ public class MazeScreen extends ScreenInterface {
         player = new Player(world, cellFactor);
         
         
+        //Check window
+        /* 
+         * make this method call to put the login failed window appear
+         * endGameWindow.setVisible(true);
+         */
+        menuStage = new Stage();
+        skin = new Skin(Gdx.files.internal("uiskin.json"));
+        endGameWindow = new Window("Login Failed",skin);
+        endGameWindow.setMovable(false);
+        endGameWindow.padTop(20);
+        Label successWindowLbl = new Label("Incorrect Username or Password.\nPlease try again.", skin);
+        endGameWindow.add(successWindowLbl).colspan(2);
+        endGameWindow.setWidth(successWindowLbl.getWidth() + 20);
+        endGameWindow.row().row();
+        
+        TextButton no = new TextButton("Nah", skin);
+        no.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                endGameWindow.setVisible(false);
+                gameParent.setScreen(new LevelSelectScreen());
+            }            
+        });
+        endGameWindow.add(no);
+        
+        TextButton yes = new TextButton("Sure", skin);
+        yes.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                endGameWindow.setVisible(false);
+            }            
+        });
+        endGameWindow.add(yes);
+        
+        endGameWindow.setVisible(false);
+        endGameWindow.setPosition(WIDTH/2, HEIGHT/2, Align.center);
+        menuStage.addActor(endGameWindow);
+        //end check window
     }
 
     @Override
@@ -163,9 +218,18 @@ public class MazeScreen extends ScreenInterface {
         debugging.render(world, camera.combined);
         
         world.step(1/60f, 6, 2);
-        player.update();
-        if (player.checkWin(mWidth,mHeight))
-            gameParent.setScreen(gameParent.mainMenuScreen);
+        if (player.checkWin(mWidth,mHeight)) {
+            this.pause();
+            player.setX(0); player.setY(0);
+            Gdx.input.setInputProcessor(menuStage);
+            endGameWindow.setVisible(true);
+            // gameParent.setScreen(gameParent.mainMenuScreen);
+        } else {
+            player.update();
+        }
+        
+        menuStage.act(delta);
+        menuStage.draw();
     }
 
     @Override
