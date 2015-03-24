@@ -121,7 +121,7 @@ public class MainMenuScreen extends ScreenInterface{
         gear.top().right();
         menuStage.addActor(gear);
         
-        menuTable.defaults().padBottom(10).padRight(5).minHeight(HEIGHT/9);
+        menuTable.defaults().pad(10).minHeight(HEIGHT/9);
         menuTable.add(nameLbl).minWidth(90);  // 10 difference due to padding
         menuTable.add(nameTxt).minWidth(WIDTH/2 - 100);
         menuTable.row();
