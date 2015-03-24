@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
@@ -121,7 +122,7 @@ public class MainMenuScreen extends ScreenInterface{
         gear.top().right();
         menuStage.addActor(gear);
         
-        menuTable.defaults().padBottom(10).padRight(5).minHeight(HEIGHT/9);
+        menuTable.defaults().pad(10).minHeight(HEIGHT/9);
         menuTable.add(nameLbl).minWidth(90);  // 10 difference due to padding
         menuTable.add(nameTxt).minWidth(WIDTH/2 - 100);
         menuTable.row();
@@ -158,8 +159,7 @@ public class MainMenuScreen extends ScreenInterface{
         });
         successWindow.add(temp);
         successWindow.setVisible(false);
-        successWindow.setX(WIDTH/2 - successWindow.getWidth()/2);
-        successWindow.setY(HEIGHT/2 - successWindow.getHeight()/2);
+        successWindow.setPosition(WIDTH/2, HEIGHT/2, Align.center);
         menuStage.addActor(successWindow);
         //end check window
         

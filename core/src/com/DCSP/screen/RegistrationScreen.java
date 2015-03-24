@@ -122,21 +122,21 @@ public class RegistrationScreen extends ScreenInterface {
         });
         
         
-        menuTable.defaults().padBottom(10).padRight(5).expand().fillX();
+        menuTable.defaults().pad(10).minHeight(HEIGHT/9);
         menuTable.add(usernameLbl);
-        menuTable.add(usernameTxt);
+        menuTable.add(usernameTxt).minWidth(WIDTH/3 - 50);
         menuTable.add(nameLbl);
-        menuTable.add(nameTxt);
+        menuTable.add(nameTxt).minWidth(WIDTH/3 - 50);
         menuTable.row();
         menuTable.add(pass1Lbl);
-        menuTable.add(pass1Txt);
+        menuTable.add(pass1Txt).minWidth(WIDTH/3 - 50);
         menuTable.add(email1Lbl);
-        menuTable.add(email1Txt);
+        menuTable.add(email1Txt).minWidth(WIDTH/3 - 50);
         menuTable.row();
         menuTable.add(pass2Lbl);
-        menuTable.add(pass2Txt);
+        menuTable.add(pass2Txt).minWidth(WIDTH/3 - 50);
         menuTable.add(email2Lbl);
-        menuTable.add(email2Txt);
+        menuTable.add(email2Txt).minWidth(WIDTH/3 - 50);
         menuTable.row();
         menuTable.add(cancel).colspan(2).fill();
         menuTable.add(register).colspan(2).fill();
