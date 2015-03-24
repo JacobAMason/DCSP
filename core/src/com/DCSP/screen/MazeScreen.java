@@ -88,7 +88,7 @@ public class MazeScreen extends ScreenInterface {
                 switch (keycode){
                     case Keys.ESCAPE:
                     case Keys.BACK:
-                        gameParent.setScreen(gameParent.mainMenuScreen);
+                        gameParent.setScreen(new LevelSelectScreen());
                         break;
                     case Keys.W:
                     case Keys.S:
@@ -165,7 +165,7 @@ public class MazeScreen extends ScreenInterface {
         world.step(1/60f, 6, 2);
         player.update();
         if (player.checkWin(mWidth,mHeight))
-            gameParent.setScreen(gameParent.mainMenuScreen);
+            gameParent.setScreen(new LevelSelectScreen());
     }
 
     @Override
