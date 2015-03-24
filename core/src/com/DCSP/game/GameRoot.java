@@ -8,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 
 public class GameRoot extends Game {
+    private boolean isLoggedIn = false;
     private boolean isFullscreen;
     public MainMenuScreen mainMenuScreen;
     public Screen settingsScreen;
@@ -32,8 +33,16 @@ public class GameRoot extends Game {
         }
         super.setScreen((Screen)screen);
     }
-    
 
+    public boolean isIsLoggedIn() {
+        return isLoggedIn;
+    }
+
+    public void setIsLoggedIn(boolean isLoggedIn) {
+        this.isLoggedIn = isLoggedIn;
+    }
+        
+    
     // TODO: Move this elsewhere
     public void toggleFullscreen(){
         isFullscreen = !isFullscreen;
