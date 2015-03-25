@@ -21,6 +21,11 @@ if($password != $repassword) {
     
 }
 
+if($username == null || $password == null || $repassword == null || $name == null || $email == null || $reEmail == null) {
+    echo "<h1>Registration Failed!</h1>"; 
+    die("<a href = http://pluto.cse.msstate.edu/~dcsp01/register.html>Return to registration page</a>");
+}
+
 if($email != $reEmail) {
     echo "<h1>Registration Failed!</h1>". "Emails do not match\n";
     die("<a href = http://pluto.cse.msstate.edu/~dcsp01/register.html>Return to registration page</a>");
