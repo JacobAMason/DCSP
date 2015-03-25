@@ -125,19 +125,13 @@ public class MazeScreen extends ScreenInterface {
             
             @Override
             public boolean touchDown (int screenX, int screenY, int pointer, int button) {
-                pos = player.getPosition();
-                player.setX((screenX/10 - (pos.x))* cellFactor);
-                player.setY((screenY/10 - (pos.y))* cellFactor);
-                
+                player.setMove(screenX, screenY);
                 return true;
             }
             
             @Override
             public boolean touchDragged (int screenX, int screenY, int pointer) {
-                pos = player.getPosition();
-                player.setX((screenX/10 - (pos.x))* cellFactor);
-                player.setY((screenY/10 - (pos.y))* cellFactor);
-
+                player.setMove(screenX, screenY);
                 return true;
             }
             
@@ -180,12 +174,12 @@ public class MazeScreen extends ScreenInterface {
         endGameWindow = new Window("Login Failed",skin);
         endGameWindow.setMovable(false);
         endGameWindow.padTop(20);
-        Label successWindowLbl = new Label("Incorrect Username or Password.\nPlease try again.", skin);
+        Label successWindowLbl = new Label("Incorrect Username or Password.\nPlease try again.", skin, "small");
         endGameWindow.add(successWindowLbl).colspan(2);
         endGameWindow.setWidth(successWindowLbl.getWidth() + 20);
         endGameWindow.row().row();
         
-        TextButton no = new TextButton("Nah", skin);
+        TextButton no = new TextButton("Nah", skin, "small");
         no.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -195,7 +189,7 @@ public class MazeScreen extends ScreenInterface {
         });
         endGameWindow.add(no);
         
-        TextButton yes = new TextButton("Sure", skin);
+        TextButton yes = new TextButton("Sure", skin, "small");
         yes.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {

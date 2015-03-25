@@ -64,7 +64,7 @@ public class Player {
         playerBody.type = BodyDef.BodyType.DynamicBody;
         
         CircleShape playerShape = new CircleShape();
-        playerShape.setRadius(cellFactor/6f);
+        playerShape.setRadius(cellFactor/4f);
         
         playerFix = new FixtureDef();
         playerFix.shape = playerShape;
@@ -81,17 +81,14 @@ public class Player {
         speed.x = step;
     }
     
+    public void setMove(int screenX, int screenY){
+        pos2 = player.getLocalPoint(initPos);
+    }
+    
     public void update(){
         player.setLinearVelocity(speed);
     }
     
-    public Vector2 getPosition(){
-        pos2 = player.getLocalPoint(initPos);
-        pos2.x = (Math.abs(pos2.x) + cellFactor);
-        pos2.y = (Math.abs(pos2.y) + cellFactor);
-        return pos2;
-    }
-
     public boolean checkWin(int x, int y){
         pos = player.getLocalPoint(initPos);      
         return ((int)(Math.abs(pos.x)/cellFactor + .5f) == x-1) && 
