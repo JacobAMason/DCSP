@@ -9,7 +9,6 @@ $sql = new mysqli($dbhostname, $dbusername, $dbpassword, $dbusername);
 $jsonReply = array();
 
 $friender = $_POST['friender'];
-$friendee = $_POST['friendee']
 
 $query = "SELECT Friendee FROM Friends WHERE Friender='$friender')";
 $row = $sql->query($query);

@@ -9,7 +9,7 @@ $sql = new mysqli($dbhostname, $dbusername, $dbpassword, $dbusername);
 $jsonReply = array();
 
 $friender = $_POST['friender'];
-$friendee = $_POST['friendee']
+$friendee = $_POST['friendee'];
 
 $query = "INSERT INTO Friends (Friender, Friendee) VALUES ('$friender', '$friendee')";
 $row = $sql->query($query);

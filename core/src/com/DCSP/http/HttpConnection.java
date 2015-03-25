@@ -194,6 +194,34 @@ public class HttpConnection {
     }
     
     
+    public void IDLookup(int ID) {
+        Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
+        request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/addFriend.php");
+        
+        Map parameters = new HashMap();
+        parameters.put("ID", String.valueOf(ID));
+        
+        request.setContent(HttpParametersUtils.convertHttpParameters(parameters));
+        
+        Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
+            @Override
+            public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                Gdx.app.log("HttpCon:IDLookup", httpResponse.getResultAsString());
+            }
+
+            @Override
+            public void failed(Throwable t) {
+                Gdx.app.log("HttpCon:IDLookup", "Connection Fail");
+            }
+
+            @Override
+            public void cancelled() {
+                Gdx.app.log("HttpCon:IDLookup", "Cancel function called. What does this even do?");
+            }
+        });
+    }
+    
+    
     public void sendChallenge(int ID, int score, int level, long seed, int toID) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
         request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/sendChallenge.php");
@@ -261,6 +289,63 @@ public class HttpConnection {
             }
         });
     }
+
+
+    public void addFriend(int frienderID, int friendeeID) {
+        Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
+        request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/addFriend.php");
+        
+        Map parameters = new HashMap();
+        parameters.put("friender", String.valueOf(frienderID));
+        parameters.put("friendee", String.valueOf(friendeeID));
+        
+        request.setContent(HttpParametersUtils.convertHttpParameters(parameters));
+        
+        Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
+            @Override
+            public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                Gdx.app.log("HttpCon:addFriend", httpResponse.getResultAsString());
+            }
+
+            @Override
+            public void failed(Throwable t) {
+                Gdx.app.log("HttpCon:addFriend", "Connection Fail");
+            }
+
+            @Override
+            public void cancelled() {
+                Gdx.app.log("HttpCon:addFriend", "Cancel function called. What does this even do?");
+            }
+        });
+    }
+    
+    
+    public void getFriends(int frienderID) {
+        Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
+        request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/addFriend.php");
+        
+        Map parameters = new HashMap();
+        parameters.put("friender", String.valueOf(frienderID));
+        
+        request.setContent(HttpParametersUtils.convertHttpParameters(parameters));
+        
+        Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
+            @Override
+            public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                Gdx.app.log("HttpCon:getFriends", httpResponse.getResultAsString());
+            }
+
+            @Override
+            public void failed(Throwable t) {
+                Gdx.app.log("HttpCon:getFriends", "Connection Fail");
+            }
+
+            @Override
+            public void cancelled() {
+                Gdx.app.log("HttpCon:getFriends", "Cancel function called. What does this even do?");
+            }
+        });
+    }
 }
 
 
@@ -280,3 +365,6 @@ class Response {
         }
     }
 }
+
+
+
