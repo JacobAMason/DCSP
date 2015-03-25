@@ -1,22 +1,44 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 
-<head>
-</head>
+    <head>
+        <title>Register</title>
+        <link rel="stylesheet" href="registerStyle.css" type="text/css"/>
+    </head>
 
-<body>
-username: <input type = "text" name = "user"/> <br/>
-password: <input type = "text" name = "pass"/> <br/>
-re-enter password: <input type = "text" name = "passdup"/> <br/>
-Name: <input type = "text" name = "name"/> <br/>
-Email: <input type = "text" name = "email"/> <br/>
-Re-enter Email: <input type = "text" name = "emaildup"/> <br/>
+    <body>
+        <div id="container">
+            <img class="logoImg" alt="logoImg" src="http://pluto.cse.msstate.edu/~th739/lab5/logo.png"/>
+            
+            <form action = "register.php" method = "POST">
+                <div id ="user">
+                    Username: <input type = "text" name = "user" class="button" placeholder="Username"/> <br/>
+                </div>
 
-<form class = "register" action = "register.php" method = "POST">
-     <input type = "submit" value = "Register"/>
-</form>
+                <div id ="pass"> 
+                    Password: <input type = "text" name = "pass" class="button" placeholder="Password"/> <br/>
+                </div>
 
+                <div id ="repass">
+                    Re-enter password: <input type = "text" name = "passdup" class="button" placeholder="Retype Password"/> <br/>
+                </div>
 
-</body>
+                <div id ="name">
+                    Name: <input type = "text" name = "name" class="button" placeholder="Name"/> <br/>
+                </div>
 
+                <div id ="email">
+                    Email: <input type = "text" name = "email" class="button" placeholder="Email"/> <br/>
+                </div>
+
+                <div id ="reEmail">
+                    Re-enter Email: <input type = "text" name = "emaildup" class="button" placeholder="Retype Email"/> <br/>
+                </div>
+
+                <div class = "register">
+                    <input type = "submit" value = "Register"/>
+                </div>
+            </form>
+        </div>
+    </body>
 </html>
