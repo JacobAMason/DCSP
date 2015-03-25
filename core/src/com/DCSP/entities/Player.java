@@ -83,6 +83,8 @@ public class Player {
     
     public void setMove(int screenX, int screenY){
         pos2 = player.getLocalPoint(initPos);
+        speed.x = screenX/10 - Math.abs(pos2.x) - cellFactor;
+        speed.y = screenY/10 - Math.abs(pos2.y) - cellFactor;
     }
     
     public void update(){
