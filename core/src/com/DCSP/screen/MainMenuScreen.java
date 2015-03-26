@@ -63,10 +63,10 @@ public class MainMenuScreen extends ScreenInterface{
         skin = new Skin(Gdx.files.internal("uiskin.json"));
         
         nameLbl = new Label("Username", skin);
-        nameTxt = new TextField("", skin);
+        nameTxt = new TextField("", skin,"user");
         
         passLbl = new Label("Password", skin);
-        passTxt = new TextField("", skin);
+        passTxt = new TextField("", skin,"user");
         passTxt.setPasswordMode(true);
         passTxt.setPasswordCharacter('*');
         
