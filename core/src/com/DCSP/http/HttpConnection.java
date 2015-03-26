@@ -23,6 +23,7 @@
  */
 package com.DCSP.http;
 
+import com.DCSP.game.GameRoot;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.net.HttpParametersUtils;
@@ -71,6 +72,9 @@ public class HttpConnection {
             public void failed(Throwable t) {
                 Gdx.app.log("HttpCon:Login", "Connection Fail");
                 connectionFailWindow.setVisible(true);
+                GameRoot.getMessageWindow().setTitle("Connection Fail");
+                GameRoot.getMessageWindow().setText("Your Interwebz appears broken.");
+                GameRoot.getMessageWindow().setVisible(true);
             }
 
             @Override

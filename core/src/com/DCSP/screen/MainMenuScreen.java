@@ -173,7 +173,7 @@ public class MainMenuScreen extends ScreenInterface{
         connectionFailWindow = new Window("Login Failed",skin);
         connectionFailWindow.setMovable(false);
         connectionFailWindow.padTop(20);
-        Label connectionFailWindowLbl = new Label("Couldn't connect to the interwebz.\nPlease try again.", skin);
+        Label connectionFailWindowLbl = new Label("Couldn't connect to the interwebz.\nPlease try again.", skin,"small");
         connectionFailWindow.add(connectionFailWindowLbl);
         connectionFailWindow.setWidth(connectionFailWindowLbl.getWidth() + 20);
         connectionFailWindow.row().row();

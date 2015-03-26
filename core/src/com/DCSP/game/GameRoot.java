@@ -3,6 +3,7 @@ package com.DCSP.game;
 import com.DCSP.screen.MainMenuScreen;
 import com.DCSP.screen.ScreenInterface;
 import com.DCSP.screen.SplashScreen;
+import com.DCSP.windows.MessageWindow;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -12,6 +13,7 @@ public class GameRoot extends Game {
     private boolean isFullscreen;
     public MainMenuScreen mainMenuScreen;
     public Screen settingsScreen;
+    static private MessageWindow messageWindow;
     
     
     public GameRoot(Screen settingsScreen) {
@@ -22,6 +24,7 @@ public class GameRoot extends Game {
     public void create() {
         isFullscreen = false;
         mainMenuScreen = new MainMenuScreen();
+        messageWindow = new MessageWindow();
         setScreen(new SplashScreen());
     }
 
@@ -40,6 +43,10 @@ public class GameRoot extends Game {
 
     public void setIsLoggedIn(boolean isLoggedIn) {
         this.isLoggedIn = isLoggedIn;
+    }
+    
+    static public MessageWindow getMessageWindow(){
+        return messageWindow;
     }
         
     
