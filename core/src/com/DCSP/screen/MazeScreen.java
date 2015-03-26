@@ -65,6 +65,8 @@ public class MazeScreen extends ScreenInterface {
     private int WIDTH;
     private int HEIGHT;
     
+    public static int zoom = 9;
+    
     
     
     public MazeScreen(int level){
@@ -125,19 +127,13 @@ public class MazeScreen extends ScreenInterface {
             
             @Override
             public boolean touchDown (int screenX, int screenY, int pointer, int button) {
-                pos = player.getPosition();
-                player.setX((screenX/10 - (pos.x))* cellFactor);
-                player.setY((screenY/10 - (pos.y))* cellFactor);
-                
+                player.setMove(screenX, screenY);
                 return true;
             }
             
             @Override
             public boolean touchDragged (int screenX, int screenY, int pointer) {
-                pos = player.getPosition();
-                player.setX((screenX/10 - (pos.x))* cellFactor);
-                player.setY((screenY/10 - (pos.y))* cellFactor);
-
+                player.setMove(screenX, screenY);
                 return true;
             }
             
@@ -162,7 +158,7 @@ public class MazeScreen extends ScreenInterface {
         camera.setToOrtho(true);
         camera.translate((mWidth*cellFactor - Gdx.graphics.getWidth())/2, 
                 (mHeight*cellFactor - Gdx.graphics.getHeight())/2);
-        camera.zoom /= 9;
+        camera.zoom /= zoom;
         camera.update();
         
         maze = new Maze(world, mWidth, mHeight, 42, cellFactor);
@@ -177,10 +173,10 @@ public class MazeScreen extends ScreenInterface {
          */
         menuStage = new Stage();
         skin = new Skin(Gdx.files.internal("uiskin.json"));
-        endGameWindow = new Window("Login Failed",skin);
+        endGameWindow = new Window("Maze Complete!", skin);
         endGameWindow.setMovable(false);
         endGameWindow.padTop(20);
-        Label successWindowLbl = new Label("Incorrect Username or Password.\nPlease try again.", skin);
+        Label successWindowLbl = new Label("Would you like to challenge a friend?", skin, "small");
         endGameWindow.add(successWindowLbl).colspan(2);
         endGameWindow.setWidth(successWindowLbl.getWidth() + 20);
         endGameWindow.row().row();

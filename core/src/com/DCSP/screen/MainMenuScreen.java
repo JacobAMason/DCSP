@@ -143,13 +143,13 @@ public class MainMenuScreen extends ScreenInterface{
          * make this method call to put the login failed window appear
          * successWindow.setVisible(true);
          */
-        successWindow = new Window("Login Failed",skin);
+        successWindow = new Window("Login Failed", skin);
         successWindow.setMovable(false);
         successWindow.padTop(20);
-        Label successWindowLbl = new Label("Incorrect Username or Password.\nPlease try again.", skin);
+        Label successWindowLbl = new Label("Incorrect Username or Password.\nPlease try again.\n", skin, "small");
         successWindow.add(successWindowLbl);
         successWindow.setWidth(successWindowLbl.getWidth() + 20);
-        successWindow.row().row();
+        successWindow.row();
         TextButton successOK = new TextButton("Ok", skin);
         successOK.addListener(new ClickListener(){
             @Override
@@ -160,6 +160,7 @@ public class MainMenuScreen extends ScreenInterface{
         successWindow.add(successOK);
         successWindow.setVisible(false);
         successWindow.setPosition(WIDTH/2, HEIGHT/2, Align.center);
+        successWindow.pack();
         menuStage.addActor(successWindow);
         //end check window
         

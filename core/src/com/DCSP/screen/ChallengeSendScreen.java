@@ -33,6 +33,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
@@ -40,7 +41,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  * @author Jacob Mason (jm2232)
  */
 class ChallengeSendScreen extends ScreenInterface {
-    private int seed;
+    private final int seed;
     private Stage challengeStage;
     private Table challengeTable;
     private Skin skin;
@@ -68,11 +69,12 @@ class ChallengeSendScreen extends ScreenInterface {
             public void clicked(InputEvent event, float x, float y) {
             }            
         });
+        toName.setAlignment(Align.center);
         
-        challengeTable.add(new Label("Send Challenge",skin)).colspan(2).row();
-        challengeTable.add(new Label("Friend's User Name",skin));
-        challengeTable.add(toName).width(100).row();
-        challengeTable.add(send).colspan(2).width(75);
+        challengeTable.add(new Label("Send Challenge",skin)).row();
+        challengeTable.add(new Label("Friend's User Name",skin)).row();
+        challengeTable.add(toName).padBottom(10).minWidth(challengeTable.getMinWidth()).row();
+        challengeTable.add(send).width(send.getMinWidth() + 20);
         
         
         challengeStage.addActor(challengeTable);
