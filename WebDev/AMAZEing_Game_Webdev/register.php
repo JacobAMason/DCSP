@@ -16,18 +16,18 @@ $reEmail = $_POST['emaildup'];
 $MD5passwd = MD5($password);
 
 if($password != $repassword) {
-    echo "<h1>Registration Failed!</h1>". "Passwords do not match\n"; 
+    echo "<h1>Registration Failed!</h1>". "Passwords do not match<br>"; 
     die("<a href = http://pluto.cse.msstate.edu/~dcsp01/register.html>Return to registration page</a>");
     
 }
 
 if($username == null || $password == null || $repassword == null || $name == null || $email == null || $reEmail == null) {
-    echo "<h1>Registration Failed!</h1>"; 
+    echo "<h1>Registration Failed!</h1><br>"; 
     die("<a href = http://pluto.cse.msstate.edu/~dcsp01/register.html>Return to registration page</a>");
 }
 
 if($email != $reEmail) {
-    echo "<h1>Registration Failed!</h1>". "Emails do not match\n";
+    echo "<h1>Registration Failed!</h1>". "Emails do not match<br>";
     die("<a href = http://pluto.cse.msstate.edu/~dcsp01/register.html>Return to registration page</a>");
 }
 
@@ -36,7 +36,7 @@ $row = $sql->query($query);
 
 
 if(mysqli_num_rows($row)) {
-    $message = "<h1>Registration Failed!</h1>" . "Username already taken\n";
+    $message = "<h1>Registration Failed!</h1>" . "Username already taken<br>";
     $link = "<a href = http://pluto.cse.msstate.edu/~dcsp01/register.html>Return to registration page</a>";
     $response = "Fail: username " . $username . " taken.";
 } 
@@ -44,11 +44,11 @@ else {
 	$query = "INSERT INTO User (username, password, Name, email) VALUES ('$username', '$MD5passwd', '$name', '$email')";
 	if($sql->query($query)){
 		$response = "Success: " . $name . " registered with username '" . $username . "' and email '" . $email . "'";
-                $message = "<h1>Registration Successful!</h1>";
+                $message = "<h1>Registration Successful!</h1><br>";
                 $link = "<a href = http://pluto.cse.msstate.edu/~dcsp01/index.html>Click here to return to main page</a>";
 	} else {
 		$response = "Fail: Registration failed.";
-                $message = "<h1>Registration Failed!</h1>";
+                $message = "<h1>Registration Failed!</h1><br>";
                 $link = "<a href = http://pluto.cse.msstate.edu/~dcsp01/register.html>Return to registration page</a>";
 	}
 }
