@@ -1,8 +1,8 @@
 {
 com.badlogic.gdx.graphics.g2d.BitmapFont: { ethno-64: { file: ethno.fnt } },
 com.badlogic.gdx.graphics.g2d.BitmapFont: { ethno-24: { file: ethno_small.fnt } },
-com.badlogic.gdx.graphics.g2d.BitmapFont: { west_e-64: { file: west_e.fnt } },
-com.badlogic.gdx.graphics.g2d.BitmapFont: { west_e-24: { file: west_e_small.fnt } },
+com.badlogic.gdx.graphics.g2d.BitmapFont: { segoe-32: { file: segoe.fnt } },
+com.badlogic.gdx.graphics.g2d.BitmapFont: { segoe-20: { file: segoe_small.fnt } },
 
 com.badlogic.gdx.graphics.Color: {
 	green: { a: 1, b: 0, g: 1, r: 0 },
@@ -54,8 +54,8 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 },
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 	default: { selection: selection, background: textfield, font: ethno-64, fontColor: white, cursor: cursor },
-	user: { selection: selection, background: textfield, font: west_e-64, fontColor: white, cursor: cursor },
-	user-small: { selection: selection, background: textfield, font: west_e-24, fontColor: white, cursor: cursor }
+	user: { selection: selection, background: textfield, font: segoe-32, fontColor: white, cursor: cursor },
+	user-small: { selection: selection, background: textfield, font: segoe-20, fontColor: white, cursor: cursor }
 },
 com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 	default: { checkboxOn: check-on, checkboxOff: check-off, font: ethno-64, fontColor: white }
