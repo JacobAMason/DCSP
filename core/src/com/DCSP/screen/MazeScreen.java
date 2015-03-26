@@ -127,13 +127,13 @@ public class MazeScreen extends ScreenInterface {
             
             @Override
             public boolean touchDown (int screenX, int screenY, int pointer, int button) {
-                player.setMove(screenX, screenY);
+                player.setMove((float)screenX-WIDTH/2, (float)screenY-HEIGHT/2);
                 return true;
             }
             
             @Override
             public boolean touchDragged (int screenX, int screenY, int pointer) {
-                player.setMove(screenX, screenY);
+                player.setMove((float)screenX-WIDTH/2, (float)screenY-HEIGHT/2);
                 return true;
             }
             
@@ -141,8 +141,7 @@ public class MazeScreen extends ScreenInterface {
             public boolean touchUp (int screenX, int screenY, int pointer, int button) {
                 player.setX(0);
                 player.setY(0);
-                Gdx.app.log("MazeScreen", "set to zero");
-		        return true;
+                return true;
             }
             
         });

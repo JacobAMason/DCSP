@@ -82,10 +82,9 @@ public class Player {
         speed.x = step;
     }
     
-    public void setMove(int screenX, int screenY){
-        pos2 = player.getWorldPoint(initPos);
-        speed.x = screenX/10 - Math.abs(pos2.x) - cellFactor/2;
-        speed.y = screenY/10 - Math.abs(pos2.y) - cellFactor/2;
+    public void setMove(float screenX, float screenY){
+        speed.x = screenX;
+        speed.y = screenY;
         speed.scl(1/speed.len());
         speed.scl((float)Math.pow(cellFactor, 2));
     }
@@ -94,7 +93,7 @@ public class Player {
         player.setLinearVelocity(speed);
     }
     public Vector2 getPos(){
-    pos2 = player.getWorldPoint(initPos);
+    pos2 = player.getWorldPoint(new Vector2(0,0));
     return pos2;
     }
     
