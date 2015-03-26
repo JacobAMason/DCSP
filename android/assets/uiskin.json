@@ -1,5 +1,5 @@
 {
-com.badlogic.gdx.graphics.g2d.BitmapFont: { large-font: { file: ethno.fnt } },
+com.badlogic.gdx.graphics.g2d.BitmapFont: { large-font: { file: Ethno.fnt } },
 com.badlogic.gdx.graphics.g2d.BitmapFont: { small-font: { file: ethno_small.fnt } },
 com.badlogic.gdx.graphics.Color: {
 	green: { a: 1, b: 0, g: 1, r: 0 },

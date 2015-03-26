@@ -1,7 +1,7 @@
 info face="Ethnocentric Rg" size=48 bold=0 italic=0 charset="" unicode=1 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=1,1 outline=0
 common lineHeight=48 base=38 scaleW=256 scaleH=256 pages=2 packed=0 alphaChnl=0 redChnl=4 greenChnl=4 blueChnl=4
-page id=0 file="ethno_0.tga"
-page id=1 file="ethno_1.tga"
+page id=0 file="Ethno_0.tga"
+page id=1 file="Ethno_1.tga"
 chars count=96
 char id=23   x=67    y=35    width=3     height=2     xoffset=-1    yoffset=23    xadvance=15    page=0  chnl=15
 char id=32   x=71    y=35    width=3     height=1     xoffset=-1    yoffset=47    xadvance=15    page=0  chnl=15
