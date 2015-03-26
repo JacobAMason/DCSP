@@ -20,15 +20,15 @@ $jsonReply = array();
 
 if(mysqli_num_rows($row)) {
     $response = "Fail: username " . $username . " taken.";
-    $jsonReply[] = "username taken";
+    $jsonReply[result] = "usernameInUse";
 } else {
 	$query = "INSERT INTO User (username, password, Name, email) VALUES ('$username', '$MD5passwd', '$name', '$email')";
 	if($sql->query($query)){
 		$response = "Success: " . $name . " registered with username '" . $username . "' and email '" . $email . "'";
-		$jsonReply[] = "success";
+		$jsonReply[result] = "Success";
 	} else {
 		$response = "Fail: Registration failed.";
-		$jsonReply[] = "fail";
+		$jsonReply[result] = "Fail";
 	}
 }
 
