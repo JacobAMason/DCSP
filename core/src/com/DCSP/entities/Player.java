@@ -23,6 +23,7 @@
  */
 package com.DCSP.entities;
 
+import com.DCSP.screen.MazeScreen;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -82,9 +83,11 @@ public class Player {
     }
     
     public void setMove(int screenX, int screenY){
-        pos2 = player.getLocalPoint(initPos);
-        speed.x = screenX/10 - Math.abs(pos2.x) - cellFactor;
-        speed.y = screenY/10 - Math.abs(pos2.y) - cellFactor;
+        pos2 = player.getWorldPoint(initPos);
+        speed.x = screenX/10 - Math.abs(pos2.x) - cellFactor/2;
+        speed.y = screenY/10 - Math.abs(pos2.y) - cellFactor/2;
+        speed.scl(1/speed.len());
+        speed.scl((float)Math.pow(cellFactor, 2));
     }
     
     public void update(){

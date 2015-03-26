@@ -160,6 +160,7 @@ public class MainMenuScreen extends ScreenInterface{
         successWindow.add(successOK);
         successWindow.setVisible(false);
         successWindow.setPosition(WIDTH/2, HEIGHT/2, Align.center);
+        successWindow.pack();
         menuStage.addActor(successWindow);
         //end check window
         
