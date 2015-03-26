@@ -65,6 +65,8 @@ public class MazeScreen extends ScreenInterface {
     private int WIDTH;
     private int HEIGHT;
     
+    public static int zoom = 9;
+    
     
     
     public MazeScreen(int level){
@@ -156,7 +158,7 @@ public class MazeScreen extends ScreenInterface {
         camera.setToOrtho(true);
         camera.translate((mWidth*cellFactor - Gdx.graphics.getWidth())/2, 
                 (mHeight*cellFactor - Gdx.graphics.getHeight())/2);
-        camera.zoom /= 9;
+        camera.zoom /= zoom;
         camera.update();
         
         maze = new Maze(world, mWidth, mHeight, 42, cellFactor);
