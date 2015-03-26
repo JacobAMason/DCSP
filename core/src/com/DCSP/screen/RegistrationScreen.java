@@ -39,6 +39,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -56,7 +57,14 @@ public class RegistrationScreen extends ScreenInterface {
     private TextField usernameTxt, pass1Txt, pass2Txt, nameTxt, email1Txt, email2Txt;
     private TextButton cancel, register;
     
+    Pattern usernameRegex = Pattern.compile("^[0-9A-z_]{3,20}$");
+    Pattern nameRegex = Pattern.compile("^[A-z '.]{1,20}$");
+    Pattern passwordRegex = Pattern.compile("^(?!.*\\^)(?=.*[0-9]+)(?=.*[a-z]+)[A-z0-9!@#$&*]{6,30}$");
+    Pattern emailRegex = Pattern.compile("^[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,4}$");
+    
     private Window connectionFailWindow;
+    private Window regexErrorWindow;
+    private Label regexErrorLbl;
 
     @Override
     public void show() {
@@ -75,24 +83,24 @@ public class RegistrationScreen extends ScreenInterface {
         skin = new Skin(Gdx.files.internal("uiskin.json"));
         
         
-        usernameLbl = new Label("Username", skin);
+        usernameLbl = new Label("Username", skin, "small");
         usernameTxt = new TextField("", skin);
         
-        pass1Lbl = new Label("Password", skin);
+        pass1Lbl = new Label("Password", skin, "small");
         pass1Txt = new TextField("", skin);
         pass1Txt.setPasswordMode(true);
         
-        pass2Lbl = new Label("Re-enter Password", skin);
+        pass2Lbl = new Label("Re-enter\nPassword", skin, "small");
         pass2Txt = new TextField("", skin);
         pass2Txt.setPasswordMode(true);
         
-        nameLbl = new Label("Name", skin);
+        nameLbl = new Label("Name", skin, "small");
         nameTxt = new TextField("", skin);
         
-        email1Lbl = new Label("Email", skin);
+        email1Lbl = new Label("Email", skin, "small");
         email1Txt = new TextField("", skin);
         
-        email2Lbl = new Label("Re-enter Email", skin);
+        email2Lbl = new Label("Re-enter\nEmail", skin, "small");
         email2Txt = new TextField("", skin);
         
         
@@ -108,20 +116,38 @@ public class RegistrationScreen extends ScreenInterface {
         
         register.addListener(new ClickListener(){
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public void clicked(InputEvent event, float x, float y) {   
+                
+                // Validate fields
+                
                 if (!pass1Txt.getText().equals(pass2Txt.getText())) {
-                    Gdx.app.log("RegistrationScreen", "Passwords don't match.");
+                    regexErrorLbl.setText("Passwords don't match.");
+                } else if (!email1Txt.getText().equals(email2Txt.getText())) {
+                    regexErrorLbl.setText("Emails don't match.");
+                } else if (!nameRegex.matcher(nameTxt.getText()).matches()) {
+                    regexErrorLbl.setText("Names must be between 1 and 20 characters long\n"
+                                        + "and can use either letters, periods, or apostrophes.");
+                } else if (!usernameRegex.matcher(usernameTxt.getText()).matches()) {
+                    regexErrorLbl.setText("Usernames must be between 3 and 20 characters long\n"
+                                        + "and can use either letters, numbers, and underscores.");
+                } else if (!passwordRegex.matcher(pass1Txt.getText()).matches()) {
+                    regexErrorLbl.setText("Password must be between 6 and 30 characters long\n"
+                                        + "and must contain at least one letter and one number.");
+                } else if (!emailRegex.matcher(email1Txt.getText()).matches()) {
+                    regexErrorLbl.setText("Please enter a valid email address.");
+                } else {
+                    // Fields are good. Regsiter the user.
+                    HttpConnection httpCon = new HttpConnection();
+                    httpCon.register(usernameTxt.getText(), pass1Txt.getText(),
+                            nameTxt.getText(), email1Txt.getText(), connectionFailWindow);
                     return;
                 }
                 
-                if (!email1Txt.getText().equals(email2Txt.getText())) {
-                    Gdx.app.log("RegistrationScreen", "Emails don't match.");
-                    return;
-                }
-                
-                HttpConnection httpCon = new HttpConnection();
-                httpCon.register(usernameTxt.getText(), pass1Txt.getText(),
-                        nameTxt.getText(), email1Txt.getText(), connectionFailWindow);
+                regexErrorWindow.setWidth(regexErrorLbl.getWidth());
+                regexErrorWindow.pad(20);
+                regexErrorWindow.pack();
+                regexErrorWindow.setPosition(WIDTH/2, HEIGHT/2, Align.center);
+                regexErrorWindow.setVisible(true);
             }
         });
         
@@ -152,12 +178,12 @@ public class RegistrationScreen extends ScreenInterface {
          * make this method call to put the connection failed window appear
          * connectionFailWindow.setVisible(true);
          */
-        connectionFailWindow = new Window("Login Failed",skin);
+        connectionFailWindow = new Window("Connection Error",skin);
         connectionFailWindow.setMovable(false);
         connectionFailWindow.padTop(20);
-        Label connectionFailWindowLbl = new Label("Couldn't connect to the interwebz.\nPlease try again.", skin);
+        Label connectionFailWindowLbl = new Label("Couldn't connect to the interwebz.\nPlease try again.", skin, "small");
         connectionFailWindow.add(connectionFailWindowLbl);
-        connectionFailWindow.setWidth(connectionFailWindowLbl.getWidth() + 20);
+        connectionFailWindow.setWidth(connectionFailWindowLbl.getWidth() + 50);
         connectionFailWindow.row().row();
         TextButton confailOK = new TextButton("Ok", skin);
         confailOK.addListener(new ClickListener(){
@@ -170,7 +196,31 @@ public class RegistrationScreen extends ScreenInterface {
         connectionFailWindow.setVisible(false);
         connectionFailWindow.setPosition(WIDTH/2, HEIGHT/2, Align.center);
         menuStage.addActor(connectionFailWindow);
-        //end check window
+        //end conFail window
+        
+        
+        //  Connection Fail Window
+        /* 
+         * make this method call to put the connection failed window appear
+         * connectionFailWindow.setVisible(true);
+         */
+        regexErrorWindow = new Window("Registration Error",skin);
+        regexErrorWindow.setMovable(false);
+        regexErrorWindow.padTop(20);
+        regexErrorLbl = new Label("", skin, "small");
+        regexErrorWindow.add(regexErrorLbl);
+        regexErrorWindow.row().row();
+        TextButton regexErrorOK = new TextButton("Ok", skin);
+        regexErrorOK.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                regexErrorWindow.setVisible(false);
+            }            
+        });
+        regexErrorWindow.add(regexErrorOK);
+        regexErrorWindow.setVisible(false);
+        menuStage.addActor(regexErrorWindow);
+        //end conFail window
         
         
         batch = new SpriteBatch();

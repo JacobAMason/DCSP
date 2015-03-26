@@ -171,15 +171,15 @@ public class MazeScreen extends ScreenInterface {
          */
         menuStage = new Stage();
         skin = new Skin(Gdx.files.internal("uiskin.json"));
-        endGameWindow = new Window("Login Failed",skin);
+        endGameWindow = new Window("Maze Complete!", skin);
         endGameWindow.setMovable(false);
         endGameWindow.padTop(20);
-        Label successWindowLbl = new Label("Incorrect Username or Password.\nPlease try again.", skin, "small");
+        Label successWindowLbl = new Label("Would you like to challenge a friend?", skin, "small");
         endGameWindow.add(successWindowLbl).colspan(2);
         endGameWindow.setWidth(successWindowLbl.getWidth() + 20);
         endGameWindow.row().row();
         
-        TextButton no = new TextButton("Nah", skin, "small");
+        TextButton no = new TextButton("Nah", skin);
         no.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -189,7 +189,7 @@ public class MazeScreen extends ScreenInterface {
         });
         endGameWindow.add(no);
         
-        TextButton yes = new TextButton("Sure", skin, "small");
+        TextButton yes = new TextButton("Sure", skin);
         yes.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
