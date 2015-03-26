@@ -55,7 +55,7 @@ public class MessageWindow {
         successOK.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                window.setVisible(false);
+                reset();
             }            
         });
         window.add(successOK);
@@ -84,6 +84,14 @@ public class MessageWindow {
     
     public Window getWindow(){
         return window;
+    }
+    
+    public void reset(){
+        setVisible(false);
+        setTitle("Generic Error");
+        setText("Something has gone wrong.\nPlease check the error log");
+        update();
+        
     }
     
 }
