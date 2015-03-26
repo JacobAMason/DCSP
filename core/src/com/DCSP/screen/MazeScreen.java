@@ -65,7 +65,7 @@ public class MazeScreen extends ScreenInterface {
     private int WIDTH;
     private int HEIGHT;
     
-    public static int zoom = 9;
+    public static int zoom = 7;
     
     
     
@@ -149,15 +149,14 @@ public class MazeScreen extends ScreenInterface {
 
         Gdx.input.setCatchBackKey(true);
         
-        cellFactor = (((float)Gdx.graphics.getHeight()/((float)mHeight+0.5f)))/10;
+        cellFactor = /*(((float)Gdx.graphics.getHeight()/((float)mHeight+0.5f)))/10*/ 8;
         step = cellFactor * cellFactor;
         world = new World(new Vector2(0,0),true);
         debugging = new Box2DDebugRenderer();
         
         camera = new OrthographicCamera(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         camera.setToOrtho(true);
-        camera.translate((mWidth*cellFactor - Gdx.graphics.getWidth())/2, 
-                (mHeight*cellFactor - Gdx.graphics.getHeight())/2);
+        camera.translate((float)-WIDTH*3/4,(float)-HEIGHT*3/4);
         camera.zoom /= zoom;
         camera.update();
         
@@ -211,6 +210,9 @@ public class MazeScreen extends ScreenInterface {
     public void render(float delta) {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        
+        camera.position.set(player.getPos(), 0);
+        camera.update();
         
         debugging.render(world, camera.combined);
         

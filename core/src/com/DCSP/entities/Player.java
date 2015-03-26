@@ -93,6 +93,10 @@ public class Player {
     public void update(){
         player.setLinearVelocity(speed);
     }
+    public Vector2 getPos(){
+    pos2 = player.getWorldPoint(initPos);
+    return pos2;
+    }
     
     public boolean checkWin(int x, int y){
         pos = player.getLocalPoint(initPos);      
