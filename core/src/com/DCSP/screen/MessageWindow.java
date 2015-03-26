@@ -40,14 +40,14 @@ public class MessageWindow {
     private final Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
     private Window window;
     private Label label;
-    private int WIDTH = Gdx.graphics.getWidth();
-    private int HEIGHT = Gdx.graphics.getHeight();
+    private final int WIDTH = Gdx.graphics.getWidth();
+    private final int HEIGHT = Gdx.graphics.getHeight();
 
     public MessageWindow() {
-        window = new Window("Generic Message", skin);
+        window = new Window("Generic Error", skin);
         window.setMovable(false);
         window.padTop(20);
-        label = new Label("Incorrect Username or Password.\nPlease try again.\n", skin, "small");
+        label = new Label("Something has gone wrong.\nPlease check the error log", skin, "small");
         window.add(label);
         window.setWidth(label.getWidth() + 20);
         window.row();
@@ -62,6 +62,28 @@ public class MessageWindow {
         window.setVisible(false);
         window.setPosition(WIDTH/2, HEIGHT/2, Align.center);
         window.pack();
+    }
+    
+    public void setTitle(String title){
+        window.setTitle(title);
+    }
+    
+    public void setText(String text){
+        label.setText(text);
+    }
+    
+    public void setVisible(boolean visible){
+        window.setVisible(visible);
+    }
+    
+    public void update(){
+        window.setWidth(label.getWidth() + 20);
+        window.setPosition(WIDTH/2, HEIGHT/2, Align.center);
+        window.pack();
+    }
+    
+    public Window getWindow(){
+        return window;
     }
     
 }
