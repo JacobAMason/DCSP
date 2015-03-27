@@ -24,6 +24,10 @@
 package com.DCSP.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -47,7 +51,26 @@ public class LevelSelectScreen extends ScreenInterface{
     @Override
     public void show() {
         levelStage = new Stage();
-        Gdx.input.setInputProcessor(levelStage);
+        InputMultiplexer levelInput = new InputMultiplexer();
+        levelInput.addProcessor(levelStage);
+        levelInput.addProcessor(new InputAdapter(){
+
+            @Override
+            public boolean keyUp(int keycode) {
+                switch(keycode){
+                    case Keys.ESCAPE:
+                    case Keys.BACK:
+                        gameParent.setScreen(gameParent.mainMenuScreen);
+                        break;
+                    default:
+                        return false;                        
+                }
+                return true;
+            }
+            
+            
+        });
+        Gdx.input.setInputProcessor(levelInput);
         
         skin = new Skin(Gdx.files.internal("uiskin.json"));
         

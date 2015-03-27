@@ -63,10 +63,10 @@ public class MainMenuScreen extends ScreenInterface{
         skin = new Skin(Gdx.files.internal("uiskin.json"));
         
         nameLbl = new Label("Username", skin);
-        nameTxt = new TextField("", skin);
+        nameTxt = new TextField("", skin,"user");
         
         passLbl = new Label("Password", skin);
-        passTxt = new TextField("", skin);
+        passTxt = new TextField("", skin,"user");
         passTxt.setPasswordMode(true);
         passTxt.setPasswordCharacter('*');
         
@@ -173,7 +173,7 @@ public class MainMenuScreen extends ScreenInterface{
         connectionFailWindow = new Window("Login Failed",skin);
         connectionFailWindow.setMovable(false);
         connectionFailWindow.padTop(20);
-        Label connectionFailWindowLbl = new Label("Couldn't connect to the interwebz.\nPlease try again.", skin);
+        Label connectionFailWindowLbl = new Label("Couldn't connect to the interwebz.\nPlease try again.", skin,"small");
         connectionFailWindow.add(connectionFailWindowLbl);
         connectionFailWindow.setWidth(connectionFailWindowLbl.getWidth() + 20);
         connectionFailWindow.row().row();

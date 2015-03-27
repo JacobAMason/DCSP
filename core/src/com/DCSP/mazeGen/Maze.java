@@ -51,7 +51,6 @@ public class Maze {
         this.cellFactor = cellFactor;
         this.width = w; this.height = h;
         generateMaze(width, height, randomSeed);
-        System.out.println(cellGrid.toString());
         drawMaze();
     }
     

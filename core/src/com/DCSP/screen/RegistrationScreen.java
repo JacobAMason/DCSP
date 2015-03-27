@@ -84,24 +84,24 @@ public class RegistrationScreen extends ScreenInterface {
         
         
         usernameLbl = new Label("Username", skin, "small");
-        usernameTxt = new TextField("", skin);
+        usernameTxt = new TextField("", skin,"user");
         
         pass1Lbl = new Label("Password", skin, "small");
-        pass1Txt = new TextField("", skin);
+        pass1Txt = new TextField("", skin, "user");
         pass1Txt.setPasswordMode(true);
         
         pass2Lbl = new Label("Re-enter\nPassword", skin, "small");
-        pass2Txt = new TextField("", skin);
+        pass2Txt = new TextField("", skin, "user");
         pass2Txt.setPasswordMode(true);
         
         nameLbl = new Label("Name", skin, "small");
-        nameTxt = new TextField("", skin);
+        nameTxt = new TextField("", skin, "user");
         
         email1Lbl = new Label("Email", skin, "small");
-        email1Txt = new TextField("", skin);
+        email1Txt = new TextField("", skin, "user-small");
         
         email2Lbl = new Label("Re-enter\nEmail", skin, "small");
-        email2Txt = new TextField("", skin);
+        email2Txt = new TextField("", skin,"user-small");
         
         
         cancel = new TextButton("Cancel", skin);

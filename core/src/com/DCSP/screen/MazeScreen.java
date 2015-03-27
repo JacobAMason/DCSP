@@ -41,6 +41,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -56,16 +57,17 @@ public class MazeScreen extends ScreenInterface {
     private Player player;
     private Vector2 pos = new Vector2(0f,0f);
     
-    private float step;
+    private float step,time;
     
     //Check window
     private Window endGameWindow;
     private Skin skin;
     private Stage menuStage;
+    private Label endGameWindowLbl;
     private int WIDTH;
-    private int HEIGHT;
+    private int HEIGHT; 
     
-    public static int zoom = 9;
+    public static int zoom = 7;
     
     
     
@@ -78,6 +80,7 @@ public class MazeScreen extends ScreenInterface {
     public void show() {
         WIDTH = Gdx.graphics.getWidth();
         HEIGHT = Gdx.graphics.getHeight();
+        time = 0.0f;
         Gdx.input.setInputProcessor(new InputAdapter(){
 
             @Override
@@ -127,13 +130,13 @@ public class MazeScreen extends ScreenInterface {
             
             @Override
             public boolean touchDown (int screenX, int screenY, int pointer, int button) {
-                player.setMove(screenX, screenY);
+                player.setMove((float)screenX-WIDTH/2, (float)screenY-HEIGHT/2);
                 return true;
             }
             
             @Override
             public boolean touchDragged (int screenX, int screenY, int pointer) {
-                player.setMove(screenX, screenY);
+                player.setMove((float)screenX-WIDTH/2, (float)screenY-HEIGHT/2);
                 return true;
             }
             
@@ -141,23 +144,21 @@ public class MazeScreen extends ScreenInterface {
             public boolean touchUp (int screenX, int screenY, int pointer, int button) {
                 player.setX(0);
                 player.setY(0);
-                Gdx.app.log("MazeScreen", "set to zero");
-		        return true;
+                return true;
             }
             
         });
 
         Gdx.input.setCatchBackKey(true);
         
-        cellFactor = (((float)Gdx.graphics.getHeight()/((float)mHeight+0.5f)))/10;
+        cellFactor = /*(((float)Gdx.graphics.getHeight()/((float)mHeight+0.5f)))/10*/ 8;
         step = cellFactor * cellFactor;
         world = new World(new Vector2(0,0),true);
         debugging = new Box2DDebugRenderer();
         
         camera = new OrthographicCamera(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         camera.setToOrtho(true);
-        camera.translate((mWidth*cellFactor - Gdx.graphics.getWidth())/2, 
-                (mHeight*cellFactor - Gdx.graphics.getHeight())/2);
+        camera.translate((float)-WIDTH*3/4,(float)-HEIGHT*3/4);
         camera.zoom /= zoom;
         camera.update();
         
@@ -176,9 +177,9 @@ public class MazeScreen extends ScreenInterface {
         endGameWindow = new Window("Maze Complete!", skin);
         endGameWindow.setMovable(false);
         endGameWindow.padTop(20);
-        Label successWindowLbl = new Label("Would you like to challenge a friend?", skin, "small");
-        endGameWindow.add(successWindowLbl).colspan(2);
-        endGameWindow.setWidth(successWindowLbl.getWidth() + 20);
+        endGameWindowLbl = new Label("Would you like to challenge a friend?", skin, "small");
+        endGameWindow.add(endGameWindowLbl).colspan(2);
+        endGameWindow.setWidth(endGameWindowLbl.getWidth() + 20);
         endGameWindow.row().row();
         
         TextButton no = new TextButton("Nah", skin);
@@ -212,18 +213,26 @@ public class MazeScreen extends ScreenInterface {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
+        
+        camera.position.set(player.getPos(), 0);
+        camera.update();
+        
         debugging.render(world, camera.combined);
         
         world.step(1/60f, 6, 2);
 
         if (player.checkWin(mWidth,mHeight)) {
+            player.setX(0);player.setY(0);
             this.pause();
-            player.setX(0); player.setY(0);
             Gdx.input.setInputProcessor(menuStage);
+            String sTime = new DecimalFormat("####.##").format(time);
+            endGameWindowLbl.setText("Your time was "+ sTime
+                    + "\nWould you like to challenge a friend?");
             endGameWindow.setVisible(true);
             // gameParent.setScreen(gameParent.mainMenuScreen);
         } else {
             player.update();
+            time+=delta;
         }
         
         menuStage.act(delta);

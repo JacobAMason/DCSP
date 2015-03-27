@@ -18,10 +18,10 @@ $jsonReply = array();
 if(mysqli_num_rows($row)) {
     $entry = $row->fetch_assoc();
     $jsonReply = $entry;
-    $jsonReply['result'] = "Success";
+    $jsonReply[result] = "Success";
 	$response = "Success: " . $entry['Name'];
 } else {
-	$jsonReply['result'] = "Fail";
+	$jsonReply[result] = "Fail";
     $response = "Fail: on username: '" . $username . "' and password: '" . $password . "'";
 }
 
