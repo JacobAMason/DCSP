@@ -67,7 +67,8 @@ public class MazeScreen extends ScreenInterface {
     private int WIDTH;
     private int HEIGHT; 
     
-    public static int zoom = 7;
+    // The hiehger the number the higher the zoom.
+    public static int zoom = 9;
     
     
     
@@ -219,7 +220,7 @@ public class MazeScreen extends ScreenInterface {
         
         debugging.render(world, camera.combined);
         
-        world.step(1/60f, 6, 2);
+        world.step(delta, 6, 2);
 
         if (player.checkWin(mWidth,mHeight)) {
             player.setX(0);player.setY(0);
