@@ -63,8 +63,8 @@ public class RegistrationScreen extends ScreenInterface {
     Pattern emailRegex = Pattern.compile("^[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,4}$");
     
     private Window connectionFailWindow;
-    private Window regexErrorWindow;
-    private Label regexErrorLbl;
+    private Window registerErrorWindow;
+    private Label registerErrorLbl;
 
     @Override
     public void show() {
@@ -121,33 +121,34 @@ public class RegistrationScreen extends ScreenInterface {
                 // Validate fields
                 
                 if (!pass1Txt.getText().equals(pass2Txt.getText())) {
-                    regexErrorLbl.setText("Passwords don't match.");
+                    registerErrorLbl.setText("Passwords don't match.");
                 } else if (!email1Txt.getText().equals(email2Txt.getText())) {
-                    regexErrorLbl.setText("Emails don't match.");
+                    registerErrorLbl.setText("Emails don't match.");
                 } else if (!nameRegex.matcher(nameTxt.getText()).matches()) {
-                    regexErrorLbl.setText("Names must be between 1 and 20 characters long\n"
+                    registerErrorLbl.setText("Names must be between 1 and 20 characters long\n"
                                         + "and can use either letters, periods, or apostrophes.");
                 } else if (!usernameRegex.matcher(usernameTxt.getText()).matches()) {
-                    regexErrorLbl.setText("Usernames must be between 3 and 20 characters long\n"
+                    registerErrorLbl.setText("Usernames must be between 3 and 20 characters long\n"
                                         + "and can use either letters, numbers, and underscores.");
                 } else if (!passwordRegex.matcher(pass1Txt.getText()).matches()) {
-                    regexErrorLbl.setText("Password must be between 6 and 30 characters long\n"
+                    registerErrorLbl.setText("Password must be between 6 and 30 characters long\n"
                                         + "and must contain at least one letter and one number.");
                 } else if (!emailRegex.matcher(email1Txt.getText()).matches()) {
-                    regexErrorLbl.setText("Please enter a valid email address.");
+                    registerErrorLbl.setText("Please enter a valid email address.");
                 } else {
                     // Fields are good. Regsiter the user.
-                    HttpConnection httpCon = new HttpConnection();
+                    HttpConnection httpCon = new HttpConnection(gameParent);
                     httpCon.register(usernameTxt.getText(), pass1Txt.getText(),
-                            nameTxt.getText(), email1Txt.getText(), connectionFailWindow);
+                            nameTxt.getText(), email1Txt.getText(),
+                            connectionFailWindow);
                     return;
                 }
                 
-                regexErrorWindow.setWidth(regexErrorLbl.getWidth());
-                regexErrorWindow.pad(20);
-                regexErrorWindow.pack();
-                regexErrorWindow.setPosition(WIDTH/2, HEIGHT/2, Align.center);
-                regexErrorWindow.setVisible(true);
+                registerErrorWindow.setWidth(registerErrorLbl.getWidth());
+                registerErrorWindow.pad(20);
+                registerErrorWindow.pack();
+                registerErrorWindow.setPosition(WIDTH/2, HEIGHT/2, Align.center);
+                registerErrorWindow.setVisible(true);
             }
         });
         
@@ -199,30 +200,35 @@ public class RegistrationScreen extends ScreenInterface {
         //end conFail window
         
         
-        //  Connection Fail Window
+        //  Register Error Window
         /* 
-         * make this method call to put the connection failed window appear
-         * connectionFailWindow.setVisible(true);
+         * make this method call to make the register Error window appear
+         * registerErrorWindow.setVisible(true);
          */
-        regexErrorWindow = new Window("Registration Error",skin);
-        regexErrorWindow.setMovable(false);
-        regexErrorWindow.padTop(20);
-        regexErrorLbl = new Label("", skin, "small");
-        regexErrorWindow.add(regexErrorLbl);
-        regexErrorWindow.row().row();
+        registerErrorWindow = new Window("Registration", skin);
+        registerErrorWindow.setMovable(false);
+        registerErrorWindow.padTop(20);
+        registerErrorLbl = new Label("", skin, "small");
+        registerErrorWindow.add(registerErrorLbl);
+        registerErrorWindow.row().row();
         TextButton regexErrorOK = new TextButton("Ok", skin);
         regexErrorOK.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                regexErrorWindow.setVisible(false);
+                registerErrorWindow.setVisible(false);
             }            
         });
-        regexErrorWindow.add(regexErrorOK);
-        regexErrorWindow.setVisible(false);
-        menuStage.addActor(regexErrorWindow);
-        //end conFail window
+        registerErrorWindow.add(regexErrorOK);
+        registerErrorWindow.setVisible(false);
+        menuStage.addActor(registerErrorWindow);
+        //end regexError window
         
         
+        
+        
+        // Always add the generic message window
+        menuStage.addActor(gameParent.getMessageWindow().getWindow());
+                
         batch = new SpriteBatch();
     }
 

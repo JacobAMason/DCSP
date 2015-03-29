@@ -34,7 +34,7 @@ public class MainMenuScreen extends ScreenInterface{
     private ImageButton settingsBtn;
     
     // Windows
-    private Window successWindow, connectionFailWindow;
+    private Window successWindow;
     
     
     @Override
@@ -89,7 +89,7 @@ public class MainMenuScreen extends ScreenInterface{
         settingsBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                HttpConnection test = new HttpConnection();
+                HttpConnection test = new HttpConnection(gameParent);
                 test.userLookup("Admin");
                 test.getChallenges(4);
                 //gameParent.setScreen(gameParent.settingsScreen);
@@ -106,8 +106,8 @@ public class MainMenuScreen extends ScreenInterface{
         login.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                HttpConnection httpCon = new HttpConnection();
-                httpCon.login(nameTxt.getText(), passTxt.getText(), successWindow, connectionFailWindow);
+                HttpConnection httpCon = new HttpConnection(gameParent);
+                httpCon.login(nameTxt.getText(), passTxt.getText(), successWindow);
             }            
         });
         
@@ -165,30 +165,8 @@ public class MainMenuScreen extends ScreenInterface{
         //end check window
         
         
-        //  Connection Fail Window
-        /* 
-         * make this method call to put the connection failed window appear
-         * connectionFailWindow.setVisible(true);
-         */
-        connectionFailWindow = new Window("Login Failed",skin);
-        connectionFailWindow.setMovable(false);
-        connectionFailWindow.padTop(20);
-        Label connectionFailWindowLbl = new Label("Couldn't connect to the interwebz.\nPlease try again.", skin,"small");
-        connectionFailWindow.add(connectionFailWindowLbl);
-        connectionFailWindow.setWidth(connectionFailWindowLbl.getWidth() + 20);
-        connectionFailWindow.row().row();
-        TextButton confailOK = new TextButton("Ok", skin);
-        confailOK.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                connectionFailWindow.setVisible(false);
-            }            
-        });
-        connectionFailWindow.add(confailOK);
-        connectionFailWindow.setVisible(false);
-        connectionFailWindow.setPosition(WIDTH/2, HEIGHT/2, Align.center);
-        menuStage.addActor(connectionFailWindow);
-        //end check window
+        // Always add the generic message window
+        menuStage.addActor(gameParent.getMessageWindow().getWindow());
         
         batch = new SpriteBatch();
     }
