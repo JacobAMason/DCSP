@@ -45,7 +45,7 @@ public class GameRoot extends Game {
         this.isLoggedIn = isLoggedIn;
     }
     
-    static public MessageWindow getMessageWindow(){
+    public MessageWindow getMessageWindow(){
         return messageWindow;
     }
         

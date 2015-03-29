@@ -24,6 +24,8 @@
 package com.DCSP.http;
 
 import com.DCSP.game.GameRoot;
+import com.DCSP.screen.LevelSelectScreen;
+import com.DCSP.windows.MessageWindow;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.net.HttpParametersUtils;
@@ -38,12 +40,23 @@ import java.util.Map;
  * Parsing JSON. Complicated stuff, dude.
  * https://stackoverflow.com/questions/27078410/libgdx-reading-from-json-file-to-arraylist
  * https://stackoverflow.com/questions/15278619/lib-gdx-json-serializationexception-and-missing-no-arg-constructor
+ * 
+ * Using Render methods (like setting a screen) from a thread other than the OpenGL thread:
+ * https://github.com/libgdx/libgdx/wiki/Threading
+ * 
  * @author Jacob Mason (jm2232)
  */
 public class HttpConnection {
+    GameRoot gameParent;
+    MessageWindow messageWindow;
+
+    public HttpConnection(GameRoot gameParent) {
+        this.gameParent = gameParent;
+        messageWindow = gameParent.getMessageWindow();
+    }
     
     // Returns true/false depending on whether the login succeeded or failed.
-    public void login(String username, String password, final Window successWindow, final Window connectionFailWindow) {
+    public void login(String username, String password, final Window successWindow) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
         request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/Login.php");
         
@@ -65,16 +78,21 @@ public class HttpConnection {
                 
                 if(result.get("result").equals("Fail")) {
                     successWindow.setVisible(true);
-                }
+                } else if(result.get("result").equals("Success")) {
+                    Gdx.app.postRunnable(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            gameParent.setScreen(new LevelSelectScreen());
+                        }
+                    });
+                }                    
             }
 
             @Override
             public void failed(Throwable t) {
                 Gdx.app.log("HttpCon:Login", "Connection Fail");
-                connectionFailWindow.setVisible(true);
-                GameRoot.getMessageWindow().setTitle("Connection Fail");
-                GameRoot.getMessageWindow().setText("Your Interwebz appears broken.");
-                GameRoot.getMessageWindow().setVisible(true);
+                messageWindow.makeConnectionErrorWindow();
             }
 
             @Override
@@ -85,7 +103,8 @@ public class HttpConnection {
     }
     
     
-    public void register(String username, String password, String name, String email, final Window connectionFailWindow) {
+    public void register(String username, String password, String name, String email,
+            final Window connectionFailWindow) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
         request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/Register.php");
         
@@ -100,13 +119,40 @@ public class HttpConnection {
         Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
-                Gdx.app.log("HttpCon:Register", httpResponse.getResultAsString());
+                String response = httpResponse.getResultAsString();
+                Gdx.app.log("HttpCon:Register", response);
+                Json json = new Json();
+                ObjectMap result = json.fromJson(ObjectMap.class, response);
+                Gdx.app.log("HttpCon:Register", result.toString());
+                
+                
+                if(result.get("result").equals("usernameInUse")) {
+                    messageWindow.setTitle("Registration Error");
+                    messageWindow.setText("This username is already taken.");
+                } else if(result.get("result").equals("Fail")) {
+                    messageWindow.setTitle("Registration Error");
+                    messageWindow.setText("There was an issue registering.\n"
+                                           + "Please try again.");
+                } else if(result.get("result").equals("Success")) {
+                    messageWindow.setTitle("Registration Complete");
+                    messageWindow.setText("You've successfully registered.");
+                    Gdx.app.postRunnable(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            gameParent.setScreen(gameParent.mainMenuScreen);
+                        }
+                    });
+                }
+
+                messageWindow.update();
+                messageWindow.setVisible(true);
             }
 
             @Override
             public void failed(Throwable t) {
                 Gdx.app.log("HttpCon:Register", "Connection Fail");
-                connectionFailWindow.setVisible(true);
+                messageWindow.makeConnectionErrorWindow();
             }
 
             @Override
@@ -137,6 +183,7 @@ public class HttpConnection {
             @Override
             public void failed(Throwable t) {
                 Gdx.app.log("HttpCon:sendScore", "Connection Fail");
+                messageWindow.makeConnectionErrorWindow();
             }
 
             @Override
@@ -160,6 +207,7 @@ public class HttpConnection {
             @Override
             public void failed(Throwable t) {
                 Gdx.app.log("HttpCon:getHighScores", "Connection Fail");
+                messageWindow.makeConnectionErrorWindow();
             }
 
             @Override
@@ -188,6 +236,7 @@ public class HttpConnection {
             @Override
             public void failed(Throwable t) {
                 Gdx.app.log("HttpCon:userLookup", "Connection Fail");
+                messageWindow.makeConnectionErrorWindow();
             }
 
             @Override
@@ -216,6 +265,7 @@ public class HttpConnection {
             @Override
             public void failed(Throwable t) {
                 Gdx.app.log("HttpCon:IDLookup", "Connection Fail");
+                messageWindow.makeConnectionErrorWindow();
             }
 
             @Override
@@ -248,6 +298,7 @@ public class HttpConnection {
             @Override
             public void failed(Throwable t) {
                 Gdx.app.log("HttpCon:sendChallenge", "Connection Fail");
+                messageWindow.makeConnectionErrorWindow();
             }
 
             @Override
@@ -285,6 +336,7 @@ public class HttpConnection {
             @Override
             public void failed(Throwable t) {
                 Gdx.app.log("HttpCon:getChallenges", "Connection Fail");
+                messageWindow.makeConnectionErrorWindow();
             }
 
             @Override
@@ -314,6 +366,7 @@ public class HttpConnection {
             @Override
             public void failed(Throwable t) {
                 Gdx.app.log("HttpCon:addFriend", "Connection Fail");
+                messageWindow.makeConnectionErrorWindow();
             }
 
             @Override
@@ -342,6 +395,7 @@ public class HttpConnection {
             @Override
             public void failed(Throwable t) {
                 Gdx.app.log("HttpCon:getFriends", "Connection Fail");
+                messageWindow.makeConnectionErrorWindow();
             }
 
             @Override

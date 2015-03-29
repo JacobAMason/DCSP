@@ -77,9 +77,11 @@ public class MessageWindow {
     }
     
     public void update(){
-        window.setWidth(label.getWidth() + 20);
-        window.setPosition(WIDTH/2, HEIGHT/2, Align.center);
+        window.setWidth(label.getWidth());
+        window.setHeight(label.getHeight());
+        window.pad(20);
         window.pack();
+        window.setPosition(WIDTH/2, HEIGHT/2, Align.center);
     }
     
     public Window getWindow(){
@@ -91,7 +93,14 @@ public class MessageWindow {
         setTitle("Generic Error");
         setText("Something has gone wrong.\nPlease check the error log");
         update();
-        
     }
     
+    // The connection error is so common, there might as well be a pre-made window
+    // for it so at least the connection error looks consistent.
+    public void makeConnectionErrorWindow(){
+        setTitle("Connection Fail");
+        setText("\nYour Interwebz appears broken.\n ");
+        update();
+        setVisible(true);
+    }
 }
