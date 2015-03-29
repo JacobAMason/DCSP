@@ -67,6 +67,7 @@ IMG.mazeImg{
 	z-index:4;
 	margin:0;
 }
+
 .login{
 	padding-top: 25px;
 	padding-right:17.5px;
@@ -79,8 +80,6 @@ IMG.mazeImg{
 	color: #FFFFFF;
 	margin:0;
 }
-
-
 
 .clearfix:after {
     display:block;
