@@ -20,12 +20,14 @@ body{
 
 #Title{
     position: absolute;
-    height: 125px;
-    width: 244px;
+    height: 135px;
+    width: 239px;
     float: left;
-    margin: auto;	
-
+    margin: auto;
+    z-index: 2;	
+    background:maroon;
 }
+
 IMG.logoImg{
     position: absolute;
     float: left;
@@ -34,7 +36,7 @@ IMG.logoImg{
     
 }
 
-img.mazeImg{
+IMG.mazeImg{
 	position: absolute;
 	vertical-align: middle;
     z-index: 1;
@@ -78,28 +80,31 @@ img.mazeImg{
 	margin:0;
 }
 
+
+
 .clearfix:after {
     display:block;
     clear:both;
 }
  
-/*----- Menu Outline -----*/
 .menu-wrap {
-    width:100%;
-    box-shadow:0px 1px 3px rgba(0,0,0,0.2);
-    background:#3e3436;
+    width:239px;
+    z-index: 3;
 }
  
 .menu {
-    width:1000px;
-    margin:0px auto;
-    z-index: 2;
+	position: absolute;
+    width:239px;
+    top: 75px;
+    left: 12.5px;
+    z-index: 3;
 }
  
 .menu li {
     margin:0px;
     list-style:none;
     font-family:'Times New Roman';
+    z-index: 3;
 }
  
 .menu a {
@@ -109,7 +114,7 @@ img.mazeImg{
  
 .menu li:hover > a, .menu .current-item > a {
     text-decoration:none;
-    color:#be5b70;
+    color: maroon;
 }
  
 .menu .arrow {
@@ -117,7 +122,6 @@ img.mazeImg{
     line-height:0%;
 }
  
-/*----- Top Level -----*/
 .menu > ul > li {
     float:left;
     display:inline-block;
@@ -134,8 +138,7 @@ img.mazeImg{
 .menu > ul > li:hover > a, .menu > ul > .current-item > a {
     background:#2e2728;
 }
- 
-/*----- Bottom Level -----*/
+
 .menu li:hover .sub-menu {
     z-index:2;
     opacity:1;
