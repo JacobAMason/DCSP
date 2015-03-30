@@ -40,7 +40,7 @@ public class GameMenuScreen extends ScreenInterface{
     private Stage gameStage;
     private Table gameTable;
     private Skin skin;
-    private TextButton lvlBtn, frndBtn, challBtn, scorebtn, gameBtn;
+    private TextButton gameBtn;
 
     @Override
     public void show() {
@@ -51,7 +51,7 @@ public class GameMenuScreen extends ScreenInterface{
         
         gameTable = new Table(skin);
         gameTable.setFillParent(true);
-        gameTable.defaults().pad(10).fill();
+        gameTable.defaults().pad(10);
         gameTable.add("Welcome To The Game").colspan(2).row();
         
         gameBtn = new TextButton("Levels",skin);
@@ -63,18 +63,7 @@ public class GameMenuScreen extends ScreenInterface{
             }
         });
         
-        gameTable.add(gameBtn).expand();
-        
-        gameBtn = new TextButton("Friends",skin);
-        gameBtn.addListener(new ClickListener(){
-
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                gameParent.setScreen(new FriendsScreen());
-            }
-        });
-        
-        gameTable.add(gameBtn).expand();
+        gameTable.add(gameBtn).colspan(2).expand().fill();
         gameTable.row();
         
         gameBtn = new TextButton("Challenges",skin);
@@ -86,8 +75,19 @@ public class GameMenuScreen extends ScreenInterface{
             }
         });
         
-        gameTable.add(gameBtn).colspan(2).expand();
+        gameTable.add(gameBtn).colspan(2).expand().fill();
         gameTable.row();
+        
+        gameBtn = new TextButton("Friends",skin);
+        gameBtn.addListener(new ClickListener(){
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gameParent.setScreen(new FriendsScreen());
+            }
+        });
+        
+        gameTable.add(gameBtn).expand().fill();
         
         gameBtn = new TextButton("High Scores",skin);
         gameBtn.addListener(new ClickListener(){
@@ -98,7 +98,7 @@ public class GameMenuScreen extends ScreenInterface{
             }
         });
         
-        gameTable.add(gameBtn).colspan(2).expand();
+        gameTable.add(gameBtn).expand().fill();
         gameStage.addActor(gameTable);
     }
 
