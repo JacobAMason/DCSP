@@ -24,6 +24,7 @@
 package com.DCSP.http;
 
 import com.DCSP.game.GameRoot;
+import com.DCSP.screen.GameMenuScreen;
 import com.DCSP.screen.LevelSelectScreen;
 import com.DCSP.windows.MessageWindow;
 import com.badlogic.gdx.Gdx;
@@ -83,7 +84,7 @@ public class HttpConnection {
 
                         @Override
                         public void run() {
-                            gameParent.setScreen(new LevelSelectScreen());
+                            gameParent.setScreen(new GameMenuScreen());
                         }
                     });
                 }                    
