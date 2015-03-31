@@ -202,7 +202,11 @@ public class HttpConnection {
         Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
-                Gdx.app.log("HttpCon:getHighScores", httpResponse.getResultAsString());
+                String response = httpResponse.getResultAsString();
+                Gdx.app.log("HttpCon:getHighScores", response);
+                Json json = new Json();
+                ObjectMap result = json.fromJson(ObjectMap.class, response);
+                Gdx.app.log("HttpCon:getHighScores", result.toString());
             }
 
             @Override

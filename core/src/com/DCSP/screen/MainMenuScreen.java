@@ -91,8 +91,7 @@ public class MainMenuScreen extends ScreenInterface{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 HttpConnection test = new HttpConnection(gameParent);
-                test.userLookup("Admin");
-                test.getChallenges(4);
+                test.getHighScores();
                 //gameParent.setScreen(gameParent.settingsScreen);
             }
         });
