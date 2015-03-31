@@ -60,7 +60,7 @@ public class LevelSelectScreen extends ScreenInterface{
                 switch(keycode){
                     case Keys.ESCAPE:
                     case Keys.BACK:
-                        gameParent.setScreen(gameParent.mainMenuScreen);
+                        gameParent.setScreen(new GameMenuScreen());
                         break;
                     default:
                         return false;                        

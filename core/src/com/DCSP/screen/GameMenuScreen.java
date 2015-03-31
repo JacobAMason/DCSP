@@ -24,6 +24,9 @@
 package com.DCSP.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -45,7 +48,24 @@ public class GameMenuScreen extends ScreenInterface{
     @Override
     public void show() {
         gameStage = new Stage();
-        Gdx.input.setInputProcessor(gameStage);
+        InputMultiplexer gameInput = new InputMultiplexer();
+        gameInput.addProcessor(gameStage);
+        gameInput.addProcessor(new InputAdapter(){
+
+            @Override
+            public boolean keyUp(int keycode) {
+                switch(keycode){
+                    case Input.Keys.ESCAPE:
+                    case Input.Keys.BACK:
+                        Gdx.app.exit();
+                        break;
+                    default:
+                        return false;                        
+                }
+                return true;
+            }
+        });
+        Gdx.input.setInputProcessor(gameInput);
         
         skin = new Skin(Gdx.files.internal("uiskin.json"));
         

@@ -23,21 +23,86 @@
  */
 package com.DCSP.screen;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Array;
+
 /**
  *
  * @author Alex Dodd (wad79)
  */
 class FriendsScreen extends ScreenInterface {
+    private List friendList;
+    private ScrollPane friendScroll;
+    private Table friendTable;
+    private Stage friendStage;
+    private Skin skin;
+    private Array friends;
 
     public FriendsScreen() {
+        friends = new Array(new String[]{"You","Have","No","Friends"});
+    }
+    
+    public FriendsScreen(String[] friends){
+        this.friends = new Array(friends);
     }
 
     @Override
     public void show() {
+        friendStage = new Stage();
+        InputMultiplexer friendInput = new InputMultiplexer();
+        friendInput.addProcessor(friendStage);
+        friendInput.addProcessor(new InputAdapter(){
+
+            @Override
+            public boolean keyUp(int keycode) {
+                switch(keycode){
+                    case Input.Keys.ESCAPE:
+                    case Input.Keys.BACK:
+                        gameParent.setScreen(new GameMenuScreen());
+                        break;
+                    default:
+                        return false;                        
+                }
+                return true;
+            }
+            
+            
+        });
+        Gdx.input.setInputProcessor(friendInput);
+        
+        skin = new Skin(Gdx.files.internal("uiskin.json"));
+        
+        friendTable = new Table(skin);
+        friendTable.setFillParent(true);
+        
+        friendTable.add("Your Friend's List");
+        friendTable.row();
+        
+        friendList = new List(skin,"user");
+        friendList.setItems(friends);
+        friendScroll = new ScrollPane(friendList);
+        
+        friendTable.add(friendScroll).expand();
+        friendStage.addActor(friendTable);
+        
     }
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        
+        friendStage.act(delta);
+        friendStage.draw();
     }
 
     @Override

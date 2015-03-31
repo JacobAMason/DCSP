@@ -23,21 +23,86 @@
  */
 package com.DCSP.screen;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Array;
+
 /**
  *
  * @author Alex Dodd (wad79)
  */
 class HighScoresScreen extends ScreenInterface {
+    private List scoreList;
+    private Table scoreTable;
+    private ScrollPane scoreScroll;
+    private Stage scoreStage;
+    private Skin skin;
 
     public HighScoresScreen() {
     }
 
     @Override
     public void show() {
+        scoreStage = new Stage();
+        InputMultiplexer scoreInput = new InputMultiplexer();
+        scoreInput.addProcessor(scoreStage);
+        scoreInput.addProcessor(new InputAdapter(){
+
+            @Override
+            public boolean keyUp(int keycode) {
+                switch(keycode){
+                    case Input.Keys.ESCAPE:
+                    case Input.Keys.BACK:
+                        gameParent.setScreen(new GameMenuScreen());
+                        break;
+                    default:
+                        return false;                        
+                }
+                return true;
+            }
+            
+            
+        });
+        Gdx.input.setInputProcessor(scoreInput);
+        
+        skin = new Skin(Gdx.files.internal("uiskin.json"));
+        
+        scoreTable = new Table(skin);
+        scoreTable.pad(5);
+        
+        scoreList = new List(skin,"user");
+        Array words = new Array(new String[]{"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p",
+            "q","r","s","t","u","v","w","x","y","z"});
+        scoreList.setItems(words);
+        scoreTable.add(scoreList).padRight(15);
+        
+        scoreList = new List(skin,"user");
+        words = new Array(new String[]{"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P",
+            "Q","R","S","T","U","V","W","X","Y","Z"});
+        scoreList.setItems(words);
+        scoreTable.add(scoreList);
+        
+        scoreScroll = new ScrollPane(scoreTable);
+        scoreScroll.setFillParent(true);
+        scoreScroll.setX(scoreScroll.getX()+5);
+        scoreStage.addActor(scoreScroll);
     }
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        
+        scoreStage.act(delta);
+        scoreStage.draw();
     }
 
     @Override

@@ -61,7 +61,8 @@ com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 	default: { checkboxOn: check-on, checkboxOff: check-off, font: ethno-64, fontColor: white }
 },
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
-	default: { fontColorUnselected: white, selection: selection, fontColorSelected: white, font: ethno-64 }
+	default: { fontColorUnselected: white, selection: no-selection, fontColorSelected: white, font: ethno-64 },
+	user: { fontColorUnselected: white, selection: no-selection, fontColorSelected: white, font: segoe-32 }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Touchpad$TouchpadStyle: {
 	default: { background: default-pane, knob: default-round-large }
