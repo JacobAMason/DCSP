@@ -22,7 +22,7 @@ if(mysqli_num_rows($row)) {
 	while($entry = $row->fetch_assoc()) {
 	    $jsonEntries[] = $entry;
 	}
-	$jsonReply[resultsArray] = $jsonEntries;
+	$jsonReply[challengeResultsArray] = $jsonEntries;
 
 } else {
 	$jsonReply[result] = "Null";

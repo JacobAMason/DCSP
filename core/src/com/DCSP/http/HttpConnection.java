@@ -25,12 +25,13 @@ package com.DCSP.http;
 
 import com.DCSP.game.GameRoot;
 import com.DCSP.screen.GameMenuScreen;
-import com.DCSP.screen.LevelSelectScreen;
+
 import com.DCSP.windows.MessageWindow;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.net.HttpParametersUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.ObjectMap;
 import java.util.ArrayList;
@@ -202,7 +203,11 @@ public class HttpConnection {
         Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
-                Gdx.app.log("HttpCon:getHighScores", httpResponse.getResultAsString());
+                String response = httpResponse.getResultAsString();
+                Gdx.app.log("HttpCon:getHighScores", response);
+                Json json = new Json();
+                ObjectMap result = json.fromJson(ObjectMap.class, response);
+                Gdx.app.log("HttpCon:getHighScores", result.toString());
             }
 
             @Override
@@ -327,8 +332,12 @@ public class HttpConnection {
                 Gdx.app.log("HttpCon:getChallenges", response);
                 Json json = new Json();
                 try {
-                    Response results = json.fromJson(Response.class, response);
-                    Gdx.app.log("HttpCon:getChallenges", results.resultsArray.toString());
+                    ChallengesResponse results = json.fromJson(ChallengesResponse.class, response);
+                    if(results.result.equals("Success")) {
+                        Gdx.app.log("HttpCon:getChallenges", results.challengeResultsArray.toString());
+                    } else {
+                        Gdx.app.log("HttpCon:getChallenges", "No challenges found.");
+                    }
                 } catch(Exception e) {
                     System.out.println(e.toString());
                 }
@@ -380,7 +389,7 @@ public class HttpConnection {
     
     public void getFriends(int frienderID) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
-        request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/addFriend.php");
+        request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/getFriends.php");
         
         Map parameters = new HashMap();
         parameters.put("friender", String.valueOf(frienderID));
@@ -390,7 +399,25 @@ public class HttpConnection {
         Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
-                Gdx.app.log("HttpCon:getFriends", httpResponse.getResultAsString());
+                String response = httpResponse.getResultAsString();
+                Gdx.app.log("HttpCon:getFriends", response);
+                Json json = new Json();
+                try {
+                    ObjectMap results = json.fromJson(ObjectMap.class, response);
+                    if(results.get("result").equals("Success")) {
+                        Array<String> friendsStringArray = (Array) results.get("friendResultsArray");
+                        Gdx.app.postRunnable(new Runnable() {
+                        @Override
+                        public void run() {
+                            gameParent.setScreen(new FriendsScreen());
+                        }
+                    });
+                    } else {
+                        Gdx.app.log("HttpCon:getFriends", "You have no friends.");
+                    }
+                } catch(Exception e) {
+                    System.out.println(e.toString());
+                }
             }
 
             @Override
@@ -408,10 +435,11 @@ public class HttpConnection {
 }
 
 
-class Response {
-    public ArrayList<ChallengesResponse> resultsArray;
+class ChallengesResponse {
+    public ArrayList<ChallengeResultsArray> challengeResultsArray;
+    public String result;
 
-    static class ChallengesResponse {
+    static class ChallengeResultsArray {
         public int ID;
         public int FromID;
         public long ChallengeSeed;
@@ -424,6 +452,3 @@ class Response {
         }
     }
 }
-
-
-

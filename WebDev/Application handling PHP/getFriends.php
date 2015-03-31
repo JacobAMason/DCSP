@@ -10,26 +10,31 @@ $jsonReply = array();
 
 $friender = $_POST['friender'];
 
-$query = "SELECT Friendee FROM Friends WHERE Friender='$friender')";
+$query = "SELECT Friendee FROM Friends WHERE Friender='$friender'";
 $row = $sql->query($query);
 
 
 if(mysqli_num_rows($row)) {
 	$jsonEntries = array();
 	$jsonReply[result] = "Success";
-	$response = "Success: " . $ID;
+	$log->lwrite("Success: " . $friender);
 	
 	while($entry = $row->fetch_assoc()) {
-	    $jsonEntries[] = $entry;
-	}		
-	$jsonReply[resultsArray] = $jsonEntries;
+		$friendee = $entry['Friendee'];
+		$query = "SELECT username FROM User WHERE ID='$friendee'";
+		$usernameRow = $sql->query($query);
+		if(mysqli_num_rows($usernameRow)) {
+			$usernameEntry = $usernameRow->fetch_assoc();
+			$username = $usernameEntry['username'];
+	    	$jsonEntries[] = $username;
+	    }
+	}
+	$jsonReply[friendResultsArray] = $jsonEntries;
 	
 } else {
 	$jsonReply[result] = "Null";
-	$response = "Found no Friends for ID: " . $entry['ID'];
+	$log->lwrite("Found no Friends for ID: " . $friender);
 }
-
-$log->lwrite($response);
 
 header('Content-Type: application/json');
 echo json_encode($jsonReply, JSON_NUMERIC_CHECK);
