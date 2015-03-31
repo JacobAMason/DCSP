@@ -94,6 +94,7 @@ public class MainMenuScreen extends ScreenInterface{
                 //test.getHighScores();
                 test.getChallenges(0);
                 test.getFriends(6);
+
                 //gameParent.setScreen(gameParent.settingsScreen);
             }
         });
