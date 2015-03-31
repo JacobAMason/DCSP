@@ -51,8 +51,8 @@ class FriendsScreen extends ScreenInterface {
         friends = new Array(new String[]{"You","Have","No","Friends"});
     }
     
-    public FriendsScreen(String[] friends){
-        this.friends = new Array(friends);
+    public FriendsScreen(Array friends){
+        this.friends = friends;
     }
 
     @Override
