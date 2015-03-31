@@ -31,6 +31,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -45,6 +46,7 @@ public class LevelSelectScreen extends ScreenInterface{
     private Table levelTable;
     private Skin skin;
     private TextButton levelBtn;
+    private ScrollPane levelScroll;
     
             
 
@@ -75,12 +77,12 @@ public class LevelSelectScreen extends ScreenInterface{
         skin = new Skin(Gdx.files.internal("uiskin.json"));
         
         levelTable = new Table(skin);
-        levelTable.setFillParent(true);
+        //levelTable.setFillParent(true);
                 
-        levelTable.defaults().padBottom(10).padRight(5).padLeft(5);
+        levelTable.defaults().pad(10);
         levelTable.add("Level Select").colspan(5);
         levelTable.row();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 5; j++) {
                 final int lvl = (i*5+j+1);
                 String x = String.valueOf(lvl);
@@ -92,11 +94,19 @@ public class LevelSelectScreen extends ScreenInterface{
                     }
                 });
             
-                levelTable.add(levelBtn).fill().expand();              
+                levelTable.add(levelBtn).size(Gdx.graphics.getWidth()/5 - 20).expand();              
             }
             levelTable.row();            
         }
-        levelStage.addActor(levelTable);
+        levelScroll = new ScrollPane(levelTable);
+        levelScroll.setFillParent(true);
+//        levelTable = new Table(skin);
+//        levelTable.setFillParent(true);
+//        levelTable.defaults().padBottom(10);
+//        levelTable.add("Level Select").colspan(5);
+//        levelTable.row();
+//        levelTable.add(levelScroll);
+        levelStage.addActor(levelScroll);
         
     }
 

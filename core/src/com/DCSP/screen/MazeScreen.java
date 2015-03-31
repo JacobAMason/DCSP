@@ -30,6 +30,8 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -51,7 +53,7 @@ public class MazeScreen extends ScreenInterface {
     private World world;
     private Maze maze;
     private Box2DDebugRenderer debugging;
-    private OrthographicCamera camera;
+    public OrthographicCamera camera;
     private final int mWidth, mHeight;
     private float cellFactor;
     private Player player;
@@ -66,6 +68,7 @@ public class MazeScreen extends ScreenInterface {
     private Label endGameWindowLbl;
     private int WIDTH;
     private int HEIGHT; 
+    private SpriteBatch batch;
     
     // The hiehger the number the higher the zoom.
     public static int zoom = 9;
@@ -79,6 +82,7 @@ public class MazeScreen extends ScreenInterface {
     
     @Override
     public void show() {
+        batch = new SpriteBatch();
         WIDTH = Gdx.graphics.getWidth();
         HEIGHT = Gdx.graphics.getHeight();
         time = 0.0f;
@@ -165,7 +169,7 @@ public class MazeScreen extends ScreenInterface {
         
         maze = new Maze(world, mWidth, mHeight, 42, cellFactor);
         
-        player = new Player(world, cellFactor);
+        player = new Player(world, cellFactor, camera);
         
         
         //Check window
@@ -235,7 +239,6 @@ public class MazeScreen extends ScreenInterface {
             player.update();
             time+=delta;
         }
-        
         menuStage.act(delta);
         menuStage.draw();
     }

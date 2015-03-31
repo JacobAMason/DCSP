@@ -24,6 +24,11 @@
 package com.DCSP.entities;
 
 import com.DCSP.screen.MazeScreen;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -38,28 +43,34 @@ import com.badlogic.gdx.physics.box2d.World;
 public class Player {
     private Vector2 initPos,pos,pos2;
     private float cellFactor;
+    private OrthographicCamera camera;
     private Body player;
     private World world;
     private BodyDef playerBody;
     private FixtureDef playerFix;
+    private SpriteBatch batch;
+    private Sprite playerSprite;
 
     private Vector2 speed = new Vector2(0f,0f);
     
-    public Player(World world, float cellFactor){
+    public Player(World world, float cellFactor, OrthographicCamera camera){
         this.world = world;
         this.cellFactor = cellFactor;
+        this.camera = camera;
         initPos = new Vector2(0+cellFactor/2, 0 + cellFactor/2);
         draw();
     }
     
-    public Player(World world, float cellFactor, int initPosX, int initPosY){
+    public Player(World world, float cellFactor, int initPosX, int initPosY, OrthographicCamera camera){
         this.world = world;
         this.cellFactor = cellFactor;
+        this.camera = camera;
         initPos = new Vector2(initPosX + cellFactor/2, initPosY + cellFactor/2);
         draw();
     }
     
     private void draw(){
+        batch = new SpriteBatch();
         playerBody = new BodyDef();
         playerBody.position.set(initPos);
         playerBody.type = BodyDef.BodyType.DynamicBody;
@@ -73,6 +84,9 @@ public class Player {
         
         player = world.createBody(playerBody);
         player.createFixture(playerFix);
+        playerSprite = new Sprite(new Texture(Gdx.files.internal("img/Pinkyyghost.png")));
+        playerSprite.setSize(cellFactor/2, cellFactor/2);
+        player.setUserData(playerSprite);
     }
     public void setY(float step){
         speed.y = step;
@@ -91,6 +105,12 @@ public class Player {
     
     public void update(){
         player.setLinearVelocity(speed);
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        Sprite sprite = (Sprite) player.getUserData();
+        sprite.setCenter(player.getPosition().x, player.getPosition().y);
+        sprite.draw(batch);
+        batch.end();
     }
     public Vector2 getPos(){
     pos2 = player.getWorldPoint(new Vector2(0,0));
