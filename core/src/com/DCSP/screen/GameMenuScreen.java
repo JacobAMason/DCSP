@@ -23,6 +23,7 @@
  */
 package com.DCSP.screen;
 
+import com.DCSP.http.HttpConnection;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
@@ -72,7 +73,11 @@ public class GameMenuScreen extends ScreenInterface{
         gameTable = new Table(skin);
         gameTable.setFillParent(true);
         gameTable.defaults().pad(10);
-        gameTable.add("Welcome To The Game").colspan(2).row();
+        if (gameParent.profile == null) {
+            gameTable.add("Welcome To The Game").colspan(2).row();
+        } else {
+            gameTable.add("Welcome To The Game, " + gameParent.profile.getName()).colspan(2).row();
+        }
         
         gameBtn = new TextButton("Levels",skin);
         gameBtn.addListener(new ClickListener(){
@@ -103,7 +108,12 @@ public class GameMenuScreen extends ScreenInterface{
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                gameParent.setScreen(new FriendsScreen());
+                HttpConnection httpCon = new HttpConnection(gameParent);
+                if(gameParent.profile == null) {
+                    gameParent.setScreen(new FriendsScreen());
+                } else {
+                    httpCon.getFriends(gameParent.profile.getID());
+                }
             }
         });
         

@@ -24,7 +24,6 @@
 package com.DCSP.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -40,7 +39,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  *
  * @author Jacob Mason (jm2232)
  */
-class ChallengeSendScreen extends ScreenInterface {
+public class ChallengeSendScreen extends ScreenInterface {
     private final int seed;
     private Stage challengeStage;
     private Table challengeTable;

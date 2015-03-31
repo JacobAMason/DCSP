@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2015 Alex Dodd (wad79).
+ * Copyright 2015 Jacob Mason (jm2232).
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,43 +21,54 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.DCSP.screen;
+package com.DCSP.game;
 
 /**
  *
- * @author Alex Dodd (wad79)
+ * @author Jacob Mason (jm2232)
  */
-public class ChallengesScreen extends ScreenInterface {
+public class UserProfile {
+    private int ID;
+    private String username;
+    private String email;
+    private String name;
 
-    public ChallengesScreen() {
+    public UserProfile(int ID, String username, String email, String name) {
+        this.ID = ID;
+        this.username = username;
+        this.email = email;
+        this.name = name;
     }
 
-    @Override
-    public void show() {
+    public int getID() {
+        return ID;
     }
 
-    @Override
-    public void render(float delta) {
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
-    @Override
-    public void resize(int width, int height) {
+    public String getUsername() {
+        return username;
     }
 
-    @Override
-    public void pause() {
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    @Override
-    public void resume() {
+    public String getEmail() {
+        return email;
     }
 
-    @Override
-    public void hide() {
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    @Override
-    public void dispose() {
+    public String getName() {
+        return name;
     }
-    
+
+    public void setName(String name) {
+        this.name = name;
+    }    
 }

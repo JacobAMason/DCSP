@@ -24,8 +24,9 @@
 package com.DCSP.http;
 
 import com.DCSP.game.GameRoot;
+import com.DCSP.game.UserProfile;
 import com.DCSP.screen.GameMenuScreen;
-
+import com.DCSP.screen.FriendsScreen;
 import com.DCSP.windows.MessageWindow;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
@@ -81,6 +82,18 @@ public class HttpConnection {
                 if(result.get("result").equals("Fail")) {
                     successWindow.setVisible(true);
                 } else if(result.get("result").equals("Success")) {
+                    
+                    
+                    try {
+                        gameParent.profile
+                                = new UserProfile(Math.round(Float.valueOf(result.get("ID").toString())),  // This is the stupidest conversion ever invented. Thanks Java.
+                                        result.get("username").toString(),
+                                        result.get("email").toString(),
+                                        result.get("Name").toString());
+                    } catch (Exception e) {
+                        System.out.println(e.toString());
+                    }
+                    
                     Gdx.app.postRunnable(new Runnable() {
 
                         @Override
@@ -405,15 +418,21 @@ public class HttpConnection {
                 try {
                     ObjectMap results = json.fromJson(ObjectMap.class, response);
                     if(results.get("result").equals("Success")) {
-                        Array<String> friendsStringArray = (Array) results.get("friendResultsArray");
+                        final Array friendsStringArray = (Array) results.get("friendResultsArray");
                         Gdx.app.postRunnable(new Runnable() {
-                        @Override
-                        public void run() {
-                            gameParent.setScreen(new FriendsScreen());
-                        }
-                    });
+                            @Override
+                            public void run() {
+                                gameParent.setScreen(new FriendsScreen(friendsStringArray));
+                            }
+                        });
                     } else {
                         Gdx.app.log("HttpCon:getFriends", "You have no friends.");
+                        Gdx.app.postRunnable(new Runnable() {
+                            @Override
+                            public void run() {
+                                gameParent.setScreen(new FriendsScreen());
+                            }
+                        });
                     }
                 } catch(Exception e) {
                     System.out.println(e.toString());

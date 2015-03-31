@@ -14,6 +14,7 @@ public class GameRoot extends Game {
     public MainMenuScreen mainMenuScreen;
     public Screen settingsScreen;
     static private MessageWindow messageWindow;
+    public UserProfile profile;
     
     
     public GameRoot(Screen settingsScreen) {

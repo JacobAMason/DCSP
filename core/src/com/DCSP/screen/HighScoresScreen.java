@@ -39,7 +39,7 @@ import com.badlogic.gdx.utils.Array;
  *
  * @author Alex Dodd (wad79)
  */
-class HighScoresScreen extends ScreenInterface {
+public class HighScoresScreen extends ScreenInterface {
     private List scoreList;
     private Table scoreTable;
     private ScrollPane scoreScroll;

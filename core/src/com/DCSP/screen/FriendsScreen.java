@@ -39,7 +39,7 @@ import com.badlogic.gdx.utils.Array;
  *
  * @author Alex Dodd (wad79)
  */
-class FriendsScreen extends ScreenInterface {
+public class FriendsScreen extends ScreenInterface {
     private List friendList;
     private ScrollPane friendScroll;
     private Table friendTable;
