@@ -71,7 +71,7 @@ public class MazeScreen extends ScreenInterface {
     private SpriteBatch batch;
     
     // The hiehger the number the higher the zoom.
-    public static int zoom = 9;
+    public static float zoom =.5f;
     
     
     

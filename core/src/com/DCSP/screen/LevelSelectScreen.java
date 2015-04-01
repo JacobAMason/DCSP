@@ -31,6 +31,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -82,11 +83,12 @@ public class LevelSelectScreen extends ScreenInterface{
         levelTable.defaults().pad(10);
         levelTable.add("Level Select").colspan(5);
         levelTable.row();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
             for (int j = 0; j < 5; j++) {
                 final int lvl = (i*5+j+1);
                 String x = String.valueOf(lvl);
-                levelBtn = new TextButton(x,skin);
+                levelBtn = new TextButton(x, skin);
+                levelBtn.add(new Label("No Score", skin, "small"));
                 levelBtn.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
