@@ -28,6 +28,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -88,7 +89,9 @@ public class LevelSelectScreen extends ScreenInterface{
                 final int lvl = (i*5+j+1);
                 String x = String.valueOf(lvl);
                 levelBtn = new TextButton(x, skin);
-                levelBtn.add(new Label("No Score", skin, "small"));
+                Label label = new Label("00.00", skin, "small");
+                label.setColor(Color.RED);
+                levelBtn.add(label);
                 levelBtn.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
