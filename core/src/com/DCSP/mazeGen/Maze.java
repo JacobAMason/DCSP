@@ -24,6 +24,8 @@
 package com.DCSP.mazeGen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -31,6 +33,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -45,6 +48,9 @@ public class Maze {
     private World world;
     private float cellFactor;
     private int width, height;
+    
+    private Sprite v_wall,h_wall;
+    private Array<Sprite> walls;
     
     public Maze(World world, int w, int h, long randomSeed,float cellFactor){
         this.world = world;
@@ -100,6 +106,11 @@ public class Maze {
         
     }
     private void drawMaze() {
+        v_wall = new Sprite(new Texture(Gdx.files.internal("img/v_wall.png")));
+        v_wall.setSize(1, 1);
+        h_wall = new Sprite(new Texture(Gdx.files.internal("img/h_wall.png")));
+        h_wall.setSize(10, 1);
+        
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 drawWall(cellGrid.getCell(x, y));   
@@ -108,6 +119,7 @@ public class Maze {
     }
     
     private void drawWall(Cell cell){
+        walls = new Array<Sprite>();
         float X = (cell.X * cellFactor)/2;
         float Y = (cell.Y * cellFactor)/2;
         BodyDef wallBody = new BodyDef();
@@ -119,37 +131,44 @@ public class Maze {
         FixtureDef wallFix = new FixtureDef();
         wallFix.restitution = 0;
         
-        Body wall = world.createBody(wallBody);
         
         if (cell.wallN){
+            Body wall = world.createBody(wallBody);
             wallShape = new ChainShape();
             wallShape.createChain(new Vector2[]{new Vector2(X, Y), new Vector2(X+cellFactor, Y)});
             wallFix.shape = wallShape;
             wall.createFixture(wallFix);
+            //wall.setUserData(h_wall);
             wallShape.dispose();
         }
         
         if (cell.wallE){
+            Body wall = world.createBody(wallBody);
             wallShape = new ChainShape();
             wallShape.createChain(new Vector2[]{new Vector2(X+cellFactor, Y), new Vector2(X+cellFactor, Y+cellFactor)});
             wallFix.shape = wallShape;
             wall.createFixture(wallFix);
+            //wall.setUserData(v_wall);
             wallShape.dispose();
         }
         
         if (cell.wallS){
+            Body wall = world.createBody(wallBody);
             wallShape = new ChainShape();
             wallShape.createChain(new Vector2[]{new Vector2(X, Y+cellFactor), new Vector2(X+cellFactor, Y+cellFactor)});
             wallFix.shape = wallShape;
             wall.createFixture(wallFix);
+            //wall.setUserData(h_wall);
             wallShape.dispose();
         }
         
         if (cell.wallW){
+            Body wall = world.createBody(wallBody);
             wallShape = new ChainShape();
             wallShape.createChain(new Vector2[]{new Vector2(X, Y), new Vector2(X, Y+cellFactor)});
             wallFix.shape = wallShape;
             wall.createFixture(wallFix);
+            //wall.setUserData(v_wall);
             wallShape.dispose();
         }
         

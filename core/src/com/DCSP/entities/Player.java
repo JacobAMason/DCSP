@@ -23,7 +23,7 @@
  */
 package com.DCSP.entities;
 
-import com.DCSP.screen.MazeScreen;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -48,7 +48,6 @@ public class Player {
     private World world;
     private BodyDef playerBody;
     private FixtureDef playerFix;
-    private SpriteBatch batch;
     private Sprite playerSprite;
 
     private Vector2 speed = new Vector2(0f,0f);
@@ -70,7 +69,6 @@ public class Player {
     }
     
     private void draw(){
-        batch = new SpriteBatch();
         playerBody = new BodyDef();
         playerBody.position.set(initPos);
         playerBody.type = BodyDef.BodyType.DynamicBody;
@@ -105,12 +103,7 @@ public class Player {
     
     public void update(){
         player.setLinearVelocity(speed);
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-        Sprite sprite = (Sprite) player.getUserData();
-        sprite.setCenter(player.getPosition().x, player.getPosition().y);
-        sprite.draw(batch);
-        batch.end();
+        
     }
     public Vector2 getPos(){
     pos2 = player.getWorldPoint(new Vector2(0,0));

@@ -33,6 +33,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -43,7 +44,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Array;
 import java.text.DecimalFormat;
+import java.util.Iterator;
 
 /**
  *
@@ -61,6 +64,9 @@ public class MazeScreen extends ScreenInterface {
     
     private float step,time;
     
+    private SpriteBatch batch;
+    private Array<Body> Bodies = new Array();
+    
     //Check window
     private Window endGameWindow;
     private Skin skin;
@@ -68,10 +74,9 @@ public class MazeScreen extends ScreenInterface {
     private Label endGameWindowLbl;
     private int WIDTH;
     private int HEIGHT; 
-    private SpriteBatch batch;
     
     // The hiehger the number the higher the zoom.
-    public static float zoom =.5f;
+    public static float zoom =9;
     
     
     
@@ -189,7 +194,6 @@ public class MazeScreen extends ScreenInterface {
         
         TextButton no = new TextButton("Nah", skin);
         no.addListener(new ClickListener(){
-            @Override
             public void clicked(InputEvent event, float x, float y) {
                 endGameWindow.setVisible(false);
                 gameParent.setScreen(new LevelSelectScreen());
@@ -225,6 +229,18 @@ public class MazeScreen extends ScreenInterface {
         debugging.render(world, camera.combined);
         
         world.step(delta, 6, 2);
+        
+        
+        batch.begin();
+        world.getBodies(Bodies);
+        for (Body body  : Bodies) {
+            if ( body.getUserData() instanceof Sprite){
+                Sprite sprite = (Sprite) body.getUserData();
+                sprite.setPosition(body.getPosition().x, body.getPosition().y);
+                sprite.draw(batch);
+            }
+        }
+        batch.end();
 
         if (player.checkWin(mWidth,mHeight)) {
             player.setX(0);player.setY(0);

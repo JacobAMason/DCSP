@@ -89,6 +89,7 @@ public class LevelSelectScreen extends ScreenInterface{
                 final int lvl = (i*5+j+1);
                 String x = String.valueOf(lvl);
                 levelBtn = new TextButton(x, skin);
+                levelBtn.getLabel().setColor(Color.RED);
                 Label label = new Label("00.00", skin, "small");
                 label.setColor(Color.RED);
                 levelBtn.add(label);
