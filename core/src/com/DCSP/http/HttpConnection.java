@@ -98,6 +98,7 @@ public class HttpConnection {
 
                         @Override
                         public void run() {
+                            getScores(gameParent.profile.getID());
                             gameParent.setScreen(new GameMenuScreen());
                         }
                     });
@@ -178,9 +179,9 @@ public class HttpConnection {
     }
     
     
-    public void sendScore(int ID, int level, int score) {
+    public void sendScore(int ID, int level, float score) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
-        request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/Score.php");
+        request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/sendScores.php");
         
         Map parameters = new HashMap();
         parameters.put("ID", String.valueOf(ID));
@@ -204,6 +205,42 @@ public class HttpConnection {
             @Override
             public void cancelled() {
                 Gdx.app.log("HttpCon:sendScore", "Cancel function called. What does this even do?");
+            }
+        });
+    }
+    
+    
+    public void getScores(int ID) {
+        Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
+        request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/Score.php");
+        
+        Map parameters = new HashMap();
+        parameters.put("ID", String.valueOf(ID));
+        request.setContent(HttpParametersUtils.convertHttpParameters(parameters));
+        
+        Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
+            @Override
+            public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                String response = httpResponse.getResultAsString();
+                Gdx.app.log("HttpCon:getScores", response);
+                Json json = new Json();
+                ObjectMap result = json.fromJson(ObjectMap.class, response);
+                Gdx.app.log("HttpCon:getScores", result.toString());
+                
+                if(result.get("result").equals("Success")) {
+                    
+                }
+            }
+
+            @Override
+            public void failed(Throwable t) {
+                Gdx.app.log("HttpCon:getScores", "Connection Fail");
+                messageWindow.makeConnectionErrorWindow();
+            }
+
+            @Override
+            public void cancelled() {
+                Gdx.app.log("HttpCon:getScores", "Cancel function called. What does this even do?");
             }
         });
     }
