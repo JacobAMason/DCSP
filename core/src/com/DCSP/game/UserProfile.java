@@ -23,6 +23,8 @@
  */
 package com.DCSP.game;
 
+import java.util.HashMap;
+
 /**
  *
  * @author Jacob Mason (jm2232)
@@ -32,6 +34,7 @@ public class UserProfile {
     private String username;
     private String email;
     private String name;
+    public HashMap<Integer, Double> scoresDict = new HashMap<Integer, Double>();  // level/score
 
     public UserProfile(int ID, String username, String email, String name) {
         this.ID = ID;
