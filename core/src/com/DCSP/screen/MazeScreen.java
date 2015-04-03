@@ -64,7 +64,8 @@ public class MazeScreen extends ScreenInterface {
     private Vector2 pos = new Vector2(0f, 0f);
     private int level;
 
-    private float step, time;
+    private float step;
+    private double time;
 
     private SpriteBatch batch;
     private Array<Body> Bodies = new Array();
@@ -91,7 +92,7 @@ public class MazeScreen extends ScreenInterface {
         batch = new SpriteBatch();
         WIDTH = Gdx.graphics.getWidth();
         HEIGHT = Gdx.graphics.getHeight();
-        time = 0.0f;
+        time = 0.0;
         Gdx.input.setInputProcessor(new InputAdapter() {
 
             @Override
@@ -216,6 +217,10 @@ public class MazeScreen extends ScreenInterface {
         menuStage.addActor(endGameWindow);
         //end check window
     }
+    
+    
+    
+    boolean runOnceCrappyHack = true;
 
     @Override
     public void render(float delta) {
@@ -241,7 +246,8 @@ public class MazeScreen extends ScreenInterface {
         }
         batch.end();
 
-        if (player.checkWin(mWidth, mHeight)) {
+        if (player.checkWin(mWidth, mHeight) && runOnceCrappyHack) {
+            runOnceCrappyHack = false;
             player.setX(0);
             player.setY(0);
             this.pause();
@@ -251,6 +257,14 @@ public class MazeScreen extends ScreenInterface {
             HttpConnection httpCon = new HttpConnection(gameParent);
             if (gameParent.profile != null) {
                 httpCon.sendScore(gameParent.profile.getID(), level, time);
+                Double previousTime = gameParent.profile.scoresDict.get(level);
+                if (previousTime != null) {
+                    if (time < previousTime) {
+                        gameParent.profile.scoresDict.put(level, time);
+                    }
+                } else {
+                    gameParent.profile.scoresDict.put(level, time);
+                }
             }
 
             endGameWindowLbl.setText("Your time was " + sTime + " seconds."

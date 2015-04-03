@@ -175,7 +175,7 @@ public class HttpConnection {
         });
     }
 
-    public void sendScore(int ID, int level, float score) {
+    public void sendScore(int ID, int level, double score) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
         request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/sendScores.php");
 

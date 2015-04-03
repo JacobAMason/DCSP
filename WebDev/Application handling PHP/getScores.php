@@ -9,7 +9,7 @@ $sql = new mysqli($dbhostname, $dbusername, $dbpassword, $dbusername);
 
 $ID = $_POST['ID'];
 
-$log->lwrite("ID:" . $ID . " Score: " . $score . " Level: " . $level);
+$log->lwrite("ID:" . $ID);
 
 $query = "SELECT level,score FROM Scores WHERE ID='$ID'";
 $row = $sql->query($query);

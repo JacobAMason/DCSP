@@ -30,7 +30,7 @@ if(mysqli_num_rows($row)) {
 		$row = $sql->query($query);
 		if ($row) {
 			$log->lwrite("Success: score inserted into existing row");
-			$jsonReply[] = "New Personal Highscore " . $score . " over " . $previousScore;
+			$jsonReply[] = "New Personal Highscore " . $score . " faster than " . $previousScore;
 			$checkGlobalHighScore = True;
 		} else {
 			$log->lwrite("Fail: existing row couldn't be updated");
@@ -92,7 +92,7 @@ if ($checkGlobalHighScore) {
 		
 	} else {
 		// New Highscore
-		$query = "INSERT INTO Highscores (ID, level) VALUES ('$ID', '$level')";
+		$query = "INSERT INTO HighScores (level, ID) VALUES ('$level','$ID')";
 		if($sql->query($query)){
 			$log->lwrite("Success: First highscore for this level");
 			$jsonReply[] = "Success: First highscore for this level";
