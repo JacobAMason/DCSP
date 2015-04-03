@@ -76,7 +76,7 @@ public class Maze {
         int randX = rand.nextInt(mazeWidth);
         int randY = rand.nextInt(mazeHeight);
         
-        System.out.println("RandX: " + randX + " RandY: " + randY);
+        Gdx.app.log("Maze", "RandX: " + randX + " RandY: " + randY);
         
         Cell currentCell = cellGrid.getCell(randX, randY);
         int visitedCells = 1;
