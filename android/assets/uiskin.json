@@ -1,6 +1,7 @@
 {
 com.badlogic.gdx.graphics.g2d.BitmapFont: { ethno-64: { file: ethno.fnt } },
 com.badlogic.gdx.graphics.g2d.BitmapFont: { ethno-24: { file: ethno_small.fnt } },
+com.badlogic.gdx.graphics.g2d.BitmapFont: { segoe-64: { file: segoe-64.fnt } },
 com.badlogic.gdx.graphics.g2d.BitmapFont: { segoe-32: { file: segoe.fnt } },
 com.badlogic.gdx.graphics.g2d.BitmapFont: { segoe-24: { file: segoe_small.fnt } },
 
@@ -61,7 +62,8 @@ com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 	default: { checkboxOn: check-on, checkboxOff: check-off, font: ethno-64, fontColor: white }
 },
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
-	default: { fontColorUnselected: white, selection: no-selection, fontColorSelected: white, font: ethno-64 },
+	default: { fontColorUnselected: white, selection: selection, fontColorSelected: white, font: segoe-64 },
+	name: { fontColorUnselected: white, selection: no-selection, fontColorSelected: white, font: segoe-64 },
 	user: { fontColorUnselected: white, selection: no-selection, fontColorSelected: white, font: segoe-32 }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Touchpad$TouchpadStyle: {

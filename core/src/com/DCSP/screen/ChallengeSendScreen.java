@@ -28,12 +28,15 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Array;
 
 /**
  *
@@ -44,37 +47,50 @@ public class ChallengeSendScreen extends ScreenInterface {
     private Stage challengeStage;
     private Table challengeTable;
     private Skin skin;
-    private TextField toName;
+    private List challengeList;
+    private ScrollPane challengeScroll;
+    private Array friends;
+    private TextButton toName;
 
-    public ChallengeSendScreen(int seed) {
+    public ChallengeSendScreen(int seed, Array friends) {
         this.seed = seed;
+        this.friends = friends;
     }
 
     @Override
     public void show() {
         challengeStage = new Stage();
+        
         Gdx.input.setInputProcessor(challengeStage);
         Gdx.input.setCatchBackKey(true);
         
-        challengeTable = new Table(skin);
-        challengeTable.setFillParent(true);
-        
         skin = new Skin(Gdx.files.internal("uiskin.json"));
         
-        toName = new TextField("",skin);
-        TextButton send = new TextButton("Send",skin);
-        send.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-            }            
-        });
-        toName.setAlignment(Align.center);
+        challengeTable = new Table(skin);
+        challengeTable.setFillParent(true);
+        challengeTable.defaults().pad(15);
         
-        challengeTable.add(new Label("Send Challenge",skin)).row();
-        challengeTable.add(new Label("Friend's User Name",skin)).row();
-        challengeTable.add(toName).padBottom(10).minWidth(challengeTable.getMinWidth()).row();
-        challengeTable.add(send).width(send.getMinWidth() + 20);
+        challengeTable.add("Your Friend's List");
+        challengeTable.row();
         
+        challengeList = new List(skin);
+        challengeList.setItems(friends);
+        challengeScroll = new ScrollPane(challengeList);
+        
+        challengeTable.add(challengeScroll).expand().align(Align.left);
+        
+        
+        
+        toName = new TextButton("Add Friend",skin,"small");
+        toName.addListener(new ClickListener(){
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        // Insert usefull php hook here that uses challengeList.getSelected()
+                    }
+                });
+        
+        challengeTable.add(toName).width(toName.getWidth()*2)
+                .height(toName.getHeight()+ 20).align(Align.right);
         
         challengeStage.addActor(challengeTable);
         

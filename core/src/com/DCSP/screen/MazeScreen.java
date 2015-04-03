@@ -206,7 +206,7 @@ public class MazeScreen extends ScreenInterface {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 endGameWindow.setVisible(false);
-                gameParent.setScreen(new ChallengeSendScreen(42));
+                gameParent.setScreen(new ChallengeSendScreen(42,new Array(new String[]{"You","Have","No","Friends"})));
             }            
         });
         endGameWindow.add(yes);
@@ -230,13 +230,13 @@ public class MazeScreen extends ScreenInterface {
         
         world.step(delta, 6, 2);
         
-        
+        batch.setProjectionMatrix(camera.combined);
         batch.begin();
         world.getBodies(Bodies);
         for (Body body  : Bodies) {
             if ( body.getUserData() instanceof Sprite){
                 Sprite sprite = (Sprite) body.getUserData();
-                sprite.setPosition(body.getPosition().x, body.getPosition().y);
+                sprite.setCenter(body.getPosition().x, body.getPosition().y);
                 sprite.draw(batch);
             }
         }

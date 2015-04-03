@@ -28,11 +28,16 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 
 /**
@@ -45,6 +50,8 @@ public class FriendsScreen extends ScreenInterface {
     private Table friendTable;
     private Stage friendStage;
     private Skin skin;
+    private TextField friendField;
+    private TextButton friendBtn;
     private Array friends;
 
     public FriendsScreen() {
@@ -83,15 +90,32 @@ public class FriendsScreen extends ScreenInterface {
         
         friendTable = new Table(skin);
         friendTable.setFillParent(true);
+        friendTable.defaults().pad(15);
         
         friendTable.add("Your Friend's List");
         friendTable.row();
         
-        friendList = new List(skin,"user");
+        friendList = new List(skin,"name");
         friendList.setItems(friends);
         friendScroll = new ScrollPane(friendList);
         
-        friendTable.add(friendScroll).expand();
+        friendTable.add(friendScroll).expand().align(Align.left);
+        
+        friendField = new TextField("",skin,"user");
+        
+        friendTable.add(friendField).height(friendField.getHeight()+10)
+                .width(friendField.getWidth()*2).align(Align.right);
+        
+        friendBtn = new TextButton("Add Friend",skin,"small");
+        friendBtn.addListener(new ClickListener(){
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        //Insert Usefull php hook here
+                    }
+                });
+        
+        friendTable.add(friendBtn).height(friendField.getHeight()).align(Align.right);
+        
         friendStage.addActor(friendTable);
         
     }
