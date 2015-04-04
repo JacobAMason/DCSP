@@ -214,12 +214,14 @@ public class MazeScreen extends ScreenInterface {
 
         endGameWindow.setVisible(false);
         endGameWindow.setPosition(WIDTH / 2, HEIGHT / 2, Align.center);
+
+        // Always add the generic message window
+        menuStage.addActor(gameParent.getMessageWindow().getWindow());
+
         menuStage.addActor(endGameWindow);
         //end check window
     }
-    
-    
-    
+
     boolean runOnceCrappyHack = true;
 
     @Override
@@ -265,12 +267,19 @@ public class MazeScreen extends ScreenInterface {
                 } else {
                     gameParent.profile.scoresDict.put(level, time);
                 }
+
+                endGameWindowLbl.setText("Your time was " + sTime + " seconds."
+                        + "\nWould you like to challenge a friend?");
+                endGameWindow.setVisible(true);
+            } else {
+                gameParent.getMessageWindow().setTitle("Maze Complete!");
+                gameParent.getMessageWindow().setText("Your time was " + sTime + " seconds."
+                        + "\nPlease register to play more levels!");
+                gameParent.getMessageWindow().update();
+                gameParent.getMessageWindow().setVisible(true);
+                gameParent.setScreen(gameParent.mainMenuScreen);
             }
 
-            endGameWindowLbl.setText("Your time was " + sTime + " seconds."
-                    + "\nWould you like to challenge a friend?");
-            endGameWindow.setVisible(true);
-            // gameParent.setScreen(gameParent.mainMenuScreen);
         } else {
             player.update();
             time += delta;
