@@ -27,6 +27,7 @@ import com.DCSP.game.GameRoot;
 import com.DCSP.game.UserProfile;
 import com.DCSP.screen.GameMenuScreen;
 import com.DCSP.screen.FriendsScreen;
+import com.DCSP.screen.HighScoresScreen;
 import com.DCSP.windows.MessageWindow;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
@@ -35,6 +36,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.OrderedMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -255,8 +257,17 @@ public class HttpConnection {
                 String response = httpResponse.getResultAsString();
                 Gdx.app.log("HttpCon:getHighScores", response);
                 Json json = new Json();
-                ObjectMap result = json.fromJson(ObjectMap.class, response);
+                final OrderedMap result = json.fromJson(OrderedMap.class, response);
                 Gdx.app.log("HttpCon:getHighScores", result.toString());
+                
+                if (result.remove("result").equals("Success")) {
+                    Gdx.app.postRunnable(new Runnable() {
+                        @Override
+                        public void run() {
+                            gameParent.setScreen(new HighScoresScreen(result));
+                        }
+                    });
+                }
             }
 
             @Override

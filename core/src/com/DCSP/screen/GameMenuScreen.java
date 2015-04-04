@@ -124,7 +124,8 @@ public class GameMenuScreen extends ScreenInterface{
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                gameParent.setScreen(new HighScoresScreen());
+                HttpConnection httpCon = new HttpConnection(gameParent);
+                httpCon.getHighScores();
             }
         });
         

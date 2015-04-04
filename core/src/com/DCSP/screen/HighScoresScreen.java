@@ -34,6 +34,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.OrderedMap;
 
 /**
  *
@@ -45,8 +46,10 @@ public class HighScoresScreen extends ScreenInterface {
     private ScrollPane scoreScroll;
     private Stage scoreStage;
     private Skin skin;
+    private final OrderedMap scoreFromDB;
 
-    public HighScoresScreen() {
+    public HighScoresScreen(OrderedMap scoreFromDB) {
+        this.scoreFromDB = scoreFromDB;
     }
 
     @Override
@@ -78,17 +81,39 @@ public class HighScoresScreen extends ScreenInterface {
         scoreTable = new Table(skin);
         scoreTable.pad(5);
         
-        scoreList = new List(skin,"user");
-        Array words = new Array(new String[]{"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p",
-            "q","r","s","t","u","v","w","x","y","z"});
-        scoreList.setItems(words);
-        scoreTable.add(scoreList).padRight(15);
+//        scoreList = new List(skin,"user");
+//        Array words = new Array(new String[]{"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p",
+//            "q","r","s","t","u","v","w","x","y","z"});
+//        scoreList.setItems(words);
+//        scoreTable.add(scoreList).padRight(15);
+//        
+//        scoreList = new List(skin,"user");
+//        words = new Array(new String[]{"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P",
+//            "Q","R","S","T","U","V","W","X","Y","Z"});
+//        scoreList.setItems(words);
+//        scoreTable.add(scoreList);
         
-        scoreList = new List(skin,"user");
-        words = new Array(new String[]{"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P",
-            "Q","R","S","T","U","V","W","X","Y","Z"});
-        scoreList.setItems(words);
-        scoreTable.add(scoreList);
+        try {
+            Array levels = scoreFromDB.keys().toArray();
+            Array scores = scoreFromDB.values().toArray();
+            
+            scoreList = new List(skin,"user");
+            scoreList.setItems(levels);
+            scoreTable.add(scoreList).padRight(15);
+            
+            scoreList = new List(skin,"user");
+            scoreList.setItems(scores);
+            scoreTable.add(scoreList);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        
+        
+        
+        
+        scoreList = new List(skin, "user");
+        
+        
         
         scoreScroll = new ScrollPane(scoreTable);
         scoreScroll.setFillParent(true);
