@@ -81,7 +81,7 @@ public class ChallengeSendScreen extends ScreenInterface {
         
         
         
-        toName = new TextButton("Add Friend",skin,"small");
+        toName = new TextButton("Send Challenge",skin,"small");
         toName.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y) {

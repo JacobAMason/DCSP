@@ -92,7 +92,7 @@ public class FriendsScreen extends ScreenInterface {
         friendTable.setFillParent(true);
         friendTable.defaults().pad(15);
         
-        friendTable.add("Your Friend's List");
+        friendTable.add("Your Friend's List").colspan(3);
         friendTable.row();
         
         friendList = new List(skin,"name");
