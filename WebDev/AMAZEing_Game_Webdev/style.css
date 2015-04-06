@@ -82,13 +82,16 @@ IMG.mazeImg{
 }
 
 #welcome{
+    position: relative;
+    float: right;
     color: white;
     float: right;
+    z-index:5;
     padding-top:10px;
 }
 
 #logoutID{
-	//position:relative;
+	position:relative;
 	float: right;
 	clear:right;
 	z-index:4;
@@ -96,7 +99,7 @@ IMG.mazeImg{
 }
 
 .logout{
-	margin-top: 35px;
+	margin-top: 15px;
 	color: #FFFFFF;
 }
 

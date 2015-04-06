@@ -34,20 +34,15 @@ session_start();
             </div>
             </div>
 
-            <div id = "logoutID">
-            	<form class = "logout" action = "logOut.php" method = "POST">
-            		<input type = "submit" value = "Logout"/>
-            	</form>
-            </div>  
-          
-           
-            
             <div id = "welcome">
             	Welcome, <?PHP echo $_SESSION["name"];?>
             </div>
             
-            
-            
+            <div id = "logoutID">
+            	<form class = "logout" action = "logOut.php" method = "POST">
+            		<input type = "submit" value = "Logout"/>
+            	</form>
+            </div>    
         </div>  
     </body>
 </html>
