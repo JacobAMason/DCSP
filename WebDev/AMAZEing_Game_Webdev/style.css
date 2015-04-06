@@ -88,7 +88,7 @@ IMG.mazeImg{
 }
 
 #logoutID{
-	position:relative;
+	//position:relative;
 	float: right;
 	clear:right;
 	z-index:4;

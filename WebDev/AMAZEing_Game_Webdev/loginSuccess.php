@@ -35,8 +35,7 @@ session_start();
             </div>
 
             <div id = "logoutID">
-            	<form class = "logout" action = "index.html" method = "POST">
-                    <?PHP session_destroy(); ?>
+            	<form class = "logout" action = "logOut.php" method = "POST">
             		<input type = "submit" value = "Logout"/>
             	</form>
             </div>  
