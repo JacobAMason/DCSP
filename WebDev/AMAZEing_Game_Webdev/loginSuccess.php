@@ -23,10 +23,12 @@ session_start();
                             <a href="#"> Menu <span class="arrow">&#9660;</span></a>
  
                             <ul class="sub-menu">
-                                <li><a href="#">Link 1</a></li>
-                                <li><a href="#">Link 2</a></li>
-                                <li><a href="#">Link 3</a></li>
-                                <li><a href="#">Link 4</a></li>
+                                <li><a href="#">Account Info</a></li>
+                                <li><a href="scores.php">High Scores</a></li>
+                                <li><a href="#">Download Game</a></li>
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="#">Submit an idea</a></li>
+                                <li><a href="#">Donations :)</a></li>
                             </ul>
                         </li>
                     </ul>
