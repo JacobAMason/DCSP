@@ -1,3 +1,6 @@
+<?PHP
+session_start();
+?>
 ﻿<!DOCTYPE HTML>
 <html>
     <head>
@@ -31,19 +34,19 @@
             </div>
             </div>
 
-            
+            <div id = "logoutID">
+            	<form class = "logout" action = "index.html" method = "POST">
+                    <?PHP session_destroy(); ?>
+            		<input type = "submit" value = "Logout"/>
+            	</form>
+            </div>  
           
            
             
-            <div id = "loginID">
+            <div id = "welcome">
             	Welcome, <?PHP echo $_SESSION["name"];?>
             </div>
             
-            <div id = "registerID">
-            	<form class = "register" action = "register.html" method = "POST">
-            		<input type = "submit" value = "Register"/>
-            	</form>
-            </div>
             
             
         </div>  
