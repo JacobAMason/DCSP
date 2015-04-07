@@ -7,7 +7,7 @@
 body{
 	background-color:black;
 }
-a, h1{
+a, h1, h4{
 	text-align:center;
 	color: white;
 	display: block;
@@ -34,19 +34,39 @@ $email = $_POST['email'];
 $reEmail = $_POST['emaildup'];
 $MD5passwd = MD5($password);
 
-if($password != $repassword) {
-    echo "<h1>Registration Failed!</h1>". "Passwords do not match<br>"; 
+$regexUsername = "^[0-9A-z_]{3,20}$";
+$regexName = "^[A-z ',]{1,20}$";
+$regexPassword = "^(?!.*\\^)(?=.*[0-9]+)(?=.*[a-z]+)[A-z0-9!@#$&*]{6,30}$)";
+$regexEmail = "^[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,4}$";
+
+
+if($password != $repassword && !preg_match($regexPassword, $password)) {
+    echo "<h1>Registration Failed!</h1><br>";
+    echo "<h4>Passwords do not match</h4><br>"; 
     die("<a href = http://pluto.cse.msstate.edu/~dcsp01/register.html>Return to registration page</a>");
     
 }
 
-if($username == null || $password == null || $repassword == null || $name == null || $email == null || $reEmail == null) {
-    echo "<h1>Registration Failed!</h1><br>"; 
+if($email != $reEmail && !preg_match($regexEmail, $email)) {
+    echo "<h1>Registration Failed!</h1><br>";
+    echo "<h4>Emails do not match</h4><br>";
     die("<a href = http://pluto.cse.msstate.edu/~dcsp01/register.html>Return to registration page</a>");
 }
 
-if($email != $reEmail) {
-    echo "<h1>Registration Failed!</h1>". "Emails do not match<br>";
+if(!preg_match($regexName, $name)) {
+    echo "<h1>Registration Failed!</h1><br>";
+    echo "<h4>Name does not meet specifications</h4><br>";
+    die("<a href = http://pluto.cse.msstate.edu/~dcsp01/register.html>Return to registration page</a>");        
+}
+
+if(!preg_match($regexUsername, $username)) {
+    echo "<h1>Registration Failed!</h1><br>"; 
+    echo "<h4>Name does not meet specifications</h4><br>";
+    die("<a href = http://pluto.cse.msstate.edu/~dcsp01/register.html>Return to registration page</a>");        
+}
+
+if($username == null || $password == null || $repassword == null || $name == null || $email == null || $reEmail == null) {
+    echo "<h1>Registration Failed!</h1><br>"; 
     die("<a href = http://pluto.cse.msstate.edu/~dcsp01/register.html>Return to registration page</a>");
 }
 
