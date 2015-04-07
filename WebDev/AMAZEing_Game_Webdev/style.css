@@ -81,6 +81,33 @@ IMG.mazeImg{
 	margin:0;
 }
 
+#welcome{
+    position: relative;
+    float: right;
+    color: white;
+    float: right;
+    z-index:5;
+    padding-top:10px;
+}
+
+#logoutID{
+	position:relative;
+	float: right;
+	clear:right;
+	z-index:4;
+	margin:0;
+}
+
+.logout{
+	margin-top: 15px;
+	color: #FFFFFF;
+}
+
+
+
+
+
+
 .clearfix:after {
     display:block;
     clear:both;

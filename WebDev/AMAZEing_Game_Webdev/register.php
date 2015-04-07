@@ -1,4 +1,23 @@
+<!DOCTYPE HTML>
+
+
+<html>
+<head>
+<style>
+body{
+	background-color:black;
+}
+a, h1{
+	text-align:center;
+	color: white;
+	display: block;
+	margin: 0 auto;
+}
+</style>
+</head>
+<body>
 <?PHP
+
 include 'Logging.php';
 $log = new Logging();
 
@@ -58,3 +77,5 @@ echo $link;
 $log->lwrite($response);
 $log->lclose();
 ?>
+</body>
+</html>
