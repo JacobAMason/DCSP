@@ -411,13 +411,13 @@ public class HttpConnection {
         });
     }
 
-    public void addFriend(int frienderID, int friendeeID) {
+    public void addFriend(int frienderID, String friendeeUsername) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
         request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/addFriend.php");
 
         Map parameters = new HashMap();
         parameters.put("friender", String.valueOf(frienderID));
-        parameters.put("friendee", String.valueOf(friendeeID));
+        parameters.put("friendee", friendeeUsername);
 
         request.setContent(HttpParametersUtils.convertHttpParameters(parameters));
 

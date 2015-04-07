@@ -23,6 +23,7 @@
  */
 package com.DCSP.screen;
 
+import com.DCSP.http.HttpConnection;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
@@ -92,7 +93,7 @@ public class FriendsScreen extends ScreenInterface {
         friendTable.setFillParent(true);
         friendTable.defaults().pad(15);
         
-        friendTable.add("Your Friend's List").colspan(3);
+        friendTable.add("Your Friends List").colspan(3);
         friendTable.row();
         
         friendList = new List(skin,"name");
@@ -110,7 +111,8 @@ public class FriendsScreen extends ScreenInterface {
         friendBtn.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
-                        //Insert Usefull php hook here
+                        HttpConnection httpCon = new HttpConnection(gameParent);
+                        httpCon.addFriend(gameParent.profile.getID(), friendField.getText());
                     }
                 });
         
