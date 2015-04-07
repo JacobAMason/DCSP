@@ -27,7 +27,7 @@ session_start();
                                 <li><a href="scores.php">High Scores</a></li>
                                 <li><a href="#">Download Game</a></li>
                                 <li><a href="#">FAQ</a></li>
-                                <li><a href="#">Submit an idea</a></li>
+                                <li><a href="SubmitAnIdea.php">Submit an idea</a></li>
                                 <li><a href="#">Donations :)</a></li>
                             </ul>
                         </li>
