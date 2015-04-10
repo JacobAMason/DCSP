@@ -1,4 +1,7 @@
 <?PHP
+if(!isset($_SESSION)) {
+    header('Location: index.html');
+}
 session_start();
 ?>
 ﻿<!DOCTYPE HTML>
