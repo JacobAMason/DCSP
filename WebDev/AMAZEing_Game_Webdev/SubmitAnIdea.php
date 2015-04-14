@@ -42,6 +42,7 @@ if(!isset($_SESSION["username"])) {
         <br/>
         <br/>
         <input type = "submit" value = "Submit idea"/>
+        <?PHP $_SESSION["ideaSubmitted"] = "true"; ?>
     </form>
         
     </div>
