@@ -23,7 +23,7 @@ session_start();
  
                             <ul class="sub-menu">
                                 <?PHP if(isset($_SESSION["username"])) {?> <li><a href="loginSuccess.php">Home</a></li>
-                                 <?PHP } else {?> <li><a href="index.html">Home</a></li> <?PHP }?>
+                                <?PHP } else {?> <li><a href="index.html">Home</a></li> <?PHP }?>
                                 <li><a href="#">Account Info</a></li>
                                 <li><a href="HighScores.php">High Scores</a></li>
                                 <li><a href="#">Download Game</a></li>

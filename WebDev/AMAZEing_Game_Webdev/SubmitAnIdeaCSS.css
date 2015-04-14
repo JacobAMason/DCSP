@@ -16,13 +16,6 @@ html{
 body{
 	background-color: #000000;
 	width: 100%;
-        display: block;
-        margin: auto;
-}
-
-a{
-    position: absolute;
-    z-index:5;
 }
 
 #container{
