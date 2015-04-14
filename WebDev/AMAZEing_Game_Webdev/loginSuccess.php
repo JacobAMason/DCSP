@@ -27,7 +27,7 @@ if(!isset($_SESSION["username"])) {
  
                             <ul class="sub-menu">
                                 <li><a href="#">Account Info</a></li>
-                                <li><a href="HighScoresHTML.html">High Scores</a></li>
+                                <li><a href="HighScores.php">High Scores</a></li>
                                 <li><a href="#">Download Game</a></li>
                                 <li><a href="#">FAQ</a></li>
                                 <li><a href="SubmitAnIdea.php">Submit an idea</a></li>

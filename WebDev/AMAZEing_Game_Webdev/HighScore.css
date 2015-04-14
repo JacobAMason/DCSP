@@ -1,13 +1,3 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Apr 6, 2015, 7:45:03 PM
-    Author     : Elisabeth
-*/
-
 html{
 	min-height: 100%;
 	position: relative;
@@ -18,14 +8,9 @@ body{
 	width: 100%;
 }
 
-a{
-    position: absolute;
-    z-index:5;
-}
-
 table{
     position: absolute;
-    z-index:3;
+    z-index: 1;
     border: 1px solid white;
     border-collapse: collapse;
     width:100%;
@@ -37,12 +22,30 @@ th,td {
     border: 1px solid white;
     text-align: center;
 }
-h1{
+
+#Title{
     position: absolute;
-    color: white;
-    z-index: 4;
+    height: 135px;
+    width: 239px;
+    float: left;
     margin: auto;
-    text-align: center;
+    z-index: 2;	
+    background:maroon;
+}
+
+IMG.logoImg{
+    position: absolute;
+    float: left;
+    z-index: 2;
+    margin: auto;
+    
+}
+
+#container{
+	width: 1025px;
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	margin: auto;
 }
 
 #highscore{
@@ -60,34 +63,6 @@ h1{
     padding-top:20px;
 }
 
-#container{
-	width: 1025px;
-	position: absolute;
-	top: 0; left: 0; right: 0; bottom: 0;
-	margin: auto;
-    
-}
-        
-#Title{
-    position: absolute;
-    height: 135px;
-    width: 239px;
-    float: left;
-    margin: auto;
-    z-index: 2;	
-    background:maroon;
-}
-
-IMG.logoImg{
-    position: absolute;
-    float: left;
-    z-index: 2;
-    margin: auto;
-}
-
-
-
-
 
 
 
@@ -102,22 +77,22 @@ IMG.logoImg{
  
 .menu-wrap {
     width:239px;
-    z-index: 4;
+    z-index: 3;
 }
  
 .menu {
-    position: absolute;
+	position: absolute;
     width:239px;
     top: 75px;
     left: 12.5px;
-    z-index: 4;
+    z-index: 3;
 }
  
 .menu li {
     margin:0px;
     list-style:none;
     font-family:'Times New Roman';
-    z-index: 4;
+    z-index: 3;
 }
  
 .menu a {
@@ -153,7 +128,7 @@ IMG.logoImg{
 }
 
 .menu li:hover .sub-menu {
-    z-index:4;
+    z-index:2;
     opacity:1;
 }
  
@@ -163,7 +138,7 @@ IMG.logoImg{
     position:absolute;
     top:100%;
     left:0px;
-    z-index:3;
+    z-index:2;
     opacity:0;
     transition:opacity linear 0.15s;
     box-shadow:0px 2px 3px rgba(0,0,0,0.2);

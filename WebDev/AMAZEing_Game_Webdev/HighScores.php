@@ -1,47 +1,49 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+<?PHP
+session_start();
+?>
+<!DOCTYPE HTML>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="GenericCSS.css">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="HighScore.css">
     </head>
-    <body>
-        <div id="container">
-           <a href="index.html">
-                <div id="Title">
-                    <img class="logoImg" alt="logoImg" src="logo.png"/>
-            </a>    
-           
 
-           <div class="menu-wrap">
+    
+    <body>
+    	<div id="container">
+            
+            <div id = "Title"> 
+                <img class="logoImg" alt="logoImg" src="logo.png"/>
+            	
+            	<div class="menu-wrap">
                 <nav class="menu">
                     <ul class="clearfix">
                         <li>
-                            <a href="#">Menu <span class="arrow">&#9660;</span></a>
+                            <a href="#"> Menu <span class="arrow">&#9660;</span></a>
  
                             <ul class="sub-menu">
+                                <?PHP if(isset($_SESSION["username"])) {?> <li><a href="loginSuccess.php">Home</a></li>
+                                 <?PHP } else {?> <li><a href="index.html">Home</a></li> <?PHP }?>
+                                <li><a href="#">Account Info</a></li>
                                 <li><a href="HighScores.php">High Scores</a></li>
                                 <li><a href="#">Download Game</a></li>
                                 <li><a href="#">FAQ</a></li>
+                                <li><a href="SubmitAnIdea.php">Submit an idea</a></li>
                                 <li><a href="#">Donations :)</a></li>
                             </ul>
                         </li>
                     </ul>
                 </nav>
             </div>
-            </div>
-        
+            </div> 
 
             <div id="highscore">
-                    <div id="words">
-                    HIGH SCORES
-                    </div>
+                <div id="words">
+                HIGH SCORES
+                </div>
             </div>
-            
-            ,<!--<table><tr><th>Level Number</th><th>Username</th><th>Time</th></tr>
+
+            <table><tr><th>Level Number</th><th>Username</th><th>Time</th></tr>
 <?PHP 
 //include 'Logging.php';
 //$log = new Logging();
@@ -107,8 +109,7 @@ while($entry = $highscoreRows->fetch_assoc())
 
 //$log->lclose();
 ?>
-            </table>-->
-      </div> 
-        
+            </table> 
+        </div>  
     </body>
 </html>
