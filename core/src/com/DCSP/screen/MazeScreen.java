@@ -62,7 +62,7 @@ public class MazeScreen extends ScreenInterface {
     private float cellFactor;
     private Player player;
     private Vector2 pos = new Vector2(0f, 0f);
-    private int level;
+    private int level,seed;
 
     private float step;
     private double time;
@@ -83,6 +83,14 @@ public class MazeScreen extends ScreenInterface {
 
     public MazeScreen(int level) {
         this.level = level;
+        this.seed = 42;
+        mWidth = level + 15;
+        mHeight = (int) Math.floor(9 * mWidth / 16);
+    }
+    
+    public MazeScreen(int level, int seed) {
+        this.level = level;
+        this.seed = seed;
         mWidth = level + 15;
         mHeight = (int) Math.floor(9 * mWidth / 16);
     }
@@ -174,7 +182,7 @@ public class MazeScreen extends ScreenInterface {
         camera.zoom /= zoom;
         camera.update();
 
-        maze = new Maze(world, mWidth, mHeight, 42, cellFactor);
+        maze = new Maze(world, mWidth, mHeight, seed, cellFactor);
 
         player = new Player(world, cellFactor, camera);
 

@@ -109,10 +109,7 @@ public class HighScoresScreen extends ScreenInterface {
         }
         
         
-        
-        
         scoreList = new List(skin, "user");
-        
         
         
         scoreScroll = new ScrollPane(scoreTable);
