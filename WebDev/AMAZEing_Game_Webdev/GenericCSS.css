@@ -20,9 +20,35 @@ body{
         margin: auto;
 }
 
+a{
+    position: absolute;
+    z-index:5;
+}
 h1{
+    position: absolute;
     color: white;
-    z-index: 2;
+    z-index: 4;
+    margin: auto;
+    text-align: center;
+}
+
+table{
+    z-index: 5;
+}
+
+#highscore{
+    position: absolute;
+    width: 65%;
+    z-index: 3;
+    margin: auto;
+    color: white;
+}
+
+#words{
+    font-size: 40px;
+    font-weight: bolder;
+    float: right;
+    padding-top:20px;
 }
 
 #container{
