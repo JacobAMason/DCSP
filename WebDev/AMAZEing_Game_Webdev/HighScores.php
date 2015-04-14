@@ -4,7 +4,7 @@ session_start();
 <!DOCTYPE HTML>
 <html>
     <head>
-    <title>Login</title>
+    <title>High Scores</title>
     <link rel="stylesheet" type="text/css" href="HighScore.css">
     </head>
 
