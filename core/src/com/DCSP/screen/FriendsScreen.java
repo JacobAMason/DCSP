@@ -67,7 +67,6 @@ public class FriendsScreen extends ScreenInterface {
     public void show() {
         friendStage = new Stage();
         InputMultiplexer friendInput = new InputMultiplexer();
-        friendInput.addProcessor(friendStage);
         friendInput.addProcessor(new InputAdapter(){
 
             @Override
@@ -85,6 +84,9 @@ public class FriendsScreen extends ScreenInterface {
             
             
         });
+        
+        friendInput.addProcessor(friendStage);
+        
         Gdx.input.setInputProcessor(friendInput);
         
         skin = new Skin(Gdx.files.internal("uiskin.json"));
