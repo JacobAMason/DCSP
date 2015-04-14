@@ -1,5 +1,5 @@
 <html>
- 
+ <title>Forgot Password</title>
 <head>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>   
