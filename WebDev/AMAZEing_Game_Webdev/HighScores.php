@@ -13,15 +13,35 @@ and open the template in the editor.
            <a href="index.html">
                 <div id="Title">
                     <img class="logoImg" alt="logoImg" src="logo.png"/>
-                </div>
-           </a>
+            </a>    
+           
+
+           <div class="menu-wrap">
+                <nav class="menu">
+                    <ul class="clearfix">
+                        <li>
+                            <a href="#">Menu <span class="arrow">&#9660;</span></a>
+ 
+                            <ul class="sub-menu">
+                                <li><a href="HighScores.php">High Scores</a></li>
+                                <li><a href="#">Download Game</a></li>
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="#">Donations :)</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            </div>
+        
+
             <div id="highscore">
                     <div id="words">
                     HIGH SCORES
                     </div>
             </div>
             
-            <table><tr><th>Level Number</th><th>Username</th><th>Time</th></tr>
+            ,<!--<table><tr><th>Level Number</th><th>Username</th><th>Time</th></tr>
 <?PHP 
 //include 'Logging.php';
 //$log = new Logging();
@@ -87,7 +107,7 @@ while($entry = $highscoreRows->fetch_assoc())
 
 //$log->lclose();
 ?>
-            </table>
+            </table>-->
       </div> 
         
     </body>
