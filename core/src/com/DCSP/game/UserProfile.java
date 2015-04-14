@@ -23,7 +23,9 @@
  */
 package com.DCSP.game;
 
+import com.badlogic.gdx.utils.Array;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 
 /**
  *
@@ -34,6 +36,8 @@ public class UserProfile {
     private String username;
     private String email;
     private String name;
+    private LinkedHashSet<String> friendsSet = new LinkedHashSet();
+    private Array friendsArray = new Array();
     public HashMap<Integer, Double> scoresDict = new HashMap<Integer, Double>();  // level/score
 
     public UserProfile(int ID, String username, String email, String name) {
@@ -74,4 +78,16 @@ public class UserProfile {
     public void setName(String name) {
         this.name = name;
     }    
+
+    public void setFriends(Array friendsStringArray) {
+        this.friendsArray = friendsStringArray;
+        System.out.println(this.friendsArray);
+        for (Object friend : friendsStringArray) {
+            this.friendsSet.add((String) friend);
+        }
+    }
+
+    public Array getFriendsArray() {
+        return friendsArray;
+    }
 }

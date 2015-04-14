@@ -108,12 +108,7 @@ public class GameMenuScreen extends ScreenInterface{
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                HttpConnection httpCon = new HttpConnection(gameParent);
-                if(gameParent.profile == null) {
-                    gameParent.setScreen(new FriendsScreen());
-                } else {
-                    httpCon.getFriends(gameParent.profile.getID());
-                }
+                gameParent.setScreen(new FriendsScreen(gameParent));
             }
         });
         
