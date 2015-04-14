@@ -3,6 +3,7 @@ session_start();
 ?>
 <html>
     <head>
+        <link rel="stylesheet" type="text/css" href="style.css">
         <title>Forgot Password</title>
         <style>
             body{
@@ -36,24 +37,25 @@ if(!mysqli_num_rows($row)) {
     echo $message;
     die($link);
 }
-
-$query = "SELECT Question, Answer FROM Question WHERE username='$username'";
+$result = $row->fetch_object();
+$userID = $result->ID;
+echo "<h1>" .$userID. "</h1>"
+$query = "SELECT Question, Answer FROM Question WHERE ID='$userID'";
 $row = $sql->query($query);
+
+if(!mysqli_num_rows($row)) {
+    $message = "<h4>You do not have a security question to recover your password</h4>";
+    $link = "<a href = http://pluto.cse.msstate.edu/~dcsp01/index.html>Home Page</a>";
+    echo $message;
+    die($link);
+}
+
 $result = $row->fetch_object();
 $question = $resut->Question;
 $_SESSION["answer"] = $result->Answer;
 
-echo $question;
+echo "<h1>" .$question. "</h1>";
 ?>
-    <form action = "forgotPassCheck.php" method = "POST">
-        <div id ="username" style = "padding-top: 335px; color: #FFFFFF; margin:0;">
-            Please enter your Security Answer: <input type = "text" name = "username" placeholder="Answer"/> <br/>
-        </div>
-
-        <div class= "Button" style = "padding-top: 5px; padding-left: 300px; margin: 0;">
-            <input type = "submit" value = "Submit" style = "color: black; margin:0;"/>
-        </div> 
-    </form>
-    </body>
-        
+    
+    </body>    
 </html>
