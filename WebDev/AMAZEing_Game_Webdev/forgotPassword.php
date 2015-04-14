@@ -15,6 +15,7 @@
                             <a href="#"> Menu <span class="arrow">&#9660;</span></a>
  
                             <ul class="sub-menu">
+                                <li><a href="index.html">Home</a></li>
                                 <li><a href="HighScores.php">High Scores</a></li>
                                 <li><a href="#">Download Game</a></li>
                                 <li><a href="#">FAQ</a></li>
@@ -27,16 +28,8 @@
         </div>
 
     <form action= "forgotPasswordSent.php" method= "POST">
-        <div id ="username" style = "padding-top: 300px; color: #FFFFFF; margin:0;">
-                Please enter your username: <input type = "text" name = "username" placeholder="Username" style = "padding-left: 10px"/> <br/>
-        </div>
-
-        <div id ="password" style = "padding-top: 15px; color: #FFFFFF; margin:0;">
-                Please enter your new password: <input type = "password" name = "username" placeholder="password"/> <br/>
-        </div>
-
-        <div id ="repassword" style = "padding-top: 15px; color: #FFFFFF; margin:0;">
-                Please re-enter new password: <input type = "password" name = "username" placeholder="password" style = "padding-left: 10px"/> <br/>
+        <div id ="username" style = "padding-top: 335px; color: #FFFFFF; margin:0;">
+                Please enter your username: <input type = "text" name = "username" placeholder="Username"/> <br/>
         </div>
         
         <div class= "Button" style = "padding-top: 5px; padding-left: 300px; margin: 0;">
