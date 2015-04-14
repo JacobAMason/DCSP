@@ -22,13 +22,13 @@ session_start();
                             <a href="#"> Menu <span class="arrow">&#9660;</span></a>
  
                             <ul class="sub-menu">
-                                <?PHP if(isset($_SESSION["username"])) {?> <li><a href="loginSuccess.php">Home</a></li>
+                                <?PHP if(isset($_SESSION["username"])) {?> <li><a href="loginSuccess.php">Home</a></li> <li><a href="#">Account Info</a></li>
                                 <?PHP } else {?> <li><a href="index.html">Home</a></li> <?PHP }?>
-                                <li><a href="#">Account Info</a></li>
-                                <li><a href="HighScores.php">High Scores</a></li>
                                 <li><a href="#">Download Game</a></li>
                                 <li><a href="#">FAQ</a></li>
+                                <?PHP if(isset($_SESSION["username"])) {?>
                                 <li><a href="SubmitAnIdea.php">Submit an idea</a></li>
+                                <?PHP } ?>
                                 <li><a href="#">Donations :)</a></li>
                             </ul>
                         </li>
