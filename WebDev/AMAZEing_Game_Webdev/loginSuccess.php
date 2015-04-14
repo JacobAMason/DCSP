@@ -1,6 +1,6 @@
 <?PHP
 session_start();
-if(!isset($_SESSION)) {
+if(!isset($_SESSION["username"])) {
     header('Location: index.html');
 }
 ?>
