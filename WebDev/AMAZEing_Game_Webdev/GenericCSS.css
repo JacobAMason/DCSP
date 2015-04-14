@@ -20,12 +20,32 @@ body{
         margin: auto;
 }
 
-img.logoImg{
-    display: block;
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
+h1{
+    color: white;
+    z-index: 2;
+}
+
+#container{
+	width: 1025px;
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	margin: auto;
+        z-index: 1;
+}
+        
+#Title{
+    position: absolute;
+    height: 135px;
+    width: 239px;
+    float: left;
+    margin: auto;
+    z-index: 2;	
+    background:maroon;
+}
+
+IMG.logoImg{
+    position: absolute;
+    float: left;
     z-index: 2;
     margin: auto;
-    
 }
