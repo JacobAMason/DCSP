@@ -1,4 +1,9 @@
-﻿<!DOCTYPE HTML>
+﻿<?PHP
+if(isset($_SESSION["username"])) {
+    header('Location: loginSuccess.php');
+}
+?>
+<!DOCTYPE HTML>
 
 
 <html>

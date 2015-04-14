@@ -76,7 +76,7 @@ public class GameMenuScreen extends ScreenInterface{
         if (gameParent.profile == null) {
             gameTable.add("Welcome To The Game").colspan(2).row();
         } else {
-            gameTable.add("Welcome To The Game, " + gameParent.profile.getName()).colspan(2).row();
+            gameTable.add("Welcome, " + gameParent.profile.getName()).colspan(2).row();
         }
         
         gameBtn = new TextButton("Levels",skin);
