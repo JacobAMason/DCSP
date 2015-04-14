@@ -153,8 +153,8 @@ IMG.logoImg{
 }
 
 .menu li:hover .sub-menu {
-    z-index:4;
-    opacity:1;
+    z-index:2;
+    display: block;
 }
  
 .sub-menu {
@@ -163,11 +163,11 @@ IMG.logoImg{
     position:absolute;
     top:100%;
     left:0px;
-    z-index:3;
-    opacity:0;
+    z-index:2;
     transition:opacity linear 0.15s;
     box-shadow:0px 2px 3px rgba(0,0,0,0.2);
     background:#2e2728;
+    display:none;
 }
  
 .sub-menu li {

@@ -175,7 +175,7 @@ IMG.mazeImg{
 
 .menu li:hover .sub-menu {
     z-index:2;
-    opacity:1;
+    display: block;
 }
  
 .sub-menu {
@@ -185,10 +185,10 @@ IMG.mazeImg{
     top:100%;
     left:0px;
     z-index:2;
-    opacity:0;
     transition:opacity linear 0.15s;
     box-shadow:0px 2px 3px rgba(0,0,0,0.2);
     background:#2e2728;
+    display:none;
 }
  
 .sub-menu li {
