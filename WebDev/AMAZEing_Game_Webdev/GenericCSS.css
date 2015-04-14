@@ -24,16 +24,27 @@ a{
     position: absolute;
     z-index:5;
 }
+
+table{
+    position: absolute;
+    z-index:5;
+    border: 1px solid white;
+    border-collapse: collapse;
+    width:100%;
+    margin-top: 150px;
+}
+
+th,td {
+    color: white;
+    border: 1px solid white;
+    text-align: center;
+}
 h1{
     position: absolute;
     color: white;
     z-index: 4;
     margin: auto;
     text-align: center;
-}
-
-table{
-    z-index: 5;
 }
 
 #highscore{
