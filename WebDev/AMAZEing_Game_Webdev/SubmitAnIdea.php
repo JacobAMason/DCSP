@@ -8,7 +8,7 @@ if(!isset($_SESSION["username"])) {
 <html>
  
 <head>
-<title>Submit an idea</title>
+    <title>Submit an idea</title>
     <link rel="stylesheet" type="text/css" href="SubmitAnIdeaCSS.css">
 </head>   
     
