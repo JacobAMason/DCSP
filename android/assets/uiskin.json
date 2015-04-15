@@ -21,6 +21,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	default: { down: default-round-down, up: default-round, font: ethno-64, fontColor: white },
 	small: { down: default-round-down, up: default-round, font: ethno-24, fontColor: white },
+	user: { down: default-round-down, up: default-round, font: segoe-32, fontColor: white },
 	toggle: { down: default-round-down, up: default-round, checked: default-round-down, font: ethno-64, fontColor: white, downFontColor: red }
 },
 com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
@@ -51,6 +52,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
 },
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: { font: ethno-64, fontColor: white },
+	user: { font: segoe-32, fontColor: white},
 	small: { font: ethno-24, fontColor: white }
 },
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
