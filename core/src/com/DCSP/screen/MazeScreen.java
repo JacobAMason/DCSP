@@ -62,7 +62,8 @@ public class MazeScreen extends ScreenInterface {
     private float cellFactor;
     private Player player;
     private Vector2 pos = new Vector2(0f, 0f);
-    private int level,seed;
+    private int level;
+    private long seed;
 
     private float step;
     private double time;
@@ -83,12 +84,12 @@ public class MazeScreen extends ScreenInterface {
 
     public MazeScreen(int level) {
         this.level = level;
-        this.seed = 42;
+        this.seed = 42;  // TODO: When testing is over, this should be a random int.
         mWidth = level + 15;
         mHeight = (int) Math.floor(9 * mWidth / 16);
     }
     
-    public MazeScreen(int level, int seed) {
+    public MazeScreen(int level, long seed) {
         this.level = level;
         this.seed = seed;
         mWidth = level + 15;
@@ -215,7 +216,7 @@ public class MazeScreen extends ScreenInterface {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 endGameWindow.setVisible(false);
-                gameParent.setScreen(new ChallengeSendScreen(42, new Array(new String[]{"You", "Have", "No", "Friends"})));
+                gameParent.setScreen(new ChallengeSendScreen(seed, time));
             }
         });
         endGameWindow.add(yes);
