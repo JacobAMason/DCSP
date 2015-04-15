@@ -8,6 +8,7 @@ if(!isset($_SESSION["username"])) {
 <html>
  
 <head>
+<title>Submit an idea</title>
     <link rel="stylesheet" type="text/css" href="SubmitAnIdeaCSS.css">
 </head>   
     
@@ -25,7 +26,7 @@ if(!isset($_SESSION["username"])) {
                                 <?PHP if(isset($_SESSION["username"])) {?> <li><a href="loginSuccess.php">Home</a></li>
                                 <?PHP } else {?> <li><a href="index.html">Home</a></li> <?PHP }?>
                                 <li><a href="#">Account Info</a></li>
-                                <li><a href="HighScoresHTML.html">High Scores</a></li>
+                                <li><a href="HighScores.php">High Scores</a></li>
                                 <li><a href="#">Download Game</a></li>
                                 <li><a href="#">FAQ</a></li>
                                 <li><a href="SubmitAnIdea.php">Submit an idea</a></li>

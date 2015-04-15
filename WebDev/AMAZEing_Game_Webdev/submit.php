@@ -10,6 +10,7 @@ if(!isset($_SESSION["ideaSubmitted"])) {
 ?>
 <html>
     <head>
+    <title>Idea Submitted</title>
         <style>
             html, body {
                 height: 100%;

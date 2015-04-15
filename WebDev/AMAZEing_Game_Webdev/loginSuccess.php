@@ -7,7 +7,7 @@ if(!isset($_SESSION["username"])) {
 ﻿<!DOCTYPE HTML>
 <html>
     <head>
-    <title>Login</title>
+    <title>Home</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     </head>
 

@@ -6,6 +6,7 @@ session_start();
 
 <html>
 <head>
+<title>Login Conformation</title>
 <style>
 body{
 	background-color:black;
