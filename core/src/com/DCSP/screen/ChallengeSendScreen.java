@@ -23,17 +23,16 @@
  */
 package com.DCSP.screen;
 
+import com.DCSP.http.HttpConnection;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
@@ -43,7 +42,8 @@ import com.badlogic.gdx.utils.Array;
  * @author Jacob Mason (jm2232)
  */
 public class ChallengeSendScreen extends ScreenInterface {
-    private final int seed;
+    private final long seed;
+    private final double score;
     private Stage challengeStage;
     private Table challengeTable;
     private Skin skin;
@@ -52,9 +52,10 @@ public class ChallengeSendScreen extends ScreenInterface {
     private Array friends;
     private TextButton toName;
 
-    public ChallengeSendScreen(int seed, Array friends) {
+    public ChallengeSendScreen(long seed, double score) {
         this.seed = seed;
-        this.friends = friends;
+        this.score = score;
+        this.friends = new Array(new String[]{"You", "Have", "No", "Friends"});
     }
 
     @Override
@@ -70,7 +71,7 @@ public class ChallengeSendScreen extends ScreenInterface {
         challengeTable.setFillParent(true);
         challengeTable.defaults().pad(15);
         
-        challengeTable.add("Your Friend's List");
+        challengeTable.add("Select A Friend").colspan(2);
         challengeTable.row();
         
         challengeList = new List(skin);
@@ -85,7 +86,10 @@ public class ChallengeSendScreen extends ScreenInterface {
         toName.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
-                        // Insert usefull php hook here that uses challengeList.getSelected()
+                        // Insert useful php hook here that uses challengeList.getSelected()
+                        HttpConnection httpCon = new HttpConnection(gameParent);
+                        httpCon.sendChallenge(score, 1, seed, 0);  // score, level, seed, toID
+                        System.out.println(challengeList.getSelected());
                     }
                 });
         

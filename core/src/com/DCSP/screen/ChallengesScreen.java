@@ -23,7 +23,7 @@
  */
 package com.DCSP.screen;
 
-import com.DCSP.http.Challenge;
+import com.DCSP.http.ChallengesResponse;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
@@ -38,8 +38,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.OrderedMap;
 
 /**
  *
@@ -53,13 +51,9 @@ public class ChallengesScreen extends ScreenInterface {
     private Skin skin;
     private TextButton challengeBtn;
     private Label challengeLbl;
-    private final Array<Challenge> challenges;
+    private final ChallengesResponse challenges;
     
-    public ChallengesScreen(){
-        challenges = null;
-    }
-
-    public ChallengesScreen(Array challenges) {
+    public ChallengesScreen(ChallengesResponse challenges) {
         this.challenges = challenges;
     }
 
@@ -108,7 +102,7 @@ public class ChallengesScreen extends ScreenInterface {
 //            System.out.println(e.toString());
 //        }
         int i = 0;       
-        for (final Challenge challenge : challenges) {
+        for (final ChallengesResponse.ChallengeResultsArray challenge : challenges.challengeResultsArray) {
             challengeBtn = new TextButton(challenge.getUsername(), skin, "user");
             challengeLbl = new Label(String.valueOf(challenge.getLevel()) + ": " + String.valueOf(challenge.getTime()), skin, "user");
             challengeBtn.add(challengeLbl);
