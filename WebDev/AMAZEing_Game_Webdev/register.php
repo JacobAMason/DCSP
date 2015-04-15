@@ -3,6 +3,7 @@
 
 <html>
 <head>
+<title>Registration Conformation</title>
 <style>
 body{
 	background-color:black;

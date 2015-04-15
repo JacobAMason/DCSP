@@ -58,6 +58,7 @@ $highscoreRows = $sql->query($query);
 
 while($entry = $highscoreRows->fetch_assoc())
 {
+    $minutes = 0;
     // This line will only need to be run once
 
     $level = $entry[level];
