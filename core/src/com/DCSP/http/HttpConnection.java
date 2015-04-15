@@ -26,7 +26,7 @@ package com.DCSP.http;
 import com.DCSP.game.GameRoot;
 import com.DCSP.game.UserProfile;
 import com.DCSP.screen.GameMenuScreen;
-import com.DCSP.screen.FriendsScreen;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.DCSP.screen.HighScoresScreen;
 import com.DCSP.windows.MessageWindow;
 import com.badlogic.gdx.Gdx;
@@ -76,7 +76,6 @@ public class HttpConnection {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
                 String response = httpResponse.getResultAsString();
-                Gdx.app.log("HttpCon:Login", response);
                 Json json = new Json();
                 ObjectMap result = json.fromJson(ObjectMap.class, response);
                 Gdx.app.log("HttpCon:Login", result.toString());
@@ -99,6 +98,7 @@ public class HttpConnection {
 
                         @Override
                         public void run() {
+                            getFriends(gameParent.profile.getID());
                             getScores(gameParent.profile.getID());
                             gameParent.setScreen(new GameMenuScreen());
                         }
@@ -411,7 +411,15 @@ public class HttpConnection {
         });
     }
 
-    public void addFriend(int frienderID, String friendeeUsername) {
+    
+    public void addFriend(int frienderID, String friendeeUsername, final List friendList) {
+        
+        // You can't friend yourself.
+        if (friendeeUsername.toLowerCase().equals(gameParent.profile.getUsername().toLowerCase())) {
+            Gdx.app.log("HttpCon:addFriend", "Can't add yourself");
+            return;
+        }
+        
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
         request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/addFriend.php");
 
@@ -425,6 +433,13 @@ public class HttpConnection {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
                 Gdx.app.log("HttpCon:addFriend", httpResponse.getResultAsString());
+                
+                Gdx.app.postRunnable(new Runnable() {
+                        @Override
+                        public void run() {
+                            getFriends(gameParent.profile.getID(), friendList);
+                        }
+                    });
             }
 
             @Override
@@ -439,8 +454,12 @@ public class HttpConnection {
             }
         });
     }
-
+    
     public void getFriends(int frienderID) {
+        getFriends(frienderID, null);
+    }
+
+    public void getFriends(int frienderID, final List friendList) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
         request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/getFriends.php");
 
@@ -458,21 +477,13 @@ public class HttpConnection {
                 try {
                     ObjectMap results = json.fromJson(ObjectMap.class, response);
                     if (results.get("result").equals("Success")) {
-                        final Array friendsStringArray = (Array) results.get("friendResultsArray");
-                        Gdx.app.postRunnable(new Runnable() {
-                            @Override
-                            public void run() {
-                                gameParent.setScreen(new FriendsScreen(friendsStringArray));
-                            }
-                        });
+                        final Array friendResultsArray = (Array) results.get("friendResultsArray");
+                        if (friendList != null) {
+                            friendList.setItems(friendResultsArray);
+                        }
+                        gameParent.profile.setFriends(friendResultsArray);
                     } else {
                         Gdx.app.log("HttpCon:getFriends", "You have no friends.");
-                        Gdx.app.postRunnable(new Runnable() {
-                            @Override
-                            public void run() {
-                                gameParent.setScreen(new FriendsScreen());
-                            }
-                        });
                     }
                 } catch (Exception e) {
                     System.out.println(e.toString());

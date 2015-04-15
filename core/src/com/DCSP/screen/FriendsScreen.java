@@ -23,6 +23,7 @@
  */
 package com.DCSP.screen;
 
+import com.DCSP.game.GameRoot;
 import com.DCSP.http.HttpConnection;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -55,12 +56,13 @@ public class FriendsScreen extends ScreenInterface {
     private TextButton friendBtn;
     private Array friends;
 
-    public FriendsScreen() {
-        friends = new Array(new String[]{"You","Have","No","Friends"});
-    }
-    
-    public FriendsScreen(Array friends){
-        this.friends = friends;
+    public FriendsScreen(GameRoot gameParent) {
+        setGameParent(gameParent);
+        if(gameParent.profile != null) {
+            this.friends = gameParent.profile.getFriendsArray();
+        } else {
+            this.friends = new Array(new String[]{"You","Have","No","Friends"});
+        }
     }
 
     @Override
@@ -81,8 +83,6 @@ public class FriendsScreen extends ScreenInterface {
                 }
                 return true;
             }
-            
-            
         });
         
         friendInput.addProcessor(friendStage);
@@ -98,36 +98,38 @@ public class FriendsScreen extends ScreenInterface {
         friendTable.add("Your Friends List").colspan(3);
         friendTable.row();
         
-        friendList = new List(skin,"name");
+        friendList = new List(skin, "name");
         friendList.setItems(friends);
         friendScroll = new ScrollPane(friendList);
         
         friendTable.add(friendScroll).expand().align(Align.left);
         
-        friendField = new TextField("",skin,"user");
+        friendField = new TextField("", skin, "user");
         
         friendTable.add(friendField).height(friendField.getHeight()+10)
-                .width(friendField.getWidth()*2).align(Align.right);
+                .width(friendField.getWidth()*2).align(Align.topRight);
         
-        friendBtn = new TextButton("Add Friend",skin,"small");
+        friendBtn = new TextButton("Add Friend", skin, "small");
         friendBtn.addListener(new ClickListener(){
-                    @Override
-                    public void clicked(InputEvent event, float x, float y) {
-                        HttpConnection httpCon = new HttpConnection(gameParent);
-                        httpCon.addFriend(gameParent.profile.getID(), friendField.getText());
-                    }
-                });
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                HttpConnection httpCon = new HttpConnection(gameParent);
+                httpCon.addFriend(gameParent.profile.getID(), friendField.getText(), friendList);
+                friendField.setText("");
+            }
+        });
         
-        friendTable.add(friendBtn).height(friendField.getHeight()).align(Align.right);
+        friendTable.add(friendBtn).height(friendField.getHeight()).align(Align.topRight);
         
         friendStage.addActor(friendTable);
-        
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        
+        
         
         friendStage.act(delta);
         friendStage.draw();

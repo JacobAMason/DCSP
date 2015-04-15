@@ -23,21 +23,123 @@
  */
 package com.DCSP.screen;
 
+import com.DCSP.http.Challenge;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.OrderedMap;
+
 /**
  *
  * @author Alex Dodd (wad79)
  */
 public class ChallengesScreen extends ScreenInterface {
+    private List challengeList;
+    private Table challengeTable;
+    private ScrollPane challengeScroll;
+    private Stage challengesStage;
+    private Skin skin;
+    private TextButton challengeBtn;
+    private Label challengeLbl;
+    private final Array<Challenge> challenges;
+    
+    public ChallengesScreen(){
+        challenges = null;
+    }
 
-    public ChallengesScreen() {
+    public ChallengesScreen(Array challenges) {
+        this.challenges = challenges;
     }
 
     @Override
     public void show() {
+        challengesStage = new Stage();
+        InputMultiplexer scoreInput = new InputMultiplexer();
+        scoreInput.addProcessor(challengesStage);
+        scoreInput.addProcessor(new InputAdapter(){
+
+            @Override
+            public boolean keyUp(int keycode) {
+                switch(keycode){
+                    case Input.Keys.ESCAPE:
+                    case Input.Keys.BACK:
+                        gameParent.setScreen(new GameMenuScreen());
+                        break;
+                    default:
+                        return false;                        
+                }
+                return true;
+            }
+            
+            
+        });
+        Gdx.input.setInputProcessor(scoreInput);
+        
+        skin = new Skin(Gdx.files.internal("uiskin.json"));
+        
+        challengeTable = new Table(skin);
+        challengeTable.defaults().pad(10);
+        
+        
+//        try {
+//            Array levels = scoreFromDB.keys().toArray();
+//            Array scores = scoreFromDB.values().toArray();
+//            
+//            scoreList = new List(skin,"user");
+//            scoreList.setItems(levels);
+//            challengeTable.add(scoreList).padRight(15);
+//            
+//            scoreList = new List(skin,"user");
+//            scoreList.setItems(scores);
+//            challengeTable.add(scoreList);
+//        } catch (Exception e) {
+//            System.out.println(e.toString());
+//        }
+        int i = 0;       
+        for (final Challenge challenge : challenges) {
+            challengeBtn = new TextButton(challenge.getUsername(), skin, "user");
+            challengeLbl = new Label(String.valueOf(challenge.getLevel()) + ": " + String.valueOf(challenge.getTime()), skin, "user");
+            challengeBtn.add(challengeLbl);
+            
+            challengeBtn.addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        gameParent.setScreen(new MazeScreen(challenge.getLevel(), challenge.getSeed()));
+                    }
+                });
+            
+            challengeTable.add(challengeBtn).width(Gdx.graphics.getWidth()/3 - 20)
+                    .height(Gdx.graphics.getHeight()/5);
+            
+            i++;
+            if (i%3 == 0) challengeTable.row();
+        }
+        
+        challengeScroll = new ScrollPane(challengeTable);
+        challengeScroll.setFillParent(true);
+        challengeScroll.setX(challengeScroll.getX()+5);
+        challengesStage.addActor(challengeScroll);
     }
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        
+        challengesStage.act(delta);
+        challengesStage.draw();
     }
 
     @Override
