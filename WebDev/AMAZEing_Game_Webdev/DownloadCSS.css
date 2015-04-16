@@ -1,3 +1,13 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 16, 2015, 1:43:47 PM
+    Author     : Elisabeth
+*/
+
 html{
 	min-height: 100%;
 	position: relative;
@@ -8,23 +18,37 @@ body{
 	width: 100%;
 }
 
-table{
+a{
+    color:white;
+}
+
+#links{
+    margin-top:150px;
+}
+
+#download{
     position: absolute;
-    z-index: 1;
-    border: 1px solid white;
-    border-collapse: collapse;
-    width:100%;
-    margin-top: 200px;
-    margin-bottom: 100px;
-}
-
-
-th,td {
+    width: 65%;
+    z-index: 3;
+    margin: auto;
     color: white;
-    border: 1px solid white;
-    text-align: center;
 }
 
+#words{
+    font-size: 40px;
+    font-weight: bolder;
+    float: right;
+    padding-top:20px;
+}
+
+#container{
+	width: 1025px;
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	margin: auto;
+    
+}
+        
 #Title{
     position: absolute;
     height: 135px;
@@ -40,37 +64,7 @@ IMG.logoImg{
     float: left;
     z-index: 2;
     margin: auto;
-    
 }
-
-#container{
-	width: 1025px;
-	position: absolute;
-	top: 0; left: 0; right: 0; bottom: 0;
-	margin: auto;
-}
-
-#highscore{
-    position: absolute;
-    width: 65%;
-    z-index: 3;
-    margin: auto;
-    color: white;
-}
-
-#words{
-    font-size: 40px;
-    font-weight: bolder;
-    float: right;
-    padding-top:20px;
-}
-
-
-
-
-
-
-
 
 .clearfix:after {
     display:block;
@@ -79,22 +73,22 @@ IMG.logoImg{
  
 .menu-wrap {
     width:239px;
-    z-index: 3;
+    z-index: 4;
 }
  
 .menu {
-	position: absolute;
+    position: absolute;
     width:239px;
     top: 75px;
     left: 12.5px;
-    z-index: 3;
+    z-index: 4;
 }
  
 .menu li {
     margin:0px;
     list-style:none;
     font-family:'Times New Roman';
-    z-index: 3;
+    z-index: 4;
 }
  
 .menu a {
@@ -160,3 +154,5 @@ IMG.logoImg{
 .sub-menu li a:hover, .sub-menu .current-item a {
     background:#3e3436;
 }
+        
+        

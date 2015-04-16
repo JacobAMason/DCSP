@@ -25,7 +25,7 @@ $answer = $_SESSION["answer"];
 $username = $_SESSION["name"];
 $password = $_POST['newPass'];
 $repassword = $_POST['reNewPass'];
-$regexPassword = "^(?!.*\\^)(?=.*[0-9]+)(?=.*[a-z]+)[A-z0-9!@#$&*]{6,30}$)";
+$regexPassword = "^(?!.*\\^)(?=.*[0-9]+)(?=.*[a-z]+)[A-z0-9!@#$&*]{6,30}$";
 
 if($userAnswer != $answer){
     echo "<h1>Password Change Failed!</h1><br>"; 
@@ -39,6 +39,8 @@ if($password != $repassword) {
     die('<a href = "forgotPassword.php">Return to reset password page</a>');
     
 }
+echo $regexPassword;
+echo $password;
 
 if(preg_match($regexPassword, $password) === 0) {
     echo "<h1>Password Change Failed!</h1><br>";
@@ -52,14 +54,16 @@ $dbusername = "dcsp01";
 $dbpassword = "AimAtJ";
 $dbhostname = "localhost";
 $sql = new mysqli($dbhostname, $dbusername, $dbpassword, $dbusername);
+$password = MD5($password);
 
-$query = "UPDATE USER SET Password='$password' WHERE username='$username'";
-echo "<h4>Hello</h4>";
-if($sql->query($query)){
+$query = "UPDATE User SET password ='$password' WHERE username='$username'";
+
+if($sql->query($query) === TRUE){
     echo "<h1>Password Changed!</h1><br>"; 
-    echo '<a href = "index.php">Return to home page</a>';
+    echo '<a href = "index.html">Return to home page</a>';
 }
-
+else 
+    echo "<h1>Didn't update!</h1>";
 ?>
     </body>
 </html>
