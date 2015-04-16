@@ -62,10 +62,12 @@ public class MazeScreen extends ScreenInterface {
     private float cellFactor;
     private Player player;
     private Vector2 pos = new Vector2(0f, 0f);
-    private int level,seed;
+    private int level;
+    private long seed;
+    private double timeToBeat = -1;
 
     private float step;
-    private double time;
+    private double time, finalIime;
 
     private SpriteBatch batch;
     private Array<Body> Bodies = new Array();
@@ -80,19 +82,31 @@ public class MazeScreen extends ScreenInterface {
 
     // The higher the number the higher the zoom.
     public static float zoom = 9;
+    
+    // default constructor called when not logged in
+    public MazeScreen() {
+        this.level = 1;
+        this.seed = 42;  // TODO: When testing is over, this should be a random int.
+        this.mWidth = level + 15;
+        this.mHeight = (int) Math.floor(9 * mWidth / 16);
+    }
 
+
+    // called when a user wants to play a level logged in
     public MazeScreen(int level) {
         this.level = level;
-        this.seed = 42;
-        mWidth = level + 15;
-        mHeight = (int) Math.floor(9 * mWidth / 16);
+        this.seed = 42;  // TODO: When testing is over, this should be a random int.
+        this.mWidth = level + 15;
+        this.mHeight = (int) Math.floor(9 * mWidth / 16);
     }
-    
-    public MazeScreen(int level, int seed) {
+
+    // called when a user is responding to a challenge
+    public MazeScreen(int level, long seed, double timeToBeat) {
         this.level = level;
         this.seed = seed;
-        mWidth = level + 15;
-        mHeight = (int) Math.floor(9 * mWidth / 16);
+        this.mWidth = level + 15;
+        this.mHeight = (int) Math.floor(9 * mWidth / 16);
+        this.timeToBeat = timeToBeat;
     }
 
     @Override
@@ -130,7 +144,16 @@ public class MazeScreen extends ScreenInterface {
                 switch (keycode) {
                     case Keys.ESCAPE:
                     case Keys.BACK:
-                        gameParent.setScreen(new LevelSelectScreen());
+                        if (gameParent.profile != null) {
+                            if (timeToBeat == -1) {
+                                gameParent.setScreen(new LevelSelectScreen());
+                            } else {
+                                HttpConnection httpCon = new HttpConnection(gameParent);
+                                httpCon.getChallenges(gameParent.profile.getID());
+                            }
+                        } else {
+                            gameParent.setScreen(gameParent.mainMenuScreen);
+                        }
                         break;
                     case Keys.W:
                     case Keys.S:
@@ -203,6 +226,7 @@ public class MazeScreen extends ScreenInterface {
 
         TextButton no = new TextButton("Nah", skin);
         no.addListener(new ClickListener() {
+            @Override
             public void clicked(InputEvent event, float x, float y) {
                 endGameWindow.setVisible(false);
                 gameParent.setScreen(new LevelSelectScreen());
@@ -215,7 +239,7 @@ public class MazeScreen extends ScreenInterface {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 endGameWindow.setVisible(false);
-                gameParent.setScreen(new ChallengeSendScreen(42, new Array(new String[]{"You", "Have", "No", "Friends"})));
+                gameParent.setScreen(new ChallengeSendScreen(seed, level, finalIime));
             }
         });
         endGameWindow.add(yes);
@@ -262,23 +286,33 @@ public class MazeScreen extends ScreenInterface {
             player.setY(0);
             this.pause();
             Gdx.input.setInputProcessor(menuStage);
-            String sTime = new DecimalFormat("####.##").format(time);
+            finalIime = time;
+            String sTime = new DecimalFormat("####.##").format(finalIime);
 
-            HttpConnection httpCon = new HttpConnection(gameParent);
             if (gameParent.profile != null) {
-                httpCon.sendScore(gameParent.profile.getID(), level, time);
+                HttpConnection httpCon = new HttpConnection(gameParent);
+                httpCon.sendScore(gameParent.profile.getID(), level, finalIime);
                 Double previousTime = gameParent.profile.scoresDict.get(level);
                 if (previousTime != null) {
-                    if (time < previousTime) {
-                        gameParent.profile.scoresDict.put(level, time);
+                    if (finalIime < previousTime) {
+                        gameParent.profile.scoresDict.put(level, finalIime);
                     }
                 } else {
-                    gameParent.profile.scoresDict.put(level, time);
+                    gameParent.profile.scoresDict.put(level, finalIime);
                 }
-
+                
+                if (timeToBeat == -1) {
                 endGameWindowLbl.setText("Your time was " + sTime + " seconds."
                         + "\nWould you like to challenge a friend?");
                 endGameWindow.setVisible(true);
+                } else {
+                    gameParent.getMessageWindow().setTitle("Maze Complete!");
+                    gameParent.getMessageWindow().setText("Your time was " + sTime + " seconds."
+                            + "\nYour friend's time was " + String.valueOf(timeToBeat) + " seconds.");
+                    gameParent.getMessageWindow().update();
+                    gameParent.getMessageWindow().setVisible(true);
+                    httpCon.getChallenges(gameParent.profile.getID());
+                }
             } else {
                 gameParent.getMessageWindow().setTitle("Maze Complete!");
                 gameParent.getMessageWindow().setText("Your time was " + sTime + " seconds."

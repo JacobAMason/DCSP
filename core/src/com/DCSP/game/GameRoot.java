@@ -7,6 +7,7 @@ import com.DCSP.windows.MessageWindow;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 
 public class GameRoot extends Game {
     private boolean isFullscreen;
@@ -25,6 +26,11 @@ public class GameRoot extends Game {
         isFullscreen = false;
         mainMenuScreen = new MainMenuScreen();
         messageWindow = new MessageWindow();
+        
+        Music musicPlayer = Gdx.audio.newMusic(Gdx.files.internal("audio/BGmusic.mp3"));
+        musicPlayer.setLooping(true);
+        musicPlayer.play();
+        
         setScreen(new SplashScreen());
     }
 

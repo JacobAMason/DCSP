@@ -25,19 +25,19 @@ package com.DCSP.http;
 
 import com.DCSP.game.GameRoot;
 import com.DCSP.game.UserProfile;
+import com.DCSP.screen.ChallengesScreen;
 import com.DCSP.screen.GameMenuScreen;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.DCSP.screen.HighScoresScreen;
 import com.DCSP.windows.MessageWindow;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.net.HttpParametersUtils;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -225,7 +225,7 @@ public class HttpConnection {
                 try {
                     ScoresResponse result = json.fromJson(ScoresResponse.class, response);
                     Gdx.app.log("HttpCon:getScores", result.scoreTupleArray.toString());
-                    
+
                     for (ScoresResponse.ScoresResultsArray tuple : result.scoreTupleArray) {
                         gameParent.profile.scoresDict.put(tuple.level, tuple.score);
                     }
@@ -259,7 +259,7 @@ public class HttpConnection {
                 Json json = new Json();
                 final OrderedMap result = json.fromJson(OrderedMap.class, response);
                 Gdx.app.log("HttpCon:getHighScores", result.toString());
-                
+
                 if (result.remove("result").equals("Success")) {
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
@@ -339,16 +339,16 @@ public class HttpConnection {
         });
     }
 
-    public void sendChallenge(int ID, int score, int level, long seed, int toID) {
+    public void sendChallenge(double score, int level, long seed, String toUsername) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
         request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/sendChallenge.php");
 
         Map parameters = new HashMap();
-        parameters.put("ID", String.valueOf(ID));
+        parameters.put("ID", String.valueOf(gameParent.profile.getID()));
         parameters.put("score", String.valueOf(score));
         parameters.put("level", String.valueOf(level));
         parameters.put("seed", String.valueOf(seed));
-        parameters.put("toID", String.valueOf(toID));
+        parameters.put("toUsername", toUsername);
 
         request.setContent(HttpParametersUtils.convertHttpParameters(parameters));
 
@@ -356,6 +356,17 @@ public class HttpConnection {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
                 Gdx.app.log("HttpCon:sendChallenge", httpResponse.getResultAsString());
+
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        messageWindow.setTitle("Thanks");
+                        messageWindow.setText("Your Challenge has been sent!");
+                        messageWindow.update();
+                        messageWindow.setVisible(true);
+                        gameParent.setScreen(new GameMenuScreen());
+                    }
+                });
             }
 
             @Override
@@ -387,11 +398,23 @@ public class HttpConnection {
                 Gdx.app.log("HttpCon:getChallenges", response);
                 Json json = new Json();
                 try {
-                    ChallengesResponse results = json.fromJson(ChallengesResponse.class, response);
+                    final ChallengesResponse results = json.fromJson(ChallengesResponse.class, response);
                     if (results.result.equals("Success")) {
                         Gdx.app.log("HttpCon:getChallenges", results.challengeResultsArray.toString());
+
+                        Gdx.app.postRunnable(new Runnable() {
+                            @Override
+                            public void run() {
+                                gameParent.setScreen(new ChallengesScreen(results));
+                            }
+                        });
+
                     } else {
                         Gdx.app.log("HttpCon:getChallenges", "No challenges found.");
+                        messageWindow.setTitle("No Challenges");
+                        messageWindow.setText("There are currently no challenges for you.");
+                        messageWindow.update();
+                        messageWindow.setVisible(true);
                     }
                 } catch (Exception e) {
                     System.out.println(e.toString());
@@ -411,15 +434,14 @@ public class HttpConnection {
         });
     }
 
-    
     public void addFriend(int frienderID, String friendeeUsername, final List friendList) {
-        
+
         // You can't friend yourself.
         if (friendeeUsername.toLowerCase().equals(gameParent.profile.getUsername().toLowerCase())) {
             Gdx.app.log("HttpCon:addFriend", "Can't add yourself");
             return;
         }
-        
+
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
         request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/addFriend.php");
 
@@ -433,13 +455,13 @@ public class HttpConnection {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
                 Gdx.app.log("HttpCon:addFriend", httpResponse.getResultAsString());
-                
+
                 Gdx.app.postRunnable(new Runnable() {
-                        @Override
-                        public void run() {
-                            getFriends(gameParent.profile.getID(), friendList);
-                        }
-                    });
+                    @Override
+                    public void run() {
+                        getFriends(gameParent.profile.getID(), friendList);
+                    }
+                });
             }
 
             @Override
@@ -454,7 +476,7 @@ public class HttpConnection {
             }
         });
     }
-    
+
     public void getFriends(int frienderID) {
         getFriends(frienderID, null);
     }
@@ -502,42 +524,4 @@ public class HttpConnection {
             }
         });
     }
-}
-
-class ChallengesResponse {
-
-    public ArrayList<ChallengeResultsArray> challengeResultsArray;
-    public String result;
-
-    static class ChallengeResultsArray {
-
-        public int ID;
-        public int FromID;
-        public long ChallengeSeed;
-        public int Level;
-        public int Score;
-
-        @Override
-        public String toString() {
-            return "ChallengesResponse{" + "ID=" + ID + ", FromID=" + FromID + ", ChallengeSeed=" + ChallengeSeed + ", Level=" + Level + ", Score=" + Score + '}';
-        }
-    }
-}
-
-
-
-class ScoresResponse {
-    public ArrayList<ScoresResultsArray> scoreTupleArray;
-    
-    static class ScoresResultsArray {
-        int level;
-        double score;
-
-        @Override
-        public String toString() {
-            return "ScoresResultsArray{" + "level=" + level + ", score=" + score + '}';
-        }
-    }
-
-
 }

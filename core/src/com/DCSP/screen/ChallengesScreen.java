@@ -23,7 +23,7 @@
  */
 package com.DCSP.screen;
 
-import com.DCSP.http.Challenge;
+import com.DCSP.http.ChallengesResponse;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
@@ -38,8 +38,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.OrderedMap;
 
 /**
  *
@@ -53,13 +51,9 @@ public class ChallengesScreen extends ScreenInterface {
     private Skin skin;
     private TextButton challengeBtn;
     private Label challengeLbl;
-    private final Array<Challenge> challenges;
+    private final ChallengesResponse challenges;
     
-    public ChallengesScreen(){
-        challenges = null;
-    }
-
-    public ChallengesScreen(Array challenges) {
+    public ChallengesScreen(ChallengesResponse challenges) {
         this.challenges = challenges;
     }
 
@@ -93,30 +87,18 @@ public class ChallengesScreen extends ScreenInterface {
         challengeTable.defaults().pad(10);
         
         
-//        try {
-//            Array levels = scoreFromDB.keys().toArray();
-//            Array scores = scoreFromDB.values().toArray();
-//            
-//            scoreList = new List(skin,"user");
-//            scoreList.setItems(levels);
-//            challengeTable.add(scoreList).padRight(15);
-//            
-//            scoreList = new List(skin,"user");
-//            scoreList.setItems(scores);
-//            challengeTable.add(scoreList);
-//        } catch (Exception e) {
-//            System.out.println(e.toString());
-//        }
         int i = 0;       
-        for (final Challenge challenge : challenges) {
+        for (final ChallengesResponse.ChallengeResultsArray challenge : challenges.challengeResultsArray) {
             challengeBtn = new TextButton(challenge.getUsername(), skin, "user");
-            challengeLbl = new Label(String.valueOf(challenge.getLevel()) + ": " + String.valueOf(challenge.getTime()), skin, "user");
+            challengeLbl = new Label(String.valueOf(challenge.getLevel()) + ": " +
+                    String.valueOf(challenge.getTime()), skin, "user");
             challengeBtn.add(challengeLbl);
             
             challengeBtn.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
-                        gameParent.setScreen(new MazeScreen(challenge.getLevel(), challenge.getSeed()));
+                        gameParent.setScreen(new MazeScreen(challenge.getLevel(),
+                                challenge.getSeed(), challenge.getTime()));
                     }
                 });
             
@@ -131,6 +113,9 @@ public class ChallengesScreen extends ScreenInterface {
         challengeScroll.setFillParent(true);
         challengeScroll.setX(challengeScroll.getX()+5);
         challengesStage.addActor(challengeScroll);
+        
+        // Always add the generic message window
+        challengesStage.addActor(gameParent.getMessageWindow().getWindow());
     }
 
     @Override

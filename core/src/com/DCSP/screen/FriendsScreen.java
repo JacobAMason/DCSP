@@ -56,17 +56,14 @@ public class FriendsScreen extends ScreenInterface {
     private TextButton friendBtn;
     private Array friends;
 
-    public FriendsScreen(GameRoot gameParent) {
-        setGameParent(gameParent);
+    @Override
+    public void show() {
         if(gameParent.profile != null) {
             this.friends = gameParent.profile.getFriendsArray();
         } else {
             this.friends = new Array(new String[]{"You","Have","No","Friends"});
         }
-    }
-
-    @Override
-    public void show() {
+                
         friendStage = new Stage();
         InputMultiplexer friendInput = new InputMultiplexer();
         friendInput.addProcessor(new InputAdapter(){

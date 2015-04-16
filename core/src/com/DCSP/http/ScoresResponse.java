@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2015 Alex Dodd (wad79).
+ * Copyright 2015 Jacob Mason (jm2232).
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,31 +23,24 @@
  */
 package com.DCSP.http;
 
+import java.util.ArrayList;
+
 /**
  *
- * @author Alex Dodd (wad79)
+ * @author Jacob Mason (jm2232)
  */
-public class Challenge {
-    private String username;
-    private int level;
-    private double time;
-    private int seed;
+public class ScoresResponse {
+    public ArrayList<ScoresResultsArray> scoreTupleArray;
 
-    public String getUsername() {
-        return username;
-    }
+    public static class ScoresResultsArray {
 
-    public int getLevel() {
-        return level;
-    }
+        int level;
+        double score;
 
-    public double getTime() {
-        return time;
+        @Override
+        public String toString() {
+            return "ScoresResultsArray{" + "level=" + level + ", score=" + score + '}';
+        }
     }
-    
-    public int getSeed(){
-        return seed;
-    }
-    
     
 }
