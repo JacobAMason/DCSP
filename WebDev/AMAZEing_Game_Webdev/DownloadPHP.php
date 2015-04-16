@@ -50,7 +50,21 @@ session_start();
             <br/><br/><br/>
             <div style="text-align: center;" id="links">
                 <a href="downloads/An AMAZEing Game.apk">Click here to download An AMAZEing Game APK for Android</a> <br/><br/>
-                <a href="downloads/An AMAZEing Game.jar">Click here to download An AMAZEing Game for Desktop</a>
+                <a href="downloads/An AMAZEing Game.jar">Click here to download An AMAZEing Game for Desktop</a> <br/><br/>
+                <br/><br/>
+                If you want to feed the developers, who are all broke college students, you may use the link below to give us however much you can spare.
+
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="rm" value="2" />
+                    <input type="hidden" name="cmd" value="_s-xclick">
+                    <input type="hidden" name="hosted_button_id" value="596NPKRLDPRU8">
+                    <input type="hidden" name="return" value="http://pluto.cse.msstate.edu/~dcsp01/DownloadPHP.php" />
+                    <input type="hidden" name="cancel_return" value="http://pluto.cse.msstate.edu/~dcsp01/Donate.html" />
+                    <br />
+                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                </form>
+
             </div>
         </div>
     </body>
