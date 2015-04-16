@@ -61,7 +61,7 @@ public class ChallengeSendScreen extends ScreenInterface {
 
     @Override
     public void show() {
-        if (gameParent.profile != null) {
+        if (gameParent.isLoggedIn()) {
             this.friends = gameParent.profile.getFriendsArray();
         } else {
             this.friends = new Array(new String[]{"You", "Have", "No", "Friends"});

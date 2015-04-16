@@ -144,7 +144,7 @@ public class MazeScreen extends ScreenInterface {
                 switch (keycode) {
                     case Keys.ESCAPE:
                     case Keys.BACK:
-                        if (gameParent.profile != null) {
+                        if (gameParent.isLoggedIn()) {
                             if (timeToBeat == -1) {
                                 gameParent.setScreen(new LevelSelectScreen());
                             } else {
@@ -289,8 +289,8 @@ public class MazeScreen extends ScreenInterface {
             finalIime = time;
             String sTime = new DecimalFormat("####.##").format(finalIime);
 
-            if (gameParent.profile != null) {
-                HttpConnection httpCon = new HttpConnection(gameParent);
+            if (gameParent.isLoggedIn()) {
+            HttpConnection httpCon = new HttpConnection(gameParent);
                 httpCon.sendScore(gameParent.profile.getID(), level, finalIime);
                 Double previousTime = gameParent.profile.scoresDict.get(level);
                 if (previousTime != null) {

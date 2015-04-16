@@ -15,6 +15,7 @@ public class GameRoot extends Game {
     public Screen settingsScreen;
     static private MessageWindow messageWindow;
     public UserProfile profile;
+    private boolean userIsLoggedIn;
     
     
     public GameRoot(Screen settingsScreen) {
@@ -24,6 +25,7 @@ public class GameRoot extends Game {
     @Override
     public void create() {
         isFullscreen = false;
+        userIsLoggedIn = false;
         mainMenuScreen = new MainMenuScreen();
         messageWindow = new MessageWindow();
         
@@ -47,6 +49,9 @@ public class GameRoot extends Game {
         return messageWindow;
     }
         
+    public boolean isLoggedIn() {
+        return userIsLoggedIn;
+    }
     
     // TODO: Move this elsewhere
     public void toggleFullscreen(){
