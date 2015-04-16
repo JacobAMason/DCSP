@@ -29,6 +29,7 @@ import com.DCSP.mazeGen.Maze;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -62,6 +63,7 @@ public class MazeScreen extends ScreenInterface {
     private float cellFactor;
     private Player player;
     private Vector2 pos = new Vector2(0f, 0f);
+    private Screen nextScreen;
     private int level,seed;
 
     private float step;
@@ -81,14 +83,25 @@ public class MazeScreen extends ScreenInterface {
     // The higher the number the higher the zoom.
     public static float zoom = 9;
 
-    public MazeScreen(int level) {
+    public MazeScreen(int level, int screen) {
         this.level = level;
         this.seed = 42;
         mWidth = level + 15;
         mHeight = (int) Math.floor(9 * mWidth / 16);
+        switch (screen){
+                case 1:
+                    nextScreen = new MainMenuScreen();
+                    break;
+                case 3:
+                    nextScreen = new LevelSelectScreen();
+                    break;
+                case 4:
+                    nextScreen = new ChallengesScreen();
+                    break;
+        }
     }
     
-    public MazeScreen(int level, int seed) {
+    public MazeScreen(int level, int seed, int screen) {
         this.level = level;
         this.seed = seed;
         mWidth = level + 15;
@@ -130,7 +143,7 @@ public class MazeScreen extends ScreenInterface {
                 switch (keycode) {
                     case Keys.ESCAPE:
                     case Keys.BACK:
-                        gameParent.setScreen(new LevelSelectScreen());
+                        gameParent.setScreen(nextScreen);
                         break;
                     case Keys.W:
                     case Keys.S:
