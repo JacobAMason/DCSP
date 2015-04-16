@@ -89,10 +89,12 @@ public class RegistrationScreen extends ScreenInterface {
         pass1Lbl = new Label("Password", skin, "small");
         pass1Txt = new TextField("", skin, "user");
         pass1Txt.setPasswordMode(true);
+        pass1Txt.setPasswordCharacter('*');
         
         pass2Lbl = new Label("Re-enter\nPassword", skin, "small");
         pass2Txt = new TextField("", skin, "user");
         pass2Txt.setPasswordMode(true);
+        pass2Txt.setPasswordCharacter('*');
         
         nameLbl = new Label("Name", skin, "small");
         nameTxt = new TextField("", skin, "user");
