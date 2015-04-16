@@ -37,7 +37,7 @@ $MD5passwd = MD5($password);
 
 $regexUsername = "^[0-9A-z_]{3,20}$";
 $regexName = "^[A-z ',]{1,20}$";
-$regexPassword = "^(?!.*\\^)(?=.*[0-9]+)(?=.*[a-z]+)[A-z0-9!@#$&*]{6,30}$)";
+$regexPassword = "^(?!.*\\^)(?=.*[0-9]+)(?=.*[a-z]+)[A-z0-9!@#$&*]{6,30}$";
 $regexEmail = "^[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,4}$";
 
 if($username == null || $password == null || $repassword == null || $name == null || $email == null || $reEmail == null) {
