@@ -18,6 +18,14 @@ body{
 	width: 100%;
 }
 
+a{
+    color:white;
+}
+
+#links{
+    margin-top:150px;
+}
+
 #download{
     position: absolute;
     width: 65%;

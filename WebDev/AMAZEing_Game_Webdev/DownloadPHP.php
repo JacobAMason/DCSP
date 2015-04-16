@@ -44,6 +44,11 @@
                 Download Game
                 </div>
             </div>
+            
+            <div id="links">
+                <a href="#">Click here to download APK for Android Game</a> <br/>
+                <a href="#">Click here to download Desktop Game </a>
+            </div>
         </div>
     </body>
 </html>
