@@ -17,7 +17,7 @@
                             <ul class="sub-menu">
                                 <li><a href="index.html">Home</a></li>
                                 <li><a href="HighScores.php">High Scores</a></li>
-                                <li><a href="#">Download Game</a></li>
+                                <li><a href="DownloadPHP.php">Download Game</a></li>
                                 <li><a href="#">FAQ</a></li>
                                 <li><a href="#">Donations :)</a></li>
                             </ul>
