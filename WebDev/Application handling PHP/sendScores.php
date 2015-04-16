@@ -71,7 +71,12 @@ if ($checkGlobalHighScore) {
 			$entry = $row->fetch_assoc();
 			$globalHighScore = $entry['score'];
 			
-			if ($score < $globalHighScore) {
+			if ($globalHSID == $ID) {
+				// Since the highscore db just points to the user with the highest score,
+				// if that user makes yet another highscore on the same level, the hsdb
+				// doesn't update because it's already pointing at the right user.
+				$jsonReply[] = "Success: New global High Score";
+			} elseif ($score < $globalHighScore) {
 				// Update global high score to point at this user's ID
 			    $query = "UPDATE HighScores SET ID='$ID' WHERE level='$level'";
 				$row = $sql->query($query);
@@ -83,7 +88,7 @@ if ($checkGlobalHighScore) {
 					$jsonReply[] = "Fail: existing Highscore row couldn't be updated";
 				}
 			} else {
-				$jsonReply[] = "Not a new global highscore";
+				$jsonReply[] = "Not a new global highscore: " . $score . " is greater than " . $globalHighScore;
 			}
 	
 		} else {

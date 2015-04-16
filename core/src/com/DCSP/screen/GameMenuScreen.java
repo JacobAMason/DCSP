@@ -109,7 +109,7 @@ public class GameMenuScreen extends ScreenInterface{
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                gameParent.setScreen(new FriendsScreen(gameParent));
+                gameParent.setScreen(new FriendsScreen());
             }
         });
         
@@ -127,6 +127,9 @@ public class GameMenuScreen extends ScreenInterface{
         
         gameTable.add(gameBtn).expand().fill();
         gameStage.addActor(gameTable);
+        
+        // Always add the generic message window
+        gameStage.addActor(gameParent.getMessageWindow().getWindow());
     }
 
     @Override

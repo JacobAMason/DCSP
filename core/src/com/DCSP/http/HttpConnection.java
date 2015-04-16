@@ -38,7 +38,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,10 +52,10 @@ import java.util.Map;
  * @author Jacob Mason (jm2232)
  */
 public class HttpConnection {
-    
+
     GameRoot gameParent;
     MessageWindow messageWindow;
-    
+
     public HttpConnection(GameRoot gameParent) {
         this.gameParent = gameParent;
         messageWindow = gameParent.getMessageWindow();
@@ -66,13 +65,13 @@ public class HttpConnection {
     public void login(String username, String password, final Window successWindow) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
         request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/Login.php");
-        
+
         Map parameters = new HashMap();
         parameters.put("username", username);
         parameters.put("password", password);
-        
+
         request.setContent(HttpParametersUtils.convertHttpParameters(parameters));
-        
+
         Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
@@ -80,11 +79,11 @@ public class HttpConnection {
                 Json json = new Json();
                 ObjectMap result = json.fromJson(ObjectMap.class, response);
                 Gdx.app.log("HttpCon:Login", result.toString());
-                
+
                 if (result.get("result").equals("Fail")) {
                     successWindow.setVisible(true);
                 } else if (result.get("result").equals("Success")) {
-                    
+
                     try {
                         gameParent.profile
                                 = new UserProfile(Math.round(Float.valueOf(result.get("ID").toString())), // This is the stupidest conversion ever invented. Thanks Java.
@@ -94,9 +93,9 @@ public class HttpConnection {
                     } catch (Exception e) {
                         System.out.println(e.toString());
                     }
-                    
+
                     Gdx.app.postRunnable(new Runnable() {
-                        
+
                         @Override
                         public void run() {
                             getFriends(gameParent.profile.getID());
@@ -106,33 +105,33 @@ public class HttpConnection {
                     });
                 }
             }
-            
+
             @Override
             public void failed(Throwable t) {
                 Gdx.app.log("HttpCon:Login", "Connection Fail");
                 messageWindow.makeConnectionErrorWindow();
             }
-            
+
             @Override
             public void cancelled() {
                 Gdx.app.log("HttpCon:Login", "Cancel function called. What does this even do?");
             }
         });
     }
-    
+
     public void register(String username, String password, String name, String email,
             final Window connectionFailWindow) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
         request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/Register.php");
-        
+
         Map parameters = new HashMap();
         parameters.put("username", username);
         parameters.put("password", password);
         parameters.put("name", name);
         parameters.put("email", email);
-        
+
         request.setContent(HttpParametersUtils.convertHttpParameters(parameters));
-        
+
         Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
@@ -141,7 +140,7 @@ public class HttpConnection {
                 Json json = new Json();
                 ObjectMap result = json.fromJson(ObjectMap.class, response);
                 Gdx.app.log("HttpCon:Register", result.toString());
-                
+
                 if (result.get("result").equals("usernameInUse")) {
                     messageWindow.setTitle("Registration Error");
                     messageWindow.setText("This username is already taken.");
@@ -153,80 +152,80 @@ public class HttpConnection {
                     messageWindow.setTitle("Registration Complete");
                     messageWindow.setText("You've successfully registered.");
                     Gdx.app.postRunnable(new Runnable() {
-                        
+
                         @Override
                         public void run() {
                             gameParent.setScreen(gameParent.mainMenuScreen);
                         }
                     });
                 }
-                
+
                 messageWindow.update();
                 messageWindow.setVisible(true);
             }
-            
+
             @Override
             public void failed(Throwable t) {
                 Gdx.app.log("HttpCon:Register", "Connection Fail");
                 messageWindow.makeConnectionErrorWindow();
             }
-            
+
             @Override
             public void cancelled() {
                 Gdx.app.log("HttpCon:Register", "Cancel function called. What does this even do?");
             }
         });
     }
-    
+
     public void sendScore(int ID, int level, double score) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
         request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/sendScores.php");
-        
+
         Map parameters = new HashMap();
         parameters.put("ID", String.valueOf(ID));
         parameters.put("score", String.valueOf(score));
         parameters.put("level", String.valueOf(level));
-        
+
         request.setContent(HttpParametersUtils.convertHttpParameters(parameters));
-        
+
         Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
                 Gdx.app.log("HttpCon:sendScore", httpResponse.getResultAsString());
             }
-            
+
             @Override
             public void failed(Throwable t) {
                 Gdx.app.log("HttpCon:sendScore", "Connection Fail");
                 messageWindow.makeConnectionErrorWindow();
             }
-            
+
             @Override
             public void cancelled() {
                 Gdx.app.log("HttpCon:sendScore", "Cancel function called. What does this even do?");
             }
         });
     }
-    
+
     public void getScores(int ID) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
         request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/getScores.php");
-        
+
         Map parameters = new HashMap();
         parameters.put("ID", String.valueOf(ID));
         request.setContent(HttpParametersUtils.convertHttpParameters(parameters));
-        
+
         Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
                 String response = httpResponse.getResultAsString();
                 Gdx.app.log("HttpCon:getScores", response);
-                
+
                 Json json = new Json();
                 try {
                     ScoresResponse result = json.fromJson(ScoresResponse.class, response);
                     Gdx.app.log("HttpCon:getScores", result.scoreTupleArray.toString());
-                    
+
                     for (ScoresResponse.ScoresResultsArray tuple : result.scoreTupleArray) {
                         gameParent.profile.scoresDict.put(tuple.level, tuple.score);
                     }
@@ -234,24 +233,24 @@ public class HttpConnection {
                     System.out.println(e.toString());
                 }
             }
-            
+
             @Override
             public void failed(Throwable t) {
                 Gdx.app.log("HttpCon:getScores", "Connection Fail");
                 messageWindow.makeConnectionErrorWindow();
             }
-            
+
             @Override
             public void cancelled() {
                 Gdx.app.log("HttpCon:getScores", "Cancel function called. What does this even do?");
             }
         });
     }
-    
+
     public void getHighScores() {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
         request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/HighScore.php");
-        
+
         Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
@@ -260,7 +259,7 @@ public class HttpConnection {
                 Json json = new Json();
                 final OrderedMap result = json.fromJson(OrderedMap.class, response);
                 Gdx.app.log("HttpCon:getHighScores", result.toString());
-                
+
                 if (result.remove("result").equals("Success")) {
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
@@ -270,117 +269,128 @@ public class HttpConnection {
                     });
                 }
             }
-            
+
             @Override
             public void failed(Throwable t) {
                 Gdx.app.log("HttpCon:getHighScores", "Connection Fail");
                 messageWindow.makeConnectionErrorWindow();
             }
-            
+
             @Override
             public void cancelled() {
                 Gdx.app.log("HttpCon:getHighScores", "Cancel function called. What does this even do?");
             }
         });
     }
-    
+
     public void userLookup(String username) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
         request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/userLookup.php");
-        
+
         Map parameters = new HashMap();
         parameters.put("username", String.valueOf(username));
-        
+
         request.setContent(HttpParametersUtils.convertHttpParameters(parameters));
-        
+
         Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
                 Gdx.app.log("HttpCon:userLookup", httpResponse.getResultAsString());
             }
-            
+
             @Override
             public void failed(Throwable t) {
                 Gdx.app.log("HttpCon:userLookup", "Connection Fail");
                 messageWindow.makeConnectionErrorWindow();
             }
-            
+
             @Override
             public void cancelled() {
                 Gdx.app.log("HttpCon:userLookup", "Cancel function called. What does this even do?");
             }
         });
     }
-    
+
     public void IDLookup(int ID) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
         request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/addFriend.php");
-        
+
         Map parameters = new HashMap();
         parameters.put("ID", String.valueOf(ID));
-        
+
         request.setContent(HttpParametersUtils.convertHttpParameters(parameters));
-        
+
         Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
                 Gdx.app.log("HttpCon:IDLookup", httpResponse.getResultAsString());
             }
-            
+
             @Override
             public void failed(Throwable t) {
                 Gdx.app.log("HttpCon:IDLookup", "Connection Fail");
                 messageWindow.makeConnectionErrorWindow();
             }
-            
+
             @Override
             public void cancelled() {
                 Gdx.app.log("HttpCon:IDLookup", "Cancel function called. What does this even do?");
             }
         });
     }
-    
-    public void sendChallenge(double score, int level, long seed, int toID) {
+
+    public void sendChallenge(double score, int level, long seed, String toUsername) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
         request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/sendChallenge.php");
-        
+
         Map parameters = new HashMap();
         parameters.put("ID", String.valueOf(gameParent.profile.getID()));
         parameters.put("score", String.valueOf(score));
         parameters.put("level", String.valueOf(level));
         parameters.put("seed", String.valueOf(seed));
-        parameters.put("toID", String.valueOf(toID));
-        
+        parameters.put("toUsername", toUsername);
+
         request.setContent(HttpParametersUtils.convertHttpParameters(parameters));
-        
+
         Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
                 Gdx.app.log("HttpCon:sendChallenge", httpResponse.getResultAsString());
+
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        messageWindow.setTitle("Thanks");
+                        messageWindow.setText("Your Challenge has been sent!");
+                        messageWindow.update();
+                        messageWindow.setVisible(true);
+                        gameParent.setScreen(new GameMenuScreen());
+                    }
+                });
             }
-            
+
             @Override
             public void failed(Throwable t) {
                 Gdx.app.log("HttpCon:sendChallenge", "Connection Fail");
                 messageWindow.makeConnectionErrorWindow();
             }
-            
+
             @Override
             public void cancelled() {
                 Gdx.app.log("HttpCon:sendChallenge", "Cancel function called. What does this even do?");
             }
         });
     }
-    
+
     public void getChallenges(int ID) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
         request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/getChallenges.php");
-        
+
         Map parameters = new HashMap();
         parameters.put("ID", String.valueOf(ID));
-        
+
         request.setContent(HttpParametersUtils.convertHttpParameters(parameters));
-        
+
         Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
@@ -391,14 +401,14 @@ public class HttpConnection {
                     final ChallengesResponse results = json.fromJson(ChallengesResponse.class, response);
                     if (results.result.equals("Success")) {
                         Gdx.app.log("HttpCon:getChallenges", results.challengeResultsArray.toString());
-                        
+
                         Gdx.app.postRunnable(new Runnable() {
                             @Override
                             public void run() {
                                 gameParent.setScreen(new ChallengesScreen(results));
                             }
                         });
-                        
+
                     } else {
                         Gdx.app.log("HttpCon:getChallenges", "No challenges found.");
                         messageWindow.setTitle("No Challenges");
@@ -410,20 +420,20 @@ public class HttpConnection {
                     System.out.println(e.toString());
                 }
             }
-            
+
             @Override
             public void failed(Throwable t) {
                 Gdx.app.log("HttpCon:getChallenges", "Connection Fail");
                 messageWindow.makeConnectionErrorWindow();
             }
-            
+
             @Override
             public void cancelled() {
                 Gdx.app.log("HttpCon:getChallenges", "Cancel function called. What does this even do?");
             }
         });
     }
-    
+
     public void addFriend(int frienderID, String friendeeUsername, final List friendList) {
 
         // You can't friend yourself.
@@ -431,21 +441,21 @@ public class HttpConnection {
             Gdx.app.log("HttpCon:addFriend", "Can't add yourself");
             return;
         }
-        
+
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
         request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/addFriend.php");
-        
+
         Map parameters = new HashMap();
         parameters.put("friender", String.valueOf(frienderID));
         parameters.put("friendee", friendeeUsername);
-        
+
         request.setContent(HttpParametersUtils.convertHttpParameters(parameters));
-        
+
         Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
                 Gdx.app.log("HttpCon:addFriend", httpResponse.getResultAsString());
-                
+
                 Gdx.app.postRunnable(new Runnable() {
                     @Override
                     public void run() {
@@ -453,33 +463,33 @@ public class HttpConnection {
                     }
                 });
             }
-            
+
             @Override
             public void failed(Throwable t) {
                 Gdx.app.log("HttpCon:addFriend", "Connection Fail");
                 messageWindow.makeConnectionErrorWindow();
             }
-            
+
             @Override
             public void cancelled() {
                 Gdx.app.log("HttpCon:addFriend", "Cancel function called. What does this even do?");
             }
         });
     }
-    
+
     public void getFriends(int frienderID) {
         getFriends(frienderID, null);
     }
-    
+
     public void getFriends(int frienderID, final List friendList) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
         request.setUrl("http://pluto.cse.msstate.edu/~dcsp01/application/getFriends.php");
-        
+
         Map parameters = new HashMap();
         parameters.put("friender", String.valueOf(frienderID));
-        
+
         request.setContent(HttpParametersUtils.convertHttpParameters(parameters));
-        
+
         Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
@@ -501,13 +511,13 @@ public class HttpConnection {
                     System.out.println(e.toString());
                 }
             }
-            
+
             @Override
             public void failed(Throwable t) {
                 Gdx.app.log("HttpCon:getFriends", "Connection Fail");
                 messageWindow.makeConnectionErrorWindow();
             }
-            
+
             @Override
             public void cancelled() {
                 Gdx.app.log("HttpCon:getFriends", "Cancel function called. What does this even do?");
@@ -515,5 +525,3 @@ public class HttpConnection {
         });
     }
 }
-
-

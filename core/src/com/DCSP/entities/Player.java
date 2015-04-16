@@ -82,8 +82,9 @@ public class Player {
         
         player = world.createBody(playerBody);
         player.createFixture(playerFix);
-        playerSprite = new Sprite(new Texture(Gdx.files.internal("img/Pinkyyghost.png")));
+        playerSprite = new Sprite(new Texture(Gdx.files.internal("img/Ghost.png")));
         playerSprite.setSize(cellFactor/2, cellFactor/2);
+        playerSprite.flip(false, true);
         player.setUserData(playerSprite);
     }
     public void setY(float step){
