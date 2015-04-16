@@ -99,7 +99,7 @@ public class LevelSelectScreen extends ScreenInterface {
                 levelBtn.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
-                        gameParent.setScreen(new MazeScreen(lvl, 1));
+                        gameParent.setScreen(new MazeScreen(lvl));
                     }
                 });
 
