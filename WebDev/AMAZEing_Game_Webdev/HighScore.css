@@ -14,8 +14,10 @@ table{
     border: 1px solid white;
     border-collapse: collapse;
     width:100%;
-    margin-top: 300px;
+    margin-top: 200px;
+    margin-bottom: 100px;
 }
+
 
 th,td {
     color: white;
