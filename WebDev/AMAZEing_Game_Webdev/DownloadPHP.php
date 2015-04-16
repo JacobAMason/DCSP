@@ -47,10 +47,10 @@ session_start();
                 Download Game
                 </div>
             </div>
-            
-            <div id="links">
-                <a href="#">Click here to download APK for Android Game</a> <br/>
-                <a href="#">Click here to download Desktop Game </a>
+            <br/><br/><br/>
+            <div style="text-align: center;" id="links">
+                <a href="downloads/An AMAZEing Game.apk">Click here to download An AMAZEing Game APK for Android</a> <br/><br/>
+                <a href="downloads/An AMAZEing Game.jar">Click here to download An AMAZEing Game for Desktop</a>
             </div>
         </div>
     </body>
