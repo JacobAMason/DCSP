@@ -20,6 +20,19 @@ if(mysqli_num_rows($row)) {
 	$response = "Success: " . $ID;
 	
 	while($entry = $row->fetch_assoc()) {
+
+		$usernameQuery = "SELECT username FROM User WHERE ID='$entry[FromID]'";
+        $userRow = $sql->query($usernameQuery);
+
+        if(mysqli_num_rows($userRow)) {
+            $userEntry = $userRow->fetch_assoc();
+            $entry[challenger] = $userEntry[username];
+        } else {
+        	$jsonReply[result] = "Fail";
+            $response = "Failed to find username for ID: '" . $ID . "'";
+        }
+
+
 	    $jsonEntries[] = $entry;
 	}
 	$jsonReply[challengeResultsArray] = $jsonEntries;

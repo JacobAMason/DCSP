@@ -96,7 +96,8 @@ public class GameMenuScreen extends ScreenInterface{
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                gameParent.setScreen(new ChallengesScreen());
+                HttpConnection httpCon = new HttpConnection(gameParent);
+                httpCon.getChallenges(gameParent.profile.getID());
             }
         });
         
