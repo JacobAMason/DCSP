@@ -43,6 +43,7 @@ import com.badlogic.gdx.utils.Array;
  */
 public class ChallengeSendScreen extends ScreenInterface {
     private final long seed;
+    private final int level;
     private final double score;
     private Stage challengeStage;
     private Table challengeTable;
@@ -52,14 +53,20 @@ public class ChallengeSendScreen extends ScreenInterface {
     private Array friends;
     private TextButton toName;
 
-    public ChallengeSendScreen(long seed, double score) {
+    public ChallengeSendScreen(long seed, int level, double score) {
         this.seed = seed;
+        this.level = level;
         this.score = score;
-        this.friends = new Array(new String[]{"You", "Have", "No", "Friends"});
     }
 
     @Override
     public void show() {
+        if (gameParent.profile != null) {
+            this.friends = gameParent.profile.getFriendsArray();
+        } else {
+            this.friends = new Array(new String[]{"You", "Have", "No", "Friends"});
+        }
+                
         challengeStage = new Stage();
         
         Gdx.input.setInputProcessor(challengeStage);
@@ -82,19 +89,22 @@ public class ChallengeSendScreen extends ScreenInterface {
         
         
         
-        toName = new TextButton("Send Challenge",skin,"small");
+        toName = new TextButton("Send Challenge", skin, "small");
         toName.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         // Insert useful php hook here that uses challengeList.getSelected()
                         HttpConnection httpCon = new HttpConnection(gameParent);
-                        httpCon.sendChallenge(score, 1, seed, 0);  // score, level, seed, toID
-                        System.out.println(challengeList.getSelected());
+                        httpCon.sendChallenge(score, level, seed, String.valueOf(challengeList.getSelected()));  // score, level, seed, toID
+                        System.out.println(score);
+                        System.out.println(level);
+                        System.out.println(seed);
+                        System.out.println(String.valueOf(challengeList.getSelected()));
                     }
                 });
         
         challengeTable.add(toName).width(toName.getWidth()*2)
-                .height(toName.getHeight()+ 20).align(Align.right);
+                .height(toName.getHeight() + 20).align(Align.right);
         
         challengeStage.addActor(challengeTable);
         

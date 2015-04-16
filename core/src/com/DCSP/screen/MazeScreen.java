@@ -66,7 +66,7 @@ public class MazeScreen extends ScreenInterface {
     private long seed;
 
     private float step;
-    private double time;
+    private double time, finalIime;
 
     private SpriteBatch batch;
     private Array<Body> Bodies = new Array();
@@ -216,7 +216,7 @@ public class MazeScreen extends ScreenInterface {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 endGameWindow.setVisible(false);
-                gameParent.setScreen(new ChallengeSendScreen(seed, time));
+                gameParent.setScreen(new ChallengeSendScreen(seed, level, finalIime));
             }
         });
         endGameWindow.add(yes);
@@ -263,18 +263,19 @@ public class MazeScreen extends ScreenInterface {
             player.setY(0);
             this.pause();
             Gdx.input.setInputProcessor(menuStage);
-            String sTime = new DecimalFormat("####.##").format(time);
+            finalIime = time;
+            String sTime = new DecimalFormat("####.##").format(finalIime);
 
             HttpConnection httpCon = new HttpConnection(gameParent);
             if (gameParent.profile != null) {
-                httpCon.sendScore(gameParent.profile.getID(), level, time);
+                httpCon.sendScore(gameParent.profile.getID(), level, finalIime);
                 Double previousTime = gameParent.profile.scoresDict.get(level);
                 if (previousTime != null) {
-                    if (time < previousTime) {
-                        gameParent.profile.scoresDict.put(level, time);
+                    if (finalIime < previousTime) {
+                        gameParent.profile.scoresDict.put(level, finalIime);
                     }
                 } else {
-                    gameParent.profile.scoresDict.put(level, time);
+                    gameParent.profile.scoresDict.put(level, finalIime);
                 }
 
                 endGameWindowLbl.setText("Your time was " + sTime + " seconds."
