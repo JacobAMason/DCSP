@@ -41,7 +41,7 @@ $_SESSION['ChangePass'] = true;
         <div id = "Info">
 	        <div id = "GameInfo">
 	        	<h3>Game Info</h3>
-	                <li><a href="accountInfoPHP.php">Levels Completed</a></li> 
+	                <li><a href="LevelsCompleted.php">Levels Completed</a></li> 
 	        </div>
 
 	        <div id = "Security">
