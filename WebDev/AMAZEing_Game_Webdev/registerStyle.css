@@ -36,6 +36,13 @@ IMG.logoImg{
     
 }
 
+#homeLink{
+    width:512.5px;
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    margin: auto;
+}
+
 .button{
   height: 22px;
   border: none;

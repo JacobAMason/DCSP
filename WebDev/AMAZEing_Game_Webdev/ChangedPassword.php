@@ -30,13 +30,13 @@ $regexPassword = "^(?!.*\\^)(?=.*[0-9]+)(?=.*[a-z]+)[A-z0-9!@#$&*]{6,30}$";
 if($userAnswer != $answer){
     echo "<h1>Password Change Failed!</h1><br>"; 
     echo "<h4>Your answer was incorrect</h4><br>";
-    die('<a href = "forgotPassword.php">Return to reset password page</a>');
+    die('<a href = "forgotPasswordSent.php">Return to question page</a>');
 }
 
 if($password != $repassword) {
     echo "<h1>Password Change Failed!</h1><br>";
     echo "<h4>Passwords do not match</h4><br>"; 
-    die('<a href = "forgotPassword.php">Return to reset password page</a>');
+    die('<a href = "forgotPasswordSent.php">Return to question page</a>');
     
 }
 echo $regexPassword;
@@ -45,7 +45,7 @@ echo $password;
 if(preg_match($regexPassword, $password) === 0) {
     echo "<h1>Password Change Failed!</h1><br>";
     echo "<h4>Password does not specifications</h4><br>"; 
-    die('<a href = "forgotPassword.php">Return to reset password page</a>');
+    die('<a href = "forgotPasswordSent.php">Return to question page</a>');
     
 }
 
