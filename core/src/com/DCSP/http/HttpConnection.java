@@ -92,6 +92,7 @@ public class HttpConnection {
                                         result.get("username").toString(),
                                         result.get("email").toString(),
                                         result.get("Name").toString());
+                        gameParent.logIn();
                     } catch (Exception e) {
                         System.out.println(e.toString());
                     }

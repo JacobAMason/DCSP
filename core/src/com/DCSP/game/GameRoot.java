@@ -53,6 +53,10 @@ public class GameRoot extends Game {
         return userIsLoggedIn;
     }
     
+    public void logIn() {
+        userIsLoggedIn = true;
+    }
+    
     // TODO: Move this elsewhere
     public void toggleFullscreen(){
         isFullscreen = !isFullscreen;
