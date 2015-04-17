@@ -48,12 +48,12 @@ if(!isset($_SESSION['username'])) {
             <br/>
             
             <div id = "answer">
-                <input type = "text" name = "textAnswer" placeholder="Answer Here" style = "margin-top: 10px;"/>
+                <input type = "text" name = "answer" placeholder="Answer Here" style = "margin-top: 10px;"/>
             </div>
             <br/>
 
             <div id = "submit">
-                <input type = "submit" value = "Submit Question and Answer"/>
+                <input type = "submit" value = "Submit"/>
             </div>
         </form>
     </div>
