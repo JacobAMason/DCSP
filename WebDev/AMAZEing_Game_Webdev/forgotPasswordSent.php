@@ -66,7 +66,14 @@ $dbpassword = "AimAtJ";
 $dbhostname = "localhost";
 $sql = new mysqli($dbhostname, $dbusername, $dbpassword, $dbusername);        
 
-$username = $_POST['username'];
+if(isset($_SESSION['username'])) {
+    $username = $_SESSION['username'];
+}
+
+else {
+    $_SESSION['username'] = $_POST['username'];
+    $username = $_SESSION['username'];
+}
 
 $query = "SELECT * FROM User WHERE username='$username'";
 $row = $sql->query($query);

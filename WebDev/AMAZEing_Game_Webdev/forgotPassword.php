@@ -1,3 +1,8 @@
+<?php
+session_start();
+session_unset();
+session_destroy();
+?>
 <html>
  <title>Forgot Password</title>
 <head>
