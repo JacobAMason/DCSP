@@ -48,7 +48,7 @@ $_SESSION['ChangePass'] = true;
 	        	<h3>Sign-In and Security</h3>
 	            <li><a href="SecurityQuestion.php">Set up Security Question</a></li> 
 	            <li><a href="forgotPassword.php">Change Password</a></li>
-	            <li><a href="accountInfoPHP.php">Delete Account</a></li>
+                    <li><a href="DeleteAccount.php">Delete Account</a></li>
 	        </div>
     	</div>
     </div>
