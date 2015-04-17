@@ -33,8 +33,14 @@ session_start();
                 margin: auto;
             }
 
+            #answer{
+                width: 335px;
+                float: right;
+                clear: both;
+            }
+
             #pass{
-                padding-top: 15px;
+                padding-top: 50px;
                 color: #FFFFFF;
                 margin:0;
             }
@@ -79,7 +85,7 @@ $query = "SELECT Question, Answer FROM Question WHERE ID='$userID'";
 $row = $sql->query($query);
 
 if(mysqli_num_rows($row) === 0) {
-    $message = "<h4>You do not have a security question to recover your password</h4>";
+    $message = "<h1>You do not have a security question to recover your password</h1>";
     $link = '<a href = "http://pluto.cse.msstate.edu/~dcsp01/index.html">Home Page</a>';
     echo $message;
     die($link);
@@ -122,7 +128,10 @@ $_SESSION["name"] = $username;
         <div id="center">
             <h4><?PHP echo $question; ?></h4>
             <form class = "submit" action="ChangedPassword.php" method="POST">
-                <input type = "text" name = "textAnswer" style = "margin-top: 10px"/>
+                <div id = "answer">
+                    <input type = "text" name = "textAnswer" placeholder="Answer Here" style = "margin-top: 10px;"/>
+                </div>
+                <br>
 
                 <div id ="pass"> 
                     New Password:

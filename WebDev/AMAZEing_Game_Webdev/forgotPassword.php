@@ -28,7 +28,7 @@
         </div>
 
     <form action= "forgotPasswordSent.php" method= "POST">
-        <div id ="username" style = "padding-top: 335px; color: #FFFFFF; margin:0;">
+        <div id ="username" style = "padding-top: 200px; color: #FFFFFF; margin:0;">
                 Please enter your username: <input type = "text" name = "username" placeholder="Username"/> <br/>
         </div>
         
