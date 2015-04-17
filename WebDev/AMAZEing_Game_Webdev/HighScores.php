@@ -24,7 +24,7 @@ session_start();
                             <ul class="sub-menu">
                                 <?PHP if(isset($_SESSION["username"])) {?> 
                                     <li><a href="loginSuccess.php">Home</a></li> 
-                                    <li><a href="AccountInfoPHP.php">Account Info</a></li>
+                                    <li><a href="accountInfoPHP.php">Account Info</a></li>
                                 <?PHP } 
                                 else {?> 
                                     <li><a href="index.html">Home</a></li> 
