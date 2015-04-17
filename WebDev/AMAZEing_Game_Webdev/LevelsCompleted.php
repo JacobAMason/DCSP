@@ -40,6 +40,57 @@ session_start();
                 Levels Completed
                 </div>
             </div>
+            
+            <table><tr><th>Level Number</th><th>Time</th></tr>
+<?PHP 
+//include 'Logging.php';
+//$log = new Logging();
+
+$dbusername = "dcsp01";
+$dbpassword = "AimAtJ";
+$dbhostname = "localhost";
+$sql = new mysqli($dbhostname, $dbusername, $dbpassword, $dbusername);
+
+$uName = "'".$_SESSION["username"]."'";
+
+$query = "SELECT level, score FROM Scores, User WHERE Scores.ID = User.ID AND User.username = $uName ORDER BY level ASC";
+$highscoreRows = $sql->query($query);
+
+while($entry = $highscoreRows->fetch_assoc())
+{
+    $minutes = 0;
+    // This line will only need to be run once
+
+    $level = $entry[level];
+    $score = $entry[score];
+
+    while($score >= 60) {
+        $minutes += 1;
+        $score -= 60;
+    }
+    $score = round($score, 2);
+
+    if($minutes > 0) {
+        echo "<tr>".
+        "<td>".$level."</td>".
+        "<td>".$minutes . " min   " . $score. " sec" ."</td>".
+        "</tr>";
+    }
+
+    else {
+        echo "<tr>".
+        "<td>".$level."</td>".
+        "<td>".$score." sec" . "</td>".
+        "</tr>";
+     }
+
+}
+
+//$log->lclose();
+?>
+            </table> 
+            
+            
         </div>
     </body>
 </html>

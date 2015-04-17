@@ -19,6 +19,23 @@ body{
 	width: 100%;
 }
 
+table{
+    position: absolute;
+    z-index: 1;
+    border: 1px solid white;
+    border-collapse: collapse;
+    width:100%;
+    margin-top: 200px;
+    margin-bottom: 100px;
+}
+
+
+th,td {
+    color: white;
+    border: 1px solid white;
+    text-align: center;
+}
+
 #Levels{
     position: absolute;
     width: 65%;
