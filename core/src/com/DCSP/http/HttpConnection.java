@@ -101,6 +101,7 @@ public class HttpConnection {
                             getFriends(gameParent.profile.getID());
                             getScores(gameParent.profile.getID());
                             gameParent.setScreen(new GameMenuScreen());
+                            Gdx.input.setOnscreenKeyboardVisible(false);
                         }
                     });
                 }

@@ -112,6 +112,7 @@ public class RegistrationScreen extends ScreenInterface {
         cancel.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                Gdx.input.setOnscreenKeyboardVisible(false);
                 gameParent.setScreen(gameParent.mainMenuScreen);
             }            
         });
@@ -119,6 +120,7 @@ public class RegistrationScreen extends ScreenInterface {
         register.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {   
+                Gdx.input.setOnscreenKeyboardVisible(false);
                 
                 // Validate fields
                 
