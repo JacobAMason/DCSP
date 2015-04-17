@@ -55,50 +55,30 @@ IMG.logoImg{
   border-radius: 5px 0 0 5px;
 }
 
-#user{
+#topField{
     padding-top: 75px;
-    padding-left: 59.5px;
     color: #FFFFFF;
     margin:0;
 }
 
-#pass{
+#field{
     padding-top: 15px;
-    padding-left: 63px;
     color: #FFFFFF;
     margin:0;
 }
 
-#repass{
-    padding-top: 15px;
-    padding-left: 5px;
-    color: #FFFFFF;
-    margin:0;
-}
-
-#name{
-    padding-top: 15px;
-    padding-left: 86px;
-    color: #FFFFFF;
-    margin:0;
-}
-
-#email{
-    padding-top: 15px;
-    padding-left: 86px;
-    color: #FFFFFF;
-    margin:0;
-}
-
-#reEmail{
-    padding-top: 15px;
-    padding-left: 27px;
-    color: #FFFFFF;
-    margin:0;
+#buttonAlign{
+    padding-top: 10px;
+    padding-left: 30px;
+    width: 335px;
+    float: left;
+    clear: both;
 }
 
 .register{
     padding-top: 15px;
+    padding-left: 10px;
     color: #FFFFFF;
     margin:0;
+    clear: both;
 }
