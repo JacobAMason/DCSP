@@ -3,6 +3,7 @@ session_start();
 if(!isset($_SESSION['username'])) {
     header('Location: index.html');
 }
+$_SESSION['ChangePass'] = true;
 ?>
 
 <html>
@@ -45,8 +46,8 @@ if(!isset($_SESSION['username'])) {
 
 	        <div id = "Security">
 	        	<h3>Sign-In and Security</h3>
-	            <li><a href="loginSuccess.php">Set up Security Question</a></li> 
-	            <li><a href="accountInfoPHP.php">Change Password</a></li>
+	            <li><a href="SecurityQuestion.php">Set up Security Question</a></li> 
+	            <li><a href="forgotPassword.php">Change Password</a></li>
 	            <li><a href="accountInfoPHP.php">Delete Account</a></li>
 	        </div>
     	</div>

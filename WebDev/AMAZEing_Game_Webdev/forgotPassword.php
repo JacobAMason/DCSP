@@ -1,10 +1,13 @@
 <?php
 session_start();
+
+if(!isset($_SESSION['ChangePass'])) {
 session_unset();
 session_destroy();
+}
 ?>
 <html>
- <title>Forgot Password</title>
+ <title>Change Password</title>
 <head>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>   
@@ -20,10 +23,18 @@ session_destroy();
                             <a href="#"> Menu <span class="arrow">&#9660;</span></a>
  
                             <ul class="sub-menu">
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="HighScores.php">High Scores</a></li>
+                                <?PHP if(isset($_SESSION["ChangePass"])) {?> 
+                                    <li><a href="loginSuccess.php">Home</a></li> 
+                                    <li><a href="accountInfoPHP.php">Account Info</a></li>
+                                <?PHP } 
+                                else {?> 
+                                    <li><a href="index.html">Home</a></li> 
+                                <?PHP }?>
                                 <li><a href="DownloadPHP.php">Download Game</a></li>
                                 <li><a href="#">FAQ</a></li>
+                                <?PHP if(isset($_SESSION["ChangePass"])) {?>
+                                    <li><a href="SubmitAnIdea.php">Submit an idea</a></li>
+                                <?PHP } ?>
                                 <li><a href="#">Donations :)</a></li>
                             </ul>
                         </li>
