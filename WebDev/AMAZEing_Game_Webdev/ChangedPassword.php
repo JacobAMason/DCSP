@@ -22,7 +22,7 @@ session_start();
 <?PHP
 $userAnswer = $_POST['textAnswer'];
 $answer = $_SESSION["answer"];
-$username = $_SESSION["name"];
+$username = $_SESSION["username"];
 $password = $_POST['newPass'];
 $repassword = $_POST['reNewPass'];
 $regexPassword = "/^(?!.*\\^)(?=.*[0-9]+)(?=.*[a-z]+)[A-z0-9!@#$&*]{6,30}$/";

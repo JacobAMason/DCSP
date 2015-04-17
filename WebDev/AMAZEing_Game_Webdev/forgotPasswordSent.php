@@ -10,7 +10,7 @@ session_start();
                background-color:black;
             }
             
-            a, h1{
+            h1{
                 text-align:center;
                 color: white;
                 display: block;
@@ -101,7 +101,7 @@ if(mysqli_num_rows($row) === 0) {
 $result = $row->fetch_object();
 $question = $result->Question;
 $_SESSION["answer"] = $result->Answer;
-$_SESSION["name"] = $username;
+$_SESSION["username"] = $username;
 
 ?>
     <div id="container">
