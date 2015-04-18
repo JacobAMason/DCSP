@@ -12,7 +12,7 @@
             <a href="index.html"><img class="logoImg" alt="logoImg" src="http://pluto.cse.msstate.edu/~dcsp01/logoReg.png"/></a>
         </div>
 
-        <form action = "register.php" method = "POST">
+        <form action = "registerResponse.php" method = "POST">
             <div id ="field">
                 <div id = "buttonAlign">
                     Username: <input type = "text" name = "user" class="button" placeholder="Username"/> <br/>

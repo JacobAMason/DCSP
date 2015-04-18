@@ -42,45 +42,45 @@ $regexEmail = "/^[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,4}$/";
 if($username == null || $password == null || $repassword == null || $name == null || $email == null || $reEmail == null) {
     echo "<h1>Registration Failed!</h1><br>"; 
     echo "<h4>Please make sure you fill out all the fields</h4><br>";
-    die('<a href = "http://pluto.cse.msstate.edu/~dcsp01/register.php">Return to registration page</a>');
+    die('<a href = "register.php">Return to registration page</a>');
 }
 
 if($password != $repassword) {
     echo "<h1>Registration Failed!</h1><br>";
     echo "<h4>Passwords do not match</h4><br>"; 
-    die('<a href = "http://pluto.cse.msstate.edu/~dcsp01/register.php">Return to registration page</a>');
+    die('<a href = "register.php">Return to registration page</a>');
     
 }
 
 if(preg_match($regexPassword, $password) === 0) {
     echo "<h1>Registration Failed!</h1><br>";
     echo "<h4>Password does not specifications</h4><br>"; 
-    die('<a href = "http://pluto.cse.msstate.edu/~dcsp01/register.php">Return to registration page</a>');
+    die('<a href = "register.php">Return to registration page</a>');
     
 }
 
 if($email != $reEmail) {
     echo "<h1>Registration Failed!</h1><br>";
     echo "<h4>Emails do not match</h4><br>";
-    die('<a href = "http://pluto.cse.msstate.edu/~dcsp01/register.php">Return to registration page</a>');
+    die('<a href = "register.php">Return to registration page</a>');
 }
 
 if(preg_match($regexEmail, $email) === 0) {
     echo "<h1>Registration Failed!</h1><br>";
     echo "<h4>Email does not specifications</h4><br>";
-    die('<a href = "http://pluto.cse.msstate.edu/~dcsp01/register.php">Return to registration page</a>');
+    die('<a href = "register.php">Return to registration page</a>');
 }
 
 if(preg_match($regexName, $name) === 0) {
     echo "<h1>Registration Failed!</h1><br>";
     echo "<h4>Name does not meet specifications</h4><br>";
-    die('<a href = "http://pluto.cse.msstate.edu/~dcsp01/register.php">Return to registration page</a>');        
+    die('<a href = "register.php">Return to registration page</a>');        
 }
 
 if(preg_match($regexUsername, $username) === 0) {
     echo "<h1>Registration Failed!</h1><br>"; 
     echo "<h4>Username does not meet specifications</h4><br>";
-    die('<a href = "http://pluto.cse.msstate.edu/~dcsp01/register.php">Return to registration page</a>');        
+    die('<a href = "register.php">Return to registration page</a>');        
 }
 
 $query = "SELECT * FROM User WHERE username='$username'";
@@ -89,7 +89,7 @@ $row = $sql->query($query);
 
 if(mysqli_num_rows($row)) {
     $message = "<h1>Registration Failed!</h1>" . "Username already taken<br>";
-    $link = '<a href = "http://pluto.cse.msstate.edu/~dcsp01/register.php">Return to registration page</a>';
+    $link = '<a href = "register.php">Return to registration page</a>';
     $response = "Fail: username " . $username . " taken.";
 } 
 else {
@@ -97,11 +97,11 @@ else {
 	if($sql->query($query)){
 		$response = "Success: " . $name . " registered with username '" . $username . "' and email '" . $email . "'";
                 $message = "<h1>Registration Successful!</h1><br>";
-                $link = '<a href = "http://pluto.cse.msstate.edu/~dcsp01/index.html">Click here to return to main page</a>';
+                $link = '<a href = "index.html">Click here to return to main page</a>';
 	} else {
 		$response = "Fail: Registration failed.";
                 $message = "<h1>Registration Failed!</h1><br>";
-                $link = '<a href = "http://pluto.cse.msstate.edu/~dcsp01/register.php">Return to registration page</a>';
+                $link = '<a href = "register.php">Return to registration page</a>';
 	}
 }
 
