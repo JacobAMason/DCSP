@@ -53,10 +53,9 @@ session_start();
 //include 'Logging.php';
 //$log = new Logging();
 
-$dbusername = "dcsp01";
-$dbpassword = "AimAtJ";
-$dbhostname = "localhost";
-$sql = new mysqli($dbhostname, $dbusername, $dbpassword, $dbusername);
+$config = parse_ini_file('../../AMAZEing_Game_DBConfig.ini');
+
+$sql = new mysqli($config['dbhostname'], $config['dbusername'], $config['dbpassword'], $config['dbname']);
 
 $query = "SELECT * FROM HighScores";
 $highscoreRows = $sql->query($query);
@@ -66,14 +65,14 @@ while($entry = $highscoreRows->fetch_assoc())
     $minutes = 0;
     // This line will only need to be run once
 
-    $level = $entry[level];
-    $ID = $entry[ID];
+    $level = $entry['level'];
+    $ID = $entry['ID'];
     $query = "SELECT username FROM User WHERE ID='$ID'";
     $rows = $sql->query($query);
     
     if(mysqli_num_rows($rows)) {
         $user = $rows->fetch_assoc();
-        $username = $user[username];
+        $username = $user['username'];
         //$log->lwrite("Getting score for user ".$username);
     } else {
         //$log->lwrite("Fail: There is no matching entry in User for ID ". $ID);
@@ -84,7 +83,7 @@ while($entry = $highscoreRows->fetch_assoc())
     
     if(mysqli_num_rows($rows)) {
         $userEntry = $rows->fetch_assoc();
-        $score = $userEntry[score];
+        $score = $userEntry['score'];
     } else {
         //$log->lwrite("Fail: There is no matching entry in Scores for ID ". $ID);
     }
