@@ -2,6 +2,9 @@ package com.DCSP.screen;
 
 import com.DCSP.http.HttpConnection;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -43,6 +46,26 @@ public class MainMenuScreen extends ScreenInterface{
         HEIGHT = Gdx.graphics.getHeight();
         
         menuStage = new Stage();
+        InputMultiplexer menuInput = new InputMultiplexer();
+        menuInput.addProcessor(new InputAdapter(){
+
+            @Override
+            public boolean keyUp(int keycode) {
+                switch(keycode){
+                    case Input.Keys.ENTER:
+                        HttpConnection httpCon = new HttpConnection(gameParent);
+                        httpCon.login(nameTxt.getText(), passTxt.getText(), successWindow);
+                        break;
+                    default:
+                        return false;                        
+                }
+                return true;
+            }
+        });
+        
+        menuInput.addProcessor(menuStage);
+        
+        Gdx.input.setInputProcessor(menuInput);
         Gdx.input.setInputProcessor(menuStage);
         Gdx.input.setCatchBackKey(true);
         
