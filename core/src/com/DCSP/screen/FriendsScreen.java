@@ -113,6 +113,7 @@ public class FriendsScreen extends ScreenInterface {
                 HttpConnection httpCon = new HttpConnection(gameParent);
                 httpCon.addFriend(gameParent.profile.getID(), friendField.getText(), friendList);
                 friendField.setText("");
+                Gdx.input.setOnscreenKeyboardVisible(false);
             }
         });
         

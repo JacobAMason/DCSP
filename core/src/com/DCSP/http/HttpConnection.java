@@ -56,7 +56,7 @@ public class HttpConnection {
     GameRoot gameParent;
     MessageWindow messageWindow;
     
-    final private String HOST = "http://pluto.cse.msstate.edu";
+    final private String HOST = "http://jacobmason.net/aMAZE";
 
     public HttpConnection(GameRoot gameParent) {
         this.gameParent = gameParent;
@@ -66,7 +66,7 @@ public class HttpConnection {
     // Returns true/false depending on whether the login succeeded or failed.
     public void login(String username, String password, final Window successWindow) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
-        request.setUrl(HOST + "/~dcsp01/application/Login.php");
+        request.setUrl(HOST + "/application/Login.php");
 
         Map parameters = new HashMap();
         parameters.put("username", username);
@@ -112,7 +112,7 @@ public class HttpConnection {
 
             @Override
             public void failed(Throwable t) {
-                Gdx.app.log("HttpCon:Login", "Connection Fail");
+                Gdx.app.log("HttpCon:Login", "Connection Fail: " + t.toString());
                 messageWindow.makeConnectionErrorWindow();
             }
 
@@ -126,7 +126,7 @@ public class HttpConnection {
     public void register(String username, String password, String name, String email,
             final Window connectionFailWindow) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
-        request.setUrl(HOST + "/~dcsp01/application/Register.php");
+        request.setUrl(HOST + "/application/Register.php");
 
         Map parameters = new HashMap();
         parameters.put("username", username);
@@ -183,7 +183,7 @@ public class HttpConnection {
 
     public void sendScore(int ID, int level, double score) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
-        request.setUrl(HOST + "/~dcsp01/application/sendScores.php");
+        request.setUrl(HOST + "/application/sendScores.php");
 
         Map parameters = new HashMap();
         parameters.put("ID", String.valueOf(ID));
@@ -213,7 +213,7 @@ public class HttpConnection {
 
     public void getScores(int ID) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
-        request.setUrl(HOST + "/~dcsp01/application/getScores.php");
+        request.setUrl(HOST + "/application/getScores.php");
 
         Map parameters = new HashMap();
         parameters.put("ID", String.valueOf(ID));
@@ -253,7 +253,7 @@ public class HttpConnection {
 
     public void getHighScores() {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
-        request.setUrl(HOST + "/~dcsp01/application/HighScore.php");
+        request.setUrl(HOST + "/application/HighScore.php");
 
         Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
             @Override
@@ -289,7 +289,7 @@ public class HttpConnection {
 
     public void userLookup(String username) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
-        request.setUrl(HOST + "/~dcsp01/application/userLookup.php");
+        request.setUrl(HOST + "/application/userLookup.php");
 
         Map parameters = new HashMap();
         parameters.put("username", String.valueOf(username));
@@ -317,7 +317,7 @@ public class HttpConnection {
 
     public void IDLookup(int ID) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
-        request.setUrl(HOST + "/~dcsp01/application/addFriend.php");
+        request.setUrl(HOST + "/application/addFriend.php");
 
         Map parameters = new HashMap();
         parameters.put("ID", String.valueOf(ID));
@@ -345,7 +345,7 @@ public class HttpConnection {
 
     public void sendChallenge(double score, int level, long seed, String toUsername) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
-        request.setUrl(HOST + "/~dcsp01/application/sendChallenge.php");
+        request.setUrl(HOST + "/application/sendChallenge.php");
 
         Map parameters = new HashMap();
         parameters.put("ID", String.valueOf(gameParent.profile.getID()));
@@ -388,7 +388,7 @@ public class HttpConnection {
 
     public void getChallenges(int ID) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
-        request.setUrl(HOST + "/~dcsp01/application/getChallenges.php");
+        request.setUrl(HOST + "/application/getChallenges.php");
 
         Map parameters = new HashMap();
         parameters.put("ID", String.valueOf(ID));
@@ -447,7 +447,7 @@ public class HttpConnection {
         }
 
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
-        request.setUrl(HOST + "/~dcsp01/application/addFriend.php");
+        request.setUrl(HOST + "/application/addFriend.php");
 
         Map parameters = new HashMap();
         parameters.put("friender", String.valueOf(frienderID));
@@ -487,7 +487,7 @@ public class HttpConnection {
 
     public void getFriends(int frienderID, final List friendList) {
         Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
-        request.setUrl(HOST + "/~dcsp01/application/getFriends.php");
+        request.setUrl(HOST + "/application/getFriends.php");
 
         Map parameters = new HashMap();
         parameters.put("friender", String.valueOf(frienderID));
