@@ -30,7 +30,7 @@ $_SESSION['ChangePass'] = true;
                                 <li><a href="DownloadPHP.php">Download Game</a></li>
                                 <li><a href="#">FAQ</a></li>
                                 <li><a href="SubmitAnIdea.php">Submit an idea</a></li>
-                                <li><a href="#">Donations :)</a></li>
+                                <li><a href="Donations.php">Donations :)</a></li>
                             </ul>
                         </li>
                     </ul>

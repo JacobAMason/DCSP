@@ -46,7 +46,7 @@ session_start();
                                 <?PHP if(isset($_SESSION["username"])) {?>
                                     <li><a href="SubmitAnIdea.php">Submit an idea</a></li>
                                 <?PHP } ?>
-                                <li><a href="#">Donations :)</a></li>
+                                <li><a href="Donations.php">Donations :)</a></li>
                             </ul>
                         </li>
                     </ul>

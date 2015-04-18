@@ -4,8 +4,8 @@ session_start();
 <!DOCTYPE HTML>
 <html>
     <head>
-    <title>Download</title>
-    <link rel="stylesheet" type="text/css" href="DownloadCSS.css">
+    <title>Donations</title>
+    <link rel="stylesheet" type="text/css" href="Donations.css">
     </head>
 
     
@@ -34,7 +34,7 @@ session_start();
                                 <?PHP if(isset($_SESSION["username"])) {?>
                                     <li><a href="SubmitAnIdea.php">Submit an idea</a></li>
                                 <?PHP } ?>
-                                    <li><a href="Donations.php">Donations :)</a></li>
+                                    <li><a href="DownloadPHP.php">Downloads</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -42,15 +42,13 @@ session_start();
             </div>
             </div> 
 
-            <div id="download">
+            <div id="donations">
                 <div id="words">
-                Download Game
+                Feed The Developers
                 </div>
             </div>
             <br/><br/><br/>
             <div style="text-align: center;" id="links">
-                <a href="downloads/An AMAZEing Game.apk">Click here to download An AMAZEing Game APK for Android</a> <br/><br/>
-                <a href="downloads/An AMAZEing Game.jar">Click here to download An AMAZEing Game for Desktop</a> <br/><br/>
                 <br/><br/>
                 If you want to feed the developers, who are all broke college students, you may use the link below to give us however much you can spare.
 
