@@ -22,10 +22,9 @@ a, h1, h4{
 include 'Logging.php';
 $log = new Logging();
 
-$dbusername = "dcsp01";
-$dbpassword = "AimAtJ";
-$dbhostname = "localhost";
-$sql = new mysqli($dbhostname, $dbusername, $dbpassword, $dbusername);
+$config = parse_ini_file('../../AMAZEing_Game_DBConfig.ini');
+
+$sql = new mysqli($config['dbhostname'], $config['dbusername'], $config['dbpassword'], $config['dbname']);
 
 $username = $_POST['user'];
 $password = $_POST['pass'];
