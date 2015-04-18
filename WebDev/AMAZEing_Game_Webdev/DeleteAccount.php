@@ -4,7 +4,7 @@ session_start();
 <!DOCTYPE HTML>
 <html>
     <head>
-    <title>High Scores</title>
+    <title>Delete Account</title>
     <link rel="stylesheet" type="text/css" href="DeleteAccount.css">
     </head>
 

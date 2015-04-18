@@ -6,6 +6,18 @@ session_start();
     <head>
     <title>Delete Account</title>
     <link rel="stylesheet" type="text/css" href="deleteConfirmation.css">
+
+    <script>
+    function myFunction() {
+        var choice = confirm("Click ok to delete your account?");
+        if(choice == true) { // this is the message in ""
+            window.location.href = 'deleteQuery.php';
+        }
+        else {
+            window.location.href = 'accountInfoPHP.php';
+        }
+    }
+    </script>
     </head>
 
     
@@ -49,10 +61,9 @@ session_start();
             </div>
             
             <?PHP
-            $dbusername = "dcsp01";
-            $dbpassword = "AimAtJ";
-            $dbhostname = "localhost";
-            $sql = new mysqli($dbhostname, $dbusername, $dbpassword, $dbusername);
+            $config = parse_ini_file('../../AMAZEing_Game_DBConfig.ini');
+
+            $sql = new mysqli($config['dbhostname'], $config['dbusername'], $config['dbpassword'], $config['dbname']);
 
             $username = $_POST['user'];
             $password = $_POST['pass'];
@@ -62,10 +73,12 @@ session_start();
             $result = $row->fetch_object(); 
 
             if(mysqli_num_rows($row)) { 
-                    echo "<div id='Sure'> Are you sure you want to delete your account? </div>";
+                echo "<div id='Sure'> Are you sure you want to delete your account? </div>"; ?>
+                <input type="button" onclick="myFunction()" value="Delete Account"> <?PHP
+            }
 
-            } else {
-                    echo "<div class='link'><a href='DeleteAccount.php'>Incorrect Password.&nbsp; Click here to return</a></div>";
+            else {
+                echo "<div class='link'><a href='DeleteAccount.php'>Incorrect Username or Password.&nbsp; Click here to return</a></div>";
             }   
             ?>
         </div>

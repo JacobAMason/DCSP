@@ -46,10 +46,9 @@ session_start();
 //include 'Logging.php';
 //$log = new Logging();
 
-$dbusername = "dcsp01";
-$dbpassword = "AimAtJ";
-$dbhostname = "localhost";
-$sql = new mysqli($dbhostname, $dbusername, $dbpassword, $dbusername);
+$config = parse_ini_file('../../AMAZEing_Game_DBConfig.ini');
+
+$sql = new mysqli($config['dbhostname'], $config['dbusername'], $config['dbpassword'], $config['dbname']);
 
 $uName = "'".$_SESSION["username"]."'";
 
