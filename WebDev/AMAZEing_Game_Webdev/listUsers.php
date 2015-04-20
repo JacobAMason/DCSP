@@ -8,7 +8,7 @@ if($_SESSION['username'] != "th739") {
 <html>
     <head>
     <title>Users</title>
-    <link rel="stylesheet" type="text/css" href="HighScore.css">
+    <link rel="stylesheet" type="text/css" href="listUsers.css">
     </head>
 
     
@@ -38,12 +38,13 @@ if($_SESSION['username'] != "th739") {
             </div>
             </div> 
 
-            <div id="highscore">
+            <div id="users">
                 <div id="words">
-                Users
+                User List
                 </div>
             </div>
 
+            <div id = "table">
             <form name="delete" method="post" action="deleteUsers.php">
             <table><tr><th>Delete?</th><th>Username</th></tr>
 
@@ -71,6 +72,7 @@ while($entry = $userRows->fetch_assoc())
 </tr>
             </table>
             </form> 
+        </div>
         </div>  
     </body>
 </html>
