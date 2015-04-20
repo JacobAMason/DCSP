@@ -26,6 +26,9 @@ if(!isset($_SESSION["name"])) {
                             <a href="#"> Menu <span class="arrow">&#9660;</span></a>
  
                             <ul class="sub-menu">
+                                <?PHP if($_SESSION['username'] = 'th739') { ?>
+                                <li><a href="listUsers.php">Users</a></li>
+                                <?PHP } ?>
                                 <li><a href="accountInfoPHP.php">Account Info</a></li>
                                 <li><a href="HighScores.php">High Scores</a></li>
                                 <li><a href="DownloadPHP.php">Download Game</a></li>
