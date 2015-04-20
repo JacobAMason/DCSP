@@ -26,7 +26,10 @@ if(!isset($_SESSION["name"])) {
                             <a href="#"> Menu <span class="arrow">&#9660;</span></a>
  
                             <ul class="sub-menu">
-                                <?PHP if($_SESSION['username'] = 'th739') { ?>
+                                <?PHP if($_SESSION['username'] == 'th739' 
+                                || $_SESSION['username'] == 'Admin' 
+                                || $_SESSION['username'] == 'aes421' 
+                                || $_SESSION['username'] == 'Doctorwheauxdat') { ?>
                                 <li><a href="listUsers.php">Users</a></li>
                                 <?PHP } ?>
                                 <li><a href="accountInfoPHP.php">Account Info</a></li>
