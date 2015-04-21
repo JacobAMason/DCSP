@@ -1,8 +1,5 @@
 ﻿<?PHP
-if(isset($_SESSION["username"] != 'th739'
-    || $_SESSION['username'] != 'Admin' 
-    || $_SESSION['username'] != 'aes421' 
-    || $_SESSION['username'] != 'Doctorwheauxdat') {
+if(isset($_SESSION["username"])) {
     header('Location: loginSuccess.php');
 }
 ?>

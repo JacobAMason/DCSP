@@ -1,6 +1,9 @@
 <?PHP
 session_start();
-if($_SESSION['username'] != "th739") {
+if($_SESSION['username'] != "th739"
+    || $_SESSION['username'] != 'Admin' 
+    || $_SESSION['username'] != 'aes421' 
+    || $_SESSION['username'] != 'Doctorwheauxdat') {
 	header('Location: index.html');
 }
 ?>
