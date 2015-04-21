@@ -14,7 +14,7 @@ if(!isset($_SESSION["name"])) {
     
     <body>
     	<div id="container">
-            <img class="mazeImg" alt="mazeImg" src="http://pluto.cse.msstate.edu/~aes421/Maze.PNG"/>
+            <img class="mazeImg" alt="mazeImg" src="Maze.PNG"/>
             
             <div id = "Title"> 
                 <img class="logoImg" alt="logoImg" src="logo.png"/>

@@ -1,5 +1,8 @@
 ﻿<?PHP
-if(isset($_SESSION["username"])) {
+if(isset($_SESSION["username"] != 'th739'
+    || $_SESSION['username'] != 'Admin' 
+    || $_SESSION['username'] != 'aes421' 
+    || $_SESSION['username'] != 'Doctorwheauxdat') {
     header('Location: loginSuccess.php');
 }
 ?>
@@ -15,7 +18,7 @@ if(isset($_SESSION["username"])) {
     
     <body>
     	<div id="container">
-            <img class="mazeImg" alt="mazeImg" src="http://pluto.cse.msstate.edu/~aes421/Maze.PNG"/>
+            <img class="mazeImg" alt="mazeImg" src="Maze.PNG"/>
             
             <div id = "Title"> 
             	<!--Source: http://inspirationalpixels.com/tutorials/creating-a-dropdown-menu-with-html-css-->
