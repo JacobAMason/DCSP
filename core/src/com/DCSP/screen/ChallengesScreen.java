@@ -37,6 +37,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
@@ -84,7 +85,9 @@ public class ChallengesScreen extends ScreenInterface {
         skin = new Skin(Gdx.files.internal("uiskin.json"));
         
         challengeTable = new Table(skin);
-        challengeTable.defaults().pad(10);
+        challengeTable.setFillParent(true);
+        challengeTable.defaults().pad(10).expand().align(Align.top);
+        challengeTable.add("Challenges").colspan(3).row();
         
         
         int i = 0;       
