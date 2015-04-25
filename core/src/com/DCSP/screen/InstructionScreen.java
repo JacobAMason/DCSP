@@ -93,7 +93,7 @@ public class InstructionScreen extends ScreenInterface {
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
-            
+            gameParent.setScreen(new GameMenuScreen());
             }
         });
         
