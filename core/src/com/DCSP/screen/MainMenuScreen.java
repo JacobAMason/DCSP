@@ -113,12 +113,7 @@ public class MainMenuScreen extends ScreenInterface{
         settingsBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                HttpConnection test = new HttpConnection(gameParent);
-                //test.getHighScores();
-                test.getChallenges(0);
-                test.getFriends(6);
-
-                //gameParent.setScreen(gameParent.settingsScreen);
+                gameParent.setScreen(new InstructionScreen());
             }
         });
         
