@@ -103,7 +103,6 @@ public class HttpConnection {
                         public void run() {
                             getFriends(gameParent.profile.getID());
                             getScores(gameParent.profile.getID());
-                            gameParent.setScreen(new GameMenuScreen());
                             Gdx.input.setOnscreenKeyboardVisible(false);
                         }
                     });
@@ -230,9 +229,8 @@ public class HttpConnection {
                     ScoresResponse result = json.fromJson(ScoresResponse.class, response);
                     Gdx.app.log("HttpCon:getScores", result.scoreTupleArray.toString());
 
-                    for (ScoresResponse.ScoresResultsArray tuple : result.scoreTupleArray) {
-                        gameParent.profile.scoresDict.put(tuple.level, tuple.score);
-                    }
+                    gameParent.profile.setScoresDict(result.scoreTupleArray);
+
                 } catch (Exception e) {
                     System.out.println(e.toString());
                 }

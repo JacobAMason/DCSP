@@ -23,7 +23,9 @@
  */
 package com.DCSP.game;
 
+import com.DCSP.http.ScoresResponse;
 import com.badlogic.gdx.utils.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 
@@ -39,6 +41,8 @@ public class UserProfile {
     private LinkedHashSet<String> friendsSet = new LinkedHashSet();
     private Array friendsArray = new Array();
     public HashMap<Integer, Double> scoresDict = new HashMap<Integer, Double>();  // level/score
+    
+    private boolean isScoresSet = false;
 
     public UserProfile(int ID, String username, String email, String name) {
         this.ID = ID;
@@ -89,5 +93,16 @@ public class UserProfile {
 
     public Array getFriendsArray() {
         return friendsArray;
+    }
+    
+    public boolean isProfileConstructed() {
+        return isScoresSet;
+    }
+
+    public void setScoresDict(ArrayList<ScoresResponse.ScoresResultsArray> result) {
+        for (ScoresResponse.ScoresResultsArray tuple : result) {
+            scoresDict.put(tuple.level, tuple.score);
+        }
+        isScoresSet = true;
     }
 }

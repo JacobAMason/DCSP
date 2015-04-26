@@ -34,8 +34,8 @@ public class ScoresResponse {
 
     public static class ScoresResultsArray {
 
-        int level;
-        double score;
+        public int level;
+        public double score;
 
         @Override
         public String toString() {

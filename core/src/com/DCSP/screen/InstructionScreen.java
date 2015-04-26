@@ -47,12 +47,12 @@ public class InstructionScreen extends ScreenInterface {
     InstructionScreen(){
         instructions =
                 "Welcome to An AMAZEing Game. The goal of\n"
-                + "this game is to make our way to the bottom\n"
+                + "this game is to make your way to the bottom\n"
                 + "right corner of the maze. When playing on\n"
                 + "Android, the character will move towards\n"
                 + "the point on the screen that you touch.\n"
                 + "When playing on Desktop, the arrow keys\n"
-                + "and WASD will move the character in their\n"
+                + "or WASD will move the character in their\n"
                 + "respective direction. One can also use the\n"
                 + "mouse and the character will move towards\n"
                 + "where you are clicking on the screen.";
@@ -93,15 +93,20 @@ public class InstructionScreen extends ScreenInterface {
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
-            gameParent.setScreen(new GameMenuScreen());
+                if(gameParent.isLoggedIn()) {
+                    gameParent.setScreen(new GameMenuScreen());
+                } else {
+                    gameParent.setScreen(new MazeScreen());
+                }
             }
         });
         
         instTable.add(btn);
         
         instStage.addActor(instTable);
-        
-
+                
+        // Always add the generic message window
+        instStage.addActor(gameParent.getMessageWindow().getWindow());
     }
 
     @Override
