@@ -93,6 +93,8 @@ public class HighScoresScreen extends ScreenInterface {
 //        scoreList.setItems(words);
 //        scoreTable.add(scoreList);
         
+        scoreTable.add("High Scores").colspan(2).padBottom(15).row();
+        
         try {
             Array levels = scoreFromDB.keys().toArray();
             Array scores = scoreFromDB.values().toArray();
