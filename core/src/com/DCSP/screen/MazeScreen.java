@@ -33,6 +33,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -46,7 +47,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import java.text.DecimalFormat;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -65,12 +70,14 @@ public class MazeScreen extends ScreenInterface {
     private int level;
     private long seed;
     private double timeToBeat = -1;
+    private Set<Vector2[]> walls;
 
     private float step;
     private double time, finalIime;
 
     private SpriteBatch batch;
     private Array<Body> Bodies = new Array();
+    private ShapeRenderer sr;
 
     //Check window
     private Window endGameWindow;
@@ -112,6 +119,8 @@ public class MazeScreen extends ScreenInterface {
     @Override
     public void show() {
         batch = new SpriteBatch();
+        sr = new ShapeRenderer();
+        walls = new HashSet();
         WIDTH = Gdx.graphics.getWidth();
         HEIGHT = Gdx.graphics.getHeight();
         time = 0.0;
@@ -205,7 +214,7 @@ public class MazeScreen extends ScreenInterface {
         camera.zoom /= zoom;
         camera.update();
 
-        maze = new Maze(world, mWidth, mHeight, seed, cellFactor);
+        maze = new Maze(world, mWidth, mHeight, seed, cellFactor, walls);
 
         player = new Player(world, cellFactor, camera);
 
@@ -264,11 +273,12 @@ public class MazeScreen extends ScreenInterface {
         camera.position.set(player.getPos(), 0);
         camera.update();
 
-        debugging.render(world, camera.combined);
+        //debugging.render(world, camera.combined);
 
         world.step(delta, 6, 2);
 
         batch.setProjectionMatrix(camera.combined);
+        sr.setProjectionMatrix(camera.combined);
         batch.begin();
         world.getBodies(Bodies);
         for (Body body : Bodies) {
@@ -279,6 +289,13 @@ public class MazeScreen extends ScreenInterface {
             }
         }
         batch.end();
+        sr.begin(ShapeType.Line);
+        sr.setColor(Color.WHITE);
+        for (Vector2[] wall : walls) {
+            sr.line(wall[0],wall[1]);
+            
+        }
+        sr.end();
 
         if (player.checkWin(mWidth, mHeight) && runOnceCrappyHack) {
             runOnceCrappyHack = false;
