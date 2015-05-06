@@ -30,14 +30,47 @@ foreach ($delete as $id) {
     $result= $sql->query($query);
 }
 
-if (!$result) {
-	echo "<h1>Delete Users Failed!</h1><br>"; 
-    echo'<a href = "listUsers.php">Return to User List</a>';
-} 
-else {
-	echo "<h1>User(s) Deleted!</h1><br>"; 
-    echo'<a href = "listUsers.php">Return to User List</a>';
+if($result){
+    $message = "<h1>User(s) Deleted!</h1><br>";
+    $link = '<a href = "listUsers.php">Return to User List</a>';
 }
+else {
+    $message = "<h1>Delete Users Failed!</h1><br>"; 
+    $link = '<a href = "listUsers.php">Return to User List</a>';
+}
+
+$query = "SELECT * FROM Scores AS s INNER JOIN (SELECT level, MIN(score) AS min FROM Scores GROUP BY level) as minScore ON minScore.level = s.level AND minScore.min = s.score ORDER BY s.level;";
+$highscoreRows = $sql->query($query);        
+if($highscoreRows){
+    $message = "<h1>User(s) Deleted!</h1><br>";
+    $link = '<a href = "listUsers.php">Return to User List</a>';
+}
+else {
+    $message = "<h1>Delete Users Failed!</h1><br>"; 
+    $link = '<a href = "listUsers.php">Return to User List</a>';
+}
+
+while($entry = $highscoreRows->fetch_assoc())
+{
+    $level = $entry['level'];
+    $ID = $entry['ID'];
+    
+    $query = "UPDATE HighScores SET ID = '$ID' WHERE level = '$level'";
+    $result = $sql->query($query);
+    
+    if($result){
+        $message = "<h1>User(s) Deleted!</h1><br>";
+        $link = '<a href = "listUsers.php">Return to User List</a>';
+    }
+    else {
+        $message = "<h1>High Score Not Updated!</h1><br>"; 
+        $link = '<a href = "listUsers.php">Return to User List</a>';
+    }
+    
+}
+
+echo $message;
+echo $link;
 ?>
 	</body>
 </html>
