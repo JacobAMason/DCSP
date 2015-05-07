@@ -21,10 +21,9 @@ if(!isset($_SESSION['username'])) {
     </head>
     <body>
 <?PHP
-$dbusername = "dcsp01";
-$dbpassword = "AimAtJ";
-$dbhostname = "localhost";
-$sql = new mysqli($dbhostname, $dbusername, $dbpassword, $dbusername);
+$config = parse_ini_file('../../AMAZEing_Game_DBConfig.ini');
+
+$sql = new mysqli($config['dbhostname'], $config['dbusername'], $config['dbpassword'], $config['dbname']);     
 
 $username = "'".$_SESSION['username']."'";
 $question = $_POST['question'];
@@ -51,8 +50,8 @@ $query = "SELECT * FROM Question WHERE ID = '$id'";
 $row = $sql->query($query);
 
 if(mysqli_num_rows($row)) {
-    $query = "UPDATE Question SET question ='$question', answer = '$answer' WHERE ID ='$id'";
-
+    $query = "UPDATE Question SET Question ='$question', answer = '$answer' WHERE ID ='$id'";
+    echo "old question";
     if($sql->query($query) === TRUE) {
 	echo "<h1>Question Updated!</h1><br>";
     echo '<a href = "accountInfoPHP.php">Return to account info page</a>';
@@ -66,15 +65,16 @@ if(mysqli_num_rows($row)) {
 } 
 else {
 	$query = "INSERT INTO Question (ID, Question, Answer) VALUES ('$id', '$question', '$answer')";
- 
+        echo "new question";
 	if($sql->query($query) === TRUE) {
-		echo "<h1>Question Added!</h1><br>";
-    	echo '<a href = "accountInfoPHP.php">Return to account info page</a>';
+            
+            echo "<h1>Question Added!</h1><br>";
+            echo '<a href = "accountInfoPHP.php">Return to account info page</a>';
 	}
 
 	else {
-		echo "<h1>Question Not Added!</h1><br>";
-    	echo '<a href = "accountInfoPHP.php">Return to account info page</a>';
+            echo "<h1>Question Not Added!</h1><br>";
+            echo '<a href = "accountInfoPHP.php">Return to account info page</a>';
 	}
 }
 
