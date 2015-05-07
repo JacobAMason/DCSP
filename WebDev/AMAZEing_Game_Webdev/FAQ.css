@@ -23,13 +23,13 @@ a{
     color:white;
 }
 
-#links{
-    margin-top:150px;
+#questions{
+    margin-top:125px;
 }
 
-#download{
+#FAQ{
     position: absolute;
-    width: 65%;
+    width: 78%;
     z-index: 3;
     margin: auto;
     color: white;

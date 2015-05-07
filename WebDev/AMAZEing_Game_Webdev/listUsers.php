@@ -32,7 +32,7 @@ if($_SESSION['username'] == "th739"
                                 <li><a href="loginSuccess.php">Home</a></li> 
                                 <li><a href="accountInfoPHP.php">Account Info</a></li>
                                 <li><a href="DownloadPHP.php">Download Game</a></li>
-                                <li><a href="#">FAQ</a></li>
+                                <li><a href="FAQ.php">FAQ</a></li>
                                 <li><a href="SubmitAnIdea.php">Submit an idea</a></li>
                                 <li><a href="Donations.php">Donations :)</a></li>
                             </ul>

@@ -30,7 +30,7 @@ session_start();
                                     <li><a href="index.html">Home</a></li> 
                                  <?PHP }?>
                                  <li><a href="HighScores.php">High Scores</a></li>
-                                 <li><a href="#">FAQ</a></li>
+                                 <li><a href="FAQ.php">FAQ</a></li>
                                 <?PHP if(isset($_SESSION["username"])) {?>
                                     <li><a href="SubmitAnIdea.php">Submit an idea</a></li>
                                 <?PHP } ?>
