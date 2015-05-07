@@ -31,7 +31,7 @@ session_destroy();
                                     <li><a href="index.html">Home</a></li> 
                                 <?PHP }?>
                                 <li><a href="DownloadPHP.php">Download Game</a></li>
-                                <li><a href="#">FAQ</a></li>
+                                <li><a href="FAQ.php">FAQ</a></li>
                                 <?PHP if(isset($_SESSION["ChangePass"])) {?>
                                     <li><a href="SubmitAnIdea.php">Submit an idea</a></li>
                                 <?PHP } ?>

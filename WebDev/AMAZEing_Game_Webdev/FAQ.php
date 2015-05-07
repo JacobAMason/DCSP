@@ -4,8 +4,8 @@ session_start();
 <!DOCTYPE HTML>
 <html>
     <head>
-    <title>Download</title>
-    <link rel="stylesheet" type="text/css" href="DownloadCSS.css">
+    <title>FAQ</title>
+    <link rel="stylesheet" type="text/css" href="FAQ.css">
     </head>
 
     
@@ -30,7 +30,7 @@ session_start();
                                     <li><a href="index.html">Home</a></li> 
                                  <?PHP }?>
                                  <li><a href="HighScores.php">High Scores</a></li>
-                                 <li><a href="FAQ.php">FAQ</a></li>
+                                 <li><a href="DownloadPHP.php">Download Game</a></li>
                                 <?PHP if(isset($_SESSION["username"])) {?>
                                     <li><a href="SubmitAnIdea.php">Submit an idea</a></li>
                                 <?PHP } ?>
@@ -42,29 +42,21 @@ session_start();
             </div>
             </div> 
 
-            <div id="download">
+            <div id="FAQ">
                 <div id="words">
-                Download Game
+                Frequently Asked Questions
                 </div>
             </div>
             <br/><br/><br/>
-            <div style="text-align: center;" id="links">
-                <a href="downloads/An AMAZEing Game.apk">Click here to download An AMAZEing Game APK for Android</a> <br/><br/>
-                <a href="downloads/An AMAZEing Game.jar">Click here to download An AMAZEing Game for Desktop</a> <br/><br/>
-                <br/><br/>
-                If you want to feed the developers, who are all broke college students, you may use the link below to give us however much you can spare.
-
-                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                    <input type="hidden" name="rm" value="2" />
-                    <input type="hidden" name="cmd" value="_s-xclick">
-                    <input type="hidden" name="hosted_button_id" value="596NPKRLDPRU8">
-                    <input type="hidden" name="return" value="http://pluto.cse.msstate.edu/~dcsp01/DownloadPHP.php" />
-                    <input type="hidden" name="cancel_return" value="http://pluto.cse.msstate.edu/~dcsp01/Donate.html" />
-                    <br />
-                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-                </form>
-
+            <div id="questions">
+                <b> How do I download the game? </b> <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;Just click <a href="DownloadPHP.php"> here</a>! Or you can visit our Download Game page located in the menu bar. </br></br>
+                <b> How do I play the game? </b> </br>
+                &nbsp;&nbsp;&nbsp;&nbsp;The goal of this game is to make your way to the bottom right corner
+                of the maze.  When playing on Android, the character will move towards the point on</br>
+                &nbsp;&nbsp;&nbsp;&nbsp;the screen that you touch.  When playing on Desktop, the arrow keys or WASD will move the character in their 
+                respective direction.  One can also use the </br>
+                &nbsp;&nbsp;&nbsp;&nbsp;mouse and the character will move towards where you are clicking on the screen.  Enjoy! </br></br>
             </div>
         </div>
     </body>
