@@ -79,7 +79,7 @@ $row = $sql->query($query);
 
 if(mysqli_num_rows($row) === 0) {
     $message = "<h1>Incorrect username</h1>";
-    $link ='<a href = "http://pluto.cse.msstate.edu/~dcsp01/forgotPassword.php">Re-enter username</a>';
+    $link ='<a href = "forgotPassword.php">Re-enter username</a>';
     echo $message;
     die($link);
 }
@@ -92,7 +92,7 @@ $row = $sql->query($query);
 
 if(mysqli_num_rows($row) === 0) {
     $message = "<h1>You do not have a security question to recover your password</h1>";
-    $link = '<a href = "http://pluto.cse.msstate.edu/~dcsp01/index.html">Home Page</a>';
+    $link = '<a href = "index.html">Home Page</a>';
     echo $message;
     die($link);
 }
