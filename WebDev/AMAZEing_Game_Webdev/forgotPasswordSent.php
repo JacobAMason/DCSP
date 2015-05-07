@@ -91,7 +91,7 @@ $query = "SELECT Question, Answer FROM Question WHERE ID='$userID'";
 $row = $sql->query($query);
 
 if(mysqli_num_rows($row) === 0) {
-    $message = "<h1>You do not have a security question to recover your password</h1>";
+    $message = "<h1>You do not have a security question to recover or change your password</h1>";
     $link = '<a href = "index.html">Home Page</a>';
     echo $message;
     die($link);
